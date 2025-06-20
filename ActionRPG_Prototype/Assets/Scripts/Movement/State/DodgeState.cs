@@ -27,8 +27,8 @@ namespace Movement.State
             var inputVector = _input.MovementVector;
             if (inputVector.magnitude > 0.1f)
             {
-                var cameraForward = Camera.main.transform.forward;
-                var cameraRight = Camera.main.transform.right;
+                var cameraForward = UnityEngine.Camera.main.transform.forward;
+                var cameraRight = UnityEngine.Camera.main.transform.right;
 
                 cameraForward.y = 0;
                 cameraRight.y = 0;

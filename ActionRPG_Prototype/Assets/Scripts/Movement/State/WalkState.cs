@@ -39,8 +39,8 @@ namespace Movement.State
             }
 
             var moveDirection = new Vector3(inputVector.x, 0, inputVector.y).normalized;
-            var cameraForward = Camera.main.transform.forward;
-            var cameraRight = Camera.main.transform.right;
+            var cameraForward = UnityEngine.Camera.main.transform.forward;
+            var cameraRight = UnityEngine.Camera.main.transform.right;
 
             cameraForward.y = 0;
             cameraRight.y = 0;

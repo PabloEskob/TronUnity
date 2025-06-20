@@ -98,7 +98,6 @@ namespace CharacterMovement
 
         private void ApplyGravity()
         {
-            UnityEngine.Debug.Log(_isGrounded);
             if (_isGrounded && _velocity.y < 0)
             {
                 _velocity.y = -2f;
