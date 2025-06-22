@@ -1,7 +1,7 @@
 ﻿// CharacterAnimationController.cs
 
 using System;
-using CharacterMovement;
+using Character.Movement;
 using UnityEngine;
 
 namespace Character
@@ -11,7 +11,8 @@ namespace Character
         [Header("References")] [SerializeField]
         private Animator _animator;
 
-        [SerializeField] private CharacterMovementController _movementController;
+        [SerializeField] private MovementController _movementController;
+        [SerializeField] private MovementPhysics _movementPhysics;
 
         [Header("Animation Parameters")] [SerializeField]
         private string _speedParam = "Speed";
@@ -64,9 +65,9 @@ namespace Character
         {
             var velocity = _characterController.velocity;
             float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-            
+
             _animator.SetFloat(_speedHash, horizontalSpeed);
-            _animator.SetBool(_isGroundedHash, _movementController.IsGrounded);
+            _animator.SetBool(_isGroundedHash, _movementPhysics.IsGrounded);
             _animator.SetFloat(_verticalVelocityHash, velocity.y);
         }
 

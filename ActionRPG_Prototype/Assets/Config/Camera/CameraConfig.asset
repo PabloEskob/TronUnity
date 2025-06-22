@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb0b7e14070400fa689293658e0de8e, type: 3}
+  m_Name: CameraConfig
+  m_EditorClassIdentifier: 
+  freeLookConfig: {fileID: 11400000, guid: f9f2f2b46ca545b4d897eae617698af6, type: 2}
+  lockOnConfig: {fileID: 0}
+  combatConfig: {fileID: 0}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  collisionOffset: 0.2
+  collisionSmoothTime: 0.1
+  defaultFieldOfView: 60
+  minPitch: -30
+  maxPitch: 60
