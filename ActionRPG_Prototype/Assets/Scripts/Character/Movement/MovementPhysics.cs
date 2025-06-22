@@ -3,118 +3,42 @@ using Config.Movement;
 
 namespace Character.Movement
 {
-    public class MovementPhysics : MonoBehaviour
+    [RequireComponent(typeof(CharacterController))]
+    public sealed class MovementPhysics : MonoBehaviour
     {
-        [Header("Ground Check")] [SerializeField]
-        private Transform _groundCheckPoint;
+        [Header("Settings")]
+        [SerializeField] private float _gravity      = -25f;
+        [SerializeField] private float _terminalVel  = -60f;
+        [SerializeField] private LayerMask _groundLayers = ~0;
+        [SerializeField] private Vector3 _groundCheckOffset = new(0, 0.1f, 0);
+        [SerializeField] private float   _groundCheckRadius = 0.28f;
 
-        [SerializeField] private float _groundCheckRadius = 0.3f;
+        private CharacterController _cc;
+        public bool   IsGrounded { get; private set; }
+        public Vector3 Velocity   { get; private set; }
 
-        private CharacterController _characterController;
-        private MovementConfig _config;
-        private Vector3 _velocity;
-        private float _fallTime;
-
-        public bool IsGrounded { get; private set; }
-        public bool IsFalling => !IsGrounded && _velocity.y < 0;
-        public float FallTime => _fallTime;
-        public Vector3 Velocity => _velocity;
-
-        private void Awake()
-        {
-            _characterController = GetComponent<CharacterController>();
-            _config = GetComponent<MovementController>().Config;
-        }
-
-        private void FixedUpdate()
-        {
-            UpdateGroundCheck();
-            ApplyGravity();
-            ApplyVelocity();
-        }
-
-        private void UpdateGroundCheck()
-        {
-            var wasGrounded = IsGrounded;
-
-            IsGrounded = Physics.CheckSphere(
-                _groundCheckPoint.position,
-                _groundCheckRadius,
-                _config.groundLayer
-            );
-
-            if (IsGrounded && !wasGrounded)
-            {
-                _fallTime = 0f;
-                Land();
-            }
-            else if (!IsGrounded && wasGrounded)
-            {
-                StartFalling();
-            }
-
-            if (IsFalling)
-            {
-                _fallTime += Time.fixedDeltaTime;
-            }
-        }
+        private void Awake() => _cc = GetComponent<CharacterController>();
+        private void Update() => ApplyGravity();
 
         private void ApplyGravity()
         {
-            if (IsGrounded && _velocity.y < 0)
-            {
-                _velocity.y = -2f; // Small force to keep grounded
-            }
-            else
-            {
-                _velocity.y += _config.gravity * Time.fixedDeltaTime;
-            }
+            GroundCheck();
+            if (IsGrounded && Velocity.y < 0) Velocity = new(Velocity.x, -2f, Velocity.z);
+            else                             Velocity += Vector3.up * _gravity * Time.deltaTime;
+            if (Velocity.y < _terminalVel)   Velocity = new(Velocity.x, _terminalVel, Velocity.z);
+            _cc.Move(Velocity * Time.deltaTime);
         }
 
-        private void ApplyVelocity()
+        public void Jump(float force)
         {
-            _characterController.Move(_velocity * Time.fixedDeltaTime);
+            if (!IsGrounded) return;
+            Velocity = new(Velocity.x, force, Velocity.z);
         }
 
-        public void Jump(float jumpForce)
+        private void GroundCheck()
         {
-            if (IsGrounded)
-            {
-                _velocity.y = Mathf.Sqrt(jumpForce * -2f * _config.gravity);
-            }
-        }
-
-        public void AddForce(Vector3 force)
-        {
-            _velocity += force;
-        }
-
-        public void ResetVelocity()
-        {
-            _velocity = Vector3.zero;
-        }
-
-        private void Land()
-        {
-            // Trigger landing effects based on fall time
-            if (_fallTime > 0.5f)
-            {
-                UnityEngine.Debug.Log("Hard landing!");
-            }
-        }
-
-        private void StartFalling()
-        {
-            _fallTime = 0f;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (_groundCheckPoint != null)
-            {
-                Gizmos.color = IsGrounded ? Color.green : Color.red;
-                Gizmos.DrawWireSphere(_groundCheckPoint.position, _groundCheckRadius);
-            }
+            Vector3 pos = transform.position + _groundCheckOffset;
+            IsGrounded   = Physics.CheckSphere(pos, _groundCheckRadius, _groundLayers, QueryTriggerInteraction.Ignore);
         }
     }
 }

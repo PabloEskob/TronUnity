@@ -1,69 +1,40 @@
 ﻿// CombatController.cs
 
+using Character.Animation;
+using Character.Stats;
 using UnityEngine;
 
-namespace Character
+namespace Character.Combat
 {
-    public class CombatController : MonoBehaviour
+    [RequireComponent(typeof(AnimationController))]
+    [RequireComponent(typeof(CharacterStats))]
+    public sealed class CombatController : MonoBehaviour
     {
-        [Header("Combat Settings")] [SerializeField]
-        private float _attackRange = 2f;
+        [Header("Attack Settings")]
+        [SerializeField] private float _attackStaminaCost = 25f;
+        [SerializeField] private float _attackCooldown    = 0.5f;
 
-        [SerializeField] private float _attackAngle = 60f;
-        [SerializeField] private LayerMask _enemyLayer;
-
-        [Header("References")] [SerializeField]
-        private Transform _weaponSlot;
-
-        [SerializeField] private CharacterAnimationController _animationController;
-
-        private int _currentComboIndex = 0;
-        private float _lastAttackTime;
-        private float _comboResetTime = 1.5f;
+        private AnimationController _anim;
+        private CharacterStats      _stats;
+        private float _nextAttack;
+        private int   _comboIndex;
 
         private void Awake()
         {
-            if (_animationController != null)
-            {
-                _animationController.OnAttackHit += PerformAttackHit;
-            }
+            _anim  = GetComponent<AnimationController>();
+            _stats = GetComponent<CharacterStats>();
         }
 
-        public void Attack()
+        public void TryAttack()
         {
-            if (Time.time - _lastAttackTime > _comboResetTime)
-            {
-                _currentComboIndex = 0;
-            }
+            if (Time.time < _nextAttack) return;
+            if (_stats.CurrentStamina < _attackStaminaCost) return;
 
-            _animationController.TriggerAttack(_currentComboIndex);
-            _lastAttackTime = Time.time;
-
-            _currentComboIndex = (_currentComboIndex + 1) % 3; // 3-hit combo
-        }
-
-        private void PerformAttackHit()
-        {
-            // Проверка попаданий по врагам
-            Collider[] hits = Physics.OverlapSphere(transform.position, _attackRange, _enemyLayer);
-
-            foreach (var hit in hits)
-            {
-                Vector3 directionToTarget = (hit.transform.position - transform.position).normalized;
-                float angle = Vector3.Angle(transform.forward, directionToTarget);
-
-                if (angle < _attackAngle / 2f)
-                {
-                    // Нанести урон
-                    UnityEngine.Debug.Log($"Hit: {hit.name}");
-                }
-            }
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _attackRange);
+            _stats.SpendStamina(_attackStaminaCost);
+            _anim.PlayAttackAnimation(_comboIndex);
+            _comboIndex = (_comboIndex + 1) % 3; // simple 3‑hit combo
+            _nextAttack = Time.time + _attackCooldown;
         }
     }
 }
+

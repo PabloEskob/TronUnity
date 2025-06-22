@@ -1,60 +1,37 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Character.Animation
 {
-    public class AnimationEventHandler : MonoBehaviour
+    [AddComponentMenu("Character/Animation Event Handler")]
+    [DisallowMultipleComponent]
+    public sealed class AnimationEventHandler : MonoBehaviour
     {
         [System.Serializable]
-        public class AnimationEvent
-        {
-            public string eventName;
-            public UnityEvent onTrigger;
-        }
+        public sealed class AnimationEvent { public string Name = "Event"; public UnityEvent OnTrigger; }
 
         [SerializeField] private AnimationEvent[] _events;
+        private Dictionary<string, UnityEvent>    _lookup;
 
-        private void TriggerEvent(string eventName)
+        private void Awake()
         {
-            foreach (var animEvent in _events)
+            _lookup = new(_events.Length);
+            foreach (var e in _events)
             {
-                if (animEvent.eventName == eventName)
-                {
-                    animEvent.onTrigger?.Invoke();
-                    break;
-                }
+                if (string.IsNullOrWhiteSpace(e.Name)) continue;
+                _lookup[e.Name] = e.OnTrigger;
             }
         }
 
-        // Called from animation events
-        public void OnFootstep()
-        {
-            TriggerEvent("Footstep");
-        }
+        public void InvokeEvent(string n) { if (_lookup.TryGetValue(n, out var u)) u?.Invoke(); }
 
-        public void OnAttackStart()
-        {
-            TriggerEvent("AttackStart");
-        }
-
-        public void OnAttackHit()
-        {
-            TriggerEvent("AttackHit");
-        }
-
-        public void OnAttackEnd()
-        {
-            TriggerEvent("AttackEnd");
-        }
-
-        public void OnDodgeStart()
-        {
-            TriggerEvent("DodgeStart");
-        }
-
-        public void OnDodgeEnd()
-        {
-            TriggerEvent("DodgeEnd");
-        }
+        // Animation Event proxies
+        public void OnFootstep()    => InvokeEvent("Footstep");
+        public void OnAttackStart() => InvokeEvent("AttackStart");
+        public void OnAttackHit()   => InvokeEvent("AttackHit");
+        public void OnAttackEnd()   => InvokeEvent("AttackEnd");
+        public void OnDodgeStart()  => InvokeEvent("DodgeStart");
+        public void OnDodgeEnd()    => InvokeEvent("DodgeEnd");
     }
 }

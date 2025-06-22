@@ -7,9 +7,11 @@ using Core.Input;
 
 namespace Character.Movement
 {
+    [AddComponentMenu("Character/Movement Controller")]
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(MovementStateMachine))]
-    public class MovementController : MonoBehaviour
+    public sealed class MovementController : MonoBehaviour
     {
         [Header("Configuration")] [SerializeField]
         private MovementConfig _config;
@@ -20,84 +22,68 @@ namespace Character.Movement
         [SerializeField] private MovementPhysics _physics;
 
         private IMovementInput _input;
-        private Vector3 _lastMovementDirection;
+        private Vector3 _lastDir;
+        private UnityEngine.Camera _cam;
+
+        #region Properties
 
         public MovementConfig Config => _config;
         public CharacterController CharacterController => _characterController;
         public MovementPhysics Physics => _physics;
         public IMovementInput Input => _input;
+        public Vector3 LastMovementDirection => _lastDir;
+        public bool IsMoving => _lastDir.sqrMagnitude > 0.01f;
 
-        public Vector3 LastMovementDirection => _lastMovementDirection;
-        public bool IsMoving => _lastMovementDirection.sqrMagnitude > 0.01f;
+        #endregion
 
         private void Awake()
         {
-            ValidateComponents();
+            if (_characterController == null) _characterController = GetComponent<CharacterController>();
+            if (_physics == null) _physics = GetComponent<MovementPhysics>();
+            if (_config == null) Debug.LogError($"{nameof(MovementConfig)} missing on {name}", this);
         }
 
         private void Start()
         {
-            var inputManager = ServiceLocator.Instance.GetService<InputManager>();
-            _input = inputManager.Movement;
+            _input = ServiceLocator.Get<InputManager>().Movement;
+            _cam = UnityEngine.Camera.main;
         }
 
-        private void ValidateComponents()
+        public void Move(Vector3 dir, float speed)
         {
-            if (_characterController == null)
-                _characterController = GetComponent<CharacterController>();
+            if (dir.sqrMagnitude < 0.01f) return;
 
-            if (_physics == null)
-                _physics = GetComponent<MovementPhysics>();
-
-            if (_config == null)
-                UnityEngine.Debug.LogError($"MovementConfig is missing on {gameObject.name}");
+            _lastDir = dir.normalized;
+            _characterController.Move(_lastDir * speed * Time.deltaTime);
+            GameEvents.InvokePlayerMoved(_lastDir);
         }
 
-        public void Move(Vector3 direction, float speed)
+        public void Rotate(Vector3 dir, float rotSpeed)
         {
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                _lastMovementDirection = direction.normalized;
-                var motion = _lastMovementDirection * speed * Time.deltaTime;
-                _characterController.Move(motion);
-
-                GameEvents.OnPlayerMoved.Invoke(_lastMovementDirection);
-            }
-        }
-
-        public void Rotate(Vector3 direction, float rotationSpeed)
-        {
-            if (direction == Vector3.zero) return;
-
-            var targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+            if (dir == Vector3.zero) return;
+            Quaternion target = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, target, rotSpeed * Time.deltaTime);
         }
 
         public void Stop()
         {
-            _lastMovementDirection = Vector3.zero;
-            GameEvents.OnPlayerStopped.Invoke();
+            _lastDir = Vector3.zero;
+            GameEvents.InvokePlayerStopped();
         }
 
         public Vector3 GetMovementDirection()
         {
-            var input = _input.MovementVector;
-            if (input.magnitude < 0.1f) return Vector3.zero;
+            Vector2 raw = _input.MovementVector;
+            if (raw.magnitude < 0.1f) return Vector3.zero;
 
-            var cameraTransform = UnityEngine.Camera.main.transform;
-            var forward = cameraTransform.forward;
-            var right = cameraTransform.right;
-
-            forward.y = 0;
-            right.y = 0;
-            forward.Normalize();
-            right.Normalize();
-
-            return forward * input.y + right * input.x;
+            // Project camera‑space input onto world‑space XZ plane
+            Vector3 f = _cam.transform.forward;
+            f.y = 0;
+            f.Normalize();
+            Vector3 r = _cam.transform.right;
+            r.y = 0;
+            r.Normalize();
+            return (f * raw.y + r * raw.x).normalized;
         }
     }
 }

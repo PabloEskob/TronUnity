@@ -3,58 +3,48 @@ using UnityEngine;
 
 namespace Character.Movement.States
 {
-    public class JumpState : MovementStateBase
+    public sealed class JumpState : MovementStateBase
     {
-        private bool _hasJumped;
-        private float _jumpStartTime;
+        private float _jumpStart;
+        private bool  _impulseApplied;
 
-        public JumpState(MovementStateMachine stateMachine) : base(stateMachine) { }
+        public JumpState(MovementStateMachine m) : base(m) {}
 
         public override void Enter()
         {
-            _hasJumped = false;
-            _jumpStartTime = Time.time;
+            _jumpStart      = Time.time;
+            _impulseApplied = false;
         }
 
         public override void Execute()
         {
-            // Обработка ввода и логика перехода
-            var moveDirection = _controller.GetMovementDirection();
-            
-            // Управление в воздухе
-            if (moveDirection.magnitude > 0.1f)
+            // Air control
+            if (InputDir.sqrMagnitude > 0.1f)
             {
-                var airSpeed = _controller.Config.walkSpeed * 0.7f;
-                _controller.Move(moveDirection, airSpeed);
-                _controller.Rotate(moveDirection, _controller.Config.walkRotationSpeed);
+                _controller.Move(InputDir, _controller.Config.walkSpeed * 0.7f);
+                _controller.Rotate(InputDir, _controller.Config.walkRotationSpeed);
             }
 
-            // Проверка перехода в состояние падения
+            // Falling
             if (_controller.Physics.Velocity.y < 0)
             {
-                _stateMachine.ChangeState<FallState>();
+                _machine.ChangeState<FallState>();
             }
         }
 
         public override void FixedExecute()
         {
-            // Физика прыжка выполняется в FixedUpdate
-            if (!_hasJumped)
-            {
-                _controller.Physics.Jump(_controller.Config.jumpForce);
-                _hasJumped = true;
-            }
+            if (_impulseApplied) return;
+
+            _controller.Physics.Jump(_controller.Config.jumpForce);
+            _impulseApplied = true;
         }
 
         public override bool CanTransitionTo<T>()
         {
-            // Запрещаем переход в некоторые состояния во время прыжка
+            // No dodge within first 0.2s of jump
             if (typeof(T) == typeof(DodgeState))
-            {
-                // Можно dodgить только после определенного времени в прыжке
-                return Time.time - _jumpStartTime > 0.2f;
-            }
-            
+                return Time.time - _jumpStart > 0.2f;
             return true;
         }
     }

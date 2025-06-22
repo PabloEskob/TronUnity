@@ -3,81 +3,36 @@ using UnityEngine;
 
 namespace Character.Movement.States
 {
-    public class WalkState : MovementStateBase
+    public sealed class WalkState : MovementStateBase
     {
-        private float _lastDodgeTime;
-        private const float DODGE_COOLDOWN = 0.5f;
+        private float _lastDodge;
+        private const float DodgeCooldown = 0.5f;
 
-        public WalkState(MovementStateMachine stateMachine) : base(stateMachine)
-        {
-        }
+        public WalkState(MovementStateMachine m) : base(m) {}
 
         public override void Execute()
         {
-            var input = _controller.Input;
-            var moveDirection = _controller.GetMovementDirection();
+            if (!IsGrounded) { _machine.ChangeState<FallState>(); return; }
 
-            // Проверка переходов
-            if (moveDirection.magnitude < 0.1f)
-            {
-                _stateMachine.ChangeState<IdleState>();
-                return;
-            }
-
-            if (input.IsRunning && CanRun())
-            {
-                _stateMachine.ChangeState<RunState>();
-                return;
-            }
-
-            if (input.IsDodging && CanDodge())
-            {
-                _stateMachine.ChangeState<DodgeState>();
-                return;
-            }
-
-            if (input.IsJumping && _controller.Physics.IsGrounded)
-            {
-                _stateMachine.ChangeState<JumpState>();
-                return;
-            }
-
-            // Проверка падения
-            if (!_controller.Physics.IsGrounded)
-            {
-                _stateMachine.ChangeState<FallState>();
-                return;
-            }
+            if (InputDir.sqrMagnitude < 0.1f) { _machine.ChangeState<IdleState>(); return; }
+            if (_controller.Input.IsRunning && HasStamina()) { _machine.ChangeState<RunState>(); return; }
+            if (_controller.Input.IsDodging && CanDodge())  { _machine.ChangeState<DodgeState>(); return; }
+            if (_controller.Input.IsJumping)                { _machine.ChangeState<JumpState>(); return; }
         }
 
         public override void FixedExecute()
         {
-            // Физическое движение
-            var moveDirection = _controller.GetMovementDirection();
-            _controller.Move(moveDirection, _controller.Config.walkSpeed);
-            _controller.Rotate(moveDirection, _controller.Config.walkRotationSpeed);
-        }
-
-        private bool CanRun()
-        {
-            // Проверяем наличие стамины
-            var stats = _controller.GetComponent<Character.Stats.CharacterStats>();
-            return stats.CurrentStamina > 0;
-        }
-
-        private bool CanDodge()
-        {
-            // Проверяем кулдаун dodge
-            return Time.time - _lastDodgeTime > DODGE_COOLDOWN;
+            _controller.Move(InputDir, _controller.Config.walkSpeed);
+            _controller.Rotate(InputDir, _controller.Config.walkRotationSpeed);
         }
 
         public override void Exit()
         {
-            // Запоминаем время для кулдауна dodge
-            if (_stateMachine.CurrentStateType == typeof(DodgeState))
-            {
-                _lastDodgeTime = Time.time;
-            }
+            if (_machine.CurrentStateType == typeof(DodgeState))
+                _lastDodge = Time.time;
         }
+
+        private bool HasStamina() => _controller.GetComponent<Character.Stats.CharacterStats>().CurrentStamina > 0;
+        private bool CanDodge()   => Time.time - _lastDodge > DodgeCooldown;
     }
 }

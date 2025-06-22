@@ -7,77 +7,65 @@ using UnityEngine;
 
 namespace Character.Movement
 {
-    public class MovementStateMachine : MonoBehaviour
+    public sealed class MovementStateMachine : MonoBehaviour
     {
-        private IMovementState _currentState;
-        private Dictionary<Type, IMovementState> _states;
+        private readonly Dictionary<Type, IMovementState> _states = new();
+        private IMovementState _current;
 
         public MovementController Controller { get; private set; }
-        public MovementConfig Config { get; private set; }
-
-        public Type CurrentStateType => _currentState?.GetType();
+        public Type CurrentStateType => _current?.GetType();
 
         private void Awake()
         {
             Controller = GetComponent<MovementController>();
-            Config = Controller.Config;
-            InitializeStates();
+            RegisterStates();
         }
+        private void Start()        => ChangeState<IdleState>();
+        private void Update()       => _current?.Execute();
+        private void FixedUpdate()  => _current?.FixedExecute();
 
-        private void InitializeStates()
+        // --- Public API ---
+        public void ChangeState<T>() where T : IMovementState => ChangeState(typeof(T));
+
+        public void ChangeState(Type targetType)
         {
-            _states = new Dictionary<Type, IMovementState>
+            if (!_states.TryGetValue(targetType, out var next))
             {
-                { typeof(IdleState), new IdleState(this) },
-                { typeof(WalkState), new WalkState(this) },
-                { typeof(RunState), new RunState(this) },
-                { typeof(DodgeState), new DodgeState(this) },
-                { typeof(JumpState), new JumpState(this) },
-                { typeof(FallState), new FallState(this) }
-            };
-        }
-
-        private void Start()
-        {
-            ChangeState<IdleState>();
-        }
-
-        private void Update()
-        {
-            _currentState?.Execute();
-        }
-
-        private void FixedUpdate()
-        {
-            _currentState?.FixedExecute();
-        }
-
-        public void ChangeState<T>() where T : IMovementState
-        {
-            var targetType = typeof(T);
-
-            if (_currentState != null && _currentState.GetType() == targetType)
-                return;
-
-            if (_currentState != null && !_currentState.CanTransitionTo<T>())
-                return;
-
-            if (!_states.TryGetValue(targetType, out var newState))
-            {
-                UnityEngine.Debug.LogError($"State {targetType.Name} not found!");
+                Debug.LogError($"Unregistered state {targetType}");
                 return;
             }
+            if (_current == next) return;
+            if (_current != null && !_current.CanTransitionTo(targetType)) return; // extension method
 
-            _currentState?.Exit();
-            _currentState = newState;
-            _currentState.Enter();
-
-            UnityEngine.Debug.Log($"Changed state to: {targetType.Name}");
+            _current?.Exit();
+            _current = next;
+            _current.Enter();
         }
 
-        public bool IsInState<T>() where T : IMovementState
+        public bool IsInState<T>() where T : IMovementState => _current?.GetType() == typeof(T);
+
+        private void RegisterStates()
         {
-            return _currentState != null && _currentState.GetType() == typeof(T);
+            AddState(new IdleState(this));
+            AddState(new WalkState(this));
+            AddState(new RunState(this));
+            AddState(new DodgeState(this));
+            AddState(new JumpState(this));
+            AddState(new FallState(this));
+        }
+        private void AddState(IMovementState s) => _states.Add(s.GetType(), s);
+    }
+
+    // ───────── Extension: generic‑>Type bridge ─────────
+    public static class MovementStateExtensions
+    {
+        public static bool CanTransitionTo(this IMovementState state, Type targetType)
+        {
+            var m = state.GetType()
+                          .GetMethod("CanTransitionTo", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                          ?.MakeGenericMethod(targetType);
+            if (m == null) return true; // default allow
+            return (bool)m.Invoke(state, null);
         }
     }
 }

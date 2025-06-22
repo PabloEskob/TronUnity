@@ -1,79 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Concurrent;
 
-public class ServiceLocator : MonoBehaviour
+namespace Core.Services
 {
-    private static ServiceLocator _instance;
-    private static bool _isShuttingDown;
-
-    private readonly Dictionary<Type, object> _services = new();
-
-    public static bool HasInstance => !_isShuttingDown && _instance != null;
-
-    public static ServiceLocator Instance
+    public static class ServiceLocator
     {
-        get
-        {
-            if (!_isShuttingDown && _instance == null)
-                UnityEngine.Debug.LogError("ServiceLocator not initialized! Call CreateInstance() early.");
-            return _instance;
-        }
-    }
+        private static readonly ConcurrentDictionary<Type, object> _services = new();
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
+        public static void Register<T>(T instance) where T : class
         {
-            Destroy(gameObject);
-            return;
+            if (!_services.TryAdd(typeof(T), instance))
+                throw new InvalidOperationException($"Service {typeof(T).Name} already registered.");
         }
 
-        _instance = this;
-    }
+        public static void Unregister<T>() where T : class =>
+            _services.TryRemove(typeof(T), out _);
 
-    private void OnApplicationQuit()
-    {
-        _isShuttingDown = true;
-    }
+        public static T Get<T>() where T : class =>
+            _services.TryGetValue(typeof(T), out var svc)
+                ? (T)svc
+                : throw new InvalidOperationException($"Service {typeof(T).Name} not found.");
 
-    public static void CreateInstance()
-    {
-        if (_instance != null) return;
-
-        var existing = FindFirstObjectByType<ServiceLocator>();
-        if (existing != null)
+        public static bool TryGet<T>(out T service) where T : class
         {
-            _instance = existing;
-            return;
+            if (_services.TryGetValue(typeof(T), out var s)) { service = (T)s; return true; }
+            service = null; return false;
         }
 
-        var go = new GameObject("[ServiceLocator]");
-        _instance = go.AddComponent<ServiceLocator>();
-        DontDestroyOnLoad(go);
-    }
-
-    public void RegisterService<T>(T service) where T : class
-    {
-        var type = typeof(T);
-        if (_services.ContainsKey(type))
-        {
-            UnityEngine.Debug.LogWarning($"Service {type.Name} already registered.");
-            return;
-        }
-
-        _services[type] = service;
-    }
-
-    public T GetService<T>() where T : class
-    {
-        var type = typeof(T);
-        return _services.TryGetValue(type, out var service) ? (T)service : null;
-    }
-
-    public void UnregisterService<T>() where T : class
-    {
-        var type = typeof(T);
-        _services.Remove(type);
+        public static void Reset() => _services.Clear(); // Unit‑tests only
     }
 }

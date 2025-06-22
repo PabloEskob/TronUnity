@@ -3,59 +3,24 @@ using Core.Events;
 
 namespace Character.Movement.States
 {
-    public class RunState : MovementStateBase
+    public sealed class RunState : MovementStateBase
     {
-        public RunState(MovementStateMachine stateMachine) : base(stateMachine) { }
+        public RunState(MovementStateMachine m) : base(m) {}
 
-        public override void Enter()
-        {
-            GameEvents.OnPlayerStartedRunning.Invoke();
-        }
+        public override void Enter() => GameEvents.InvokePlayerStartedRunning();
+        public override void Exit()  => GameEvents.InvokePlayerStoppedRunning();
 
         public override void Execute()
         {
-            var input = _controller.Input;
-            var moveDirection = _controller.GetMovementDirection();
+            if (!IsGrounded) { _machine.ChangeState<FallState>(); return; }
 
-            // Check transitions
-            if (moveDirection.magnitude < 0.1f)
-            {
-                _stateMachine.ChangeState<IdleState>();
-                return;
-            }
+            if (InputDir.sqrMagnitude < 0.1f) { _machine.ChangeState<IdleState>(); return; }
+            if (!_controller.Input.IsRunning) { _machine.ChangeState<WalkState>(); return; }
+            if (_controller.Input.IsDodging)   { _machine.ChangeState<DodgeState>(); return; }
+            if (_controller.Input.IsJumping)   { _machine.ChangeState<JumpState>(); return; }
 
-            if (!input.IsRunning)
-            {
-                _stateMachine.ChangeState<WalkState>();
-                return;
-            }
-
-            if (input.IsDodging)
-            {
-                _stateMachine.ChangeState<DodgeState>();
-                return;
-            }
-
-            if (input.IsJumping && _controller.Physics.IsGrounded)
-            {
-                _stateMachine.ChangeState<JumpState>();
-                return;
-            }
-
-            // Movement
-            _controller.Move(moveDirection, _controller.Config.runSpeed);
-            _controller.Rotate(moveDirection, _controller.Config.runRotationSpeed);
-
-            // Check if falling
-            if (!_controller.Physics.IsGrounded)
-            {
-                _stateMachine.ChangeState<FallState>();
-            }
-        }
-
-        public override void Exit()
-        {
-            GameEvents.OnPlayerStoppedRunning.Invoke();
+            _controller.Move(InputDir, _controller.Config.runSpeed);
+            _controller.Rotate(InputDir, _controller.Config.runRotationSpeed);
         }
     }
 }

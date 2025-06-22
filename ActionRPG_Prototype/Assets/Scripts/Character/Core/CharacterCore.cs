@@ -1,127 +1,81 @@
 ﻿using Character.Animation;
+using Character.Combat;
 using Character.Movement;
 using Character.Stats;
-using Core.Camera;
-using Core.Services;
+using Core.Utils;
 using UnityEngine;
 
 namespace Character.Core
 {
+    /// <summary>
+    /// Central hub that wires together all sub‑systems attached to a character.
+    /// Теперь использует утилиту <see cref="ComponentFinder.Require{T}"/>, поэтому
+    /// проверка зависимостей проще и чище.
+    /// </summary>
+    [AddComponentMenu("Character/Character Core")]
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterController))]
-    public class CharacterCore : MonoBehaviour
+    public sealed class CharacterCore : MonoBehaviour
     {
-        [Header("Core Components")] [SerializeField]
+        [Header("Configuration")] [SerializeField]
         private CharacterConfig _config;
 
-        // Cached components
-        private MovementController _movement;
-        private MovementStateMachine _movementStateMachine;
-        private CombatController _combat;
-        private AnimationController _animation;
-        private CharacterStats _stats;
-        private HealthSystem _health;
-
-        // Properties
-        public CharacterConfig Config => _config;
-        public MovementController Movement => _movement;
-        public MovementStateMachine MovementStateMachine => _movementStateMachine;
-        public CombatController Combat => _combat;
-        public AnimationController Animation => _animation;
-        public CharacterStats Stats => _stats;
-        public HealthSystem Health => _health;
+        // ───── Public API ─────
+        public CharacterConfig Config { get; private set; }
+        public MovementController Movement { get; private set; }
+        public MovementStateMachine MovementSM { get; private set; }
+        public CombatController Combat { get; private set; }
+        public AnimationController Animation { get; private set; }
+        public CharacterStats Stats { get; private set; }
+        public HealthSystem Health { get; private set; }
 
         public bool IsPlayer { get; private set; }
 
         private void Awake()
         {
-            CacheComponents();
-            ValidateComponents();
+            CacheDependencies();
         }
 
-        private void Start()
+        private void Start() => InitializeCharacter();
+
+        private void CacheDependencies()
         {
-            InitializeCharacter();
-        }
-
-        private void CacheComponents()
-        {
-            _movement = ComponentFinder.FindFirstInChildren<MovementController>(gameObject);
-            _movementStateMachine = ComponentFinder.FindFirstInChildren<MovementStateMachine>(gameObject);
-            _combat = ComponentFinder.FindFirstInChildren<CombatController>(gameObject);
-            _animation = ComponentFinder.FindFirstInChildren<AnimationController>(gameObject);
-            _stats = ComponentFinder.FindFirstInChildren<CharacterStats>(gameObject);
-            _health = ComponentFinder.FindFirstInChildren<HealthSystem>(gameObject);
-        }
-
-        private void ValidateComponents()
-        {
-            if (_config == null)
-            {
-                UnityEngine.Debug.LogError($"CharacterConfig is missing on {gameObject.name}!");
-            }
-
-            // Validate other required components
-            var requiredComponents = new System.Type[]
-            {
-                typeof(MovementController),
-                typeof(MovementStateMachine),
-                typeof(CombatController),
-                typeof(AnimationController),
-                typeof(CharacterStats),
-                typeof(HealthSystem)
-            };
-
-            foreach (var type in requiredComponents)
-            {
-                var method = typeof(ComponentFinder).GetMethod(nameof(ComponentFinder.FindFirstInChildren))
-                    ?.MakeGenericMethod(type);
-    
-                var found = method?.Invoke(null, new object[] { gameObject, false });
-    
-                if (found == null)
-                {
-                    UnityEngine.Debug.LogError($"{type.Name} is missing on {gameObject.name} or its children!");
-                }
-            }
+            Config = _config;
+            Movement = gameObject.Require<MovementController>();
+            MovementSM = gameObject.Require<MovementStateMachine>();
+            Combat = gameObject.Require<CombatController>();
+            Animation = gameObject.Require<AnimationController>();
+            Stats = gameObject.Require<CharacterStats>();
+            Health = gameObject.Require<HealthSystem>();
         }
 
         private void InitializeCharacter()
         {
-            // Apply configuration
-            if (_config != null)
+            if (Config == null)
             {
-                _stats.InitializeFromConfig(_config);
-                _health.InitializeFromConfig(_config);
+                Debug.LogError($"{name}: Config is null", this);
+                enabled = false;
+                return;
             }
 
-            // Setup based on character type
+            Stats.InitializeFromConfig(Config);
+            Health.InitializeFromConfig(Config);
+
             IsPlayer = CompareTag("Player");
-
-            if (IsPlayer)
-            {
-                SetupPlayerCharacter();
-            }
-            else
-            {
-                SetupAICharacter();
-            }
+            if (IsPlayer) SetupPlayerCamera();
         }
 
-        private void SetupPlayerCharacter()
+        /// <summary>
+        /// Подключает Cinemachine‑камеру либо, для старых сцен, CameraController.
+        /// </summary>
+        private void SetupPlayerCamera()
         {
-            // Player-specific setup
-            var cameraController = FindFirstObjectByType<CameraController>();
-            if (cameraController != null)
+            // 1) Новый вариант – Cinemachine rig
+            var cmRig = FindFirstObjectByType<CameraModeSwitcher>();
+            if (cmRig != null)
             {
-                var stateManager = cameraController.GetComponent<CameraStateManager>();
-                stateManager.Target = transform;
+                cmRig.SetMode(CameraMode.Free);
             }
-        }
-
-        private void SetupAICharacter()
-        {
-            // AI-specific setup
-            // Add AI controller initialization here
         }
     }
 }

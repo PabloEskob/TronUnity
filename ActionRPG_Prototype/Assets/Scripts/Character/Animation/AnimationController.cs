@@ -4,74 +4,63 @@ using UnityEngine;
 
 namespace Character.Animation
 {
+    [AddComponentMenu("Character/Animation Controller")]
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(Animator))]
-    public class AnimationController : MonoBehaviour
+    public sealed class AnimationController : MonoBehaviour
     {
-        private Animator _animator;
-        private MovementController _movement;
-        private MovementStateMachine _stateMachine;
+        private Animator             _anim;
+        private MovementController   _move;
+        private MovementStateMachine _state;
 
-        // Animation parameter hashes
-        private readonly int _speedHash = Animator.StringToHash("Speed");
-        private readonly int _isGroundedHash = Animator.StringToHash("IsGrounded");
-        private readonly int _isRunningHash = Animator.StringToHash("IsRunning");
-        private readonly int _verticalVelocityHash = Animator.StringToHash("VerticalVelocity");
-        private readonly int _dodgeHash = Animator.StringToHash("Dodge");
-        private readonly int _jumpHash = Animator.StringToHash("Jump");
+        private static readonly int SpeedHash        = Animator.StringToHash("Speed");
+        private static readonly int IsGroundedHash   = Animator.StringToHash("IsGrounded");
+        private static readonly int IsRunningHash    = Animator.StringToHash("IsRunning");
+        private static readonly int VerticalVelHash  = Animator.StringToHash("VerticalVelocity");
+        private static readonly int DodgeTriggerHash = Animator.StringToHash("Dodge");
+        private static readonly int JumpTriggerHash  = Animator.StringToHash("Jump");
+
+        private bool _wasDodging;
+        private bool _wasJumping;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-            _movement = GetComponentInParent<MovementController>();
-            _stateMachine = GetComponentInParent<MovementStateMachine>();
-        }
+            _anim  = GetComponent<Animator>();
+            _move  = GetComponentInParent<MovementController>(true);
+            _state = GetComponentInParent<MovementStateMachine>(true);
 
-        private void Update()
-        {
-            UpdateMovementAnimations();
-            UpdateStateAnimations();
-        }
-
-        private void UpdateMovementAnimations()
-        {
-            // Calculate movement speed
-            var velocity = _movement.CharacterController.velocity;
-            var horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-
-            // Update animator parameters
-            _animator.SetFloat(_speedHash, horizontalSpeed);
-            _animator.SetBool(_isGroundedHash, _movement.Physics.IsGrounded);
-            _animator.SetFloat(_verticalVelocityHash, velocity.y);
-            _animator.SetBool(_isRunningHash, _stateMachine.IsInState<RunState>());
-        }
-
-        private void UpdateStateAnimations()
-        {
-            // Trigger state-specific animations
-            if (_stateMachine.IsInState<DodgeState>())
+            if (_anim == null || _move == null || _state == null)
             {
-                _animator.SetTrigger(_dodgeHash);
-            }
-
-            if (_stateMachine.IsInState<JumpState>())
-            {
-                _animator.SetTrigger(_jumpHash);
+                Debug.LogError("[AnimationController] Missing dependencies", this);
+                enabled = false;
             }
         }
 
-        public void PlayAttackAnimation(int attackIndex)
+        private void LateUpdate()
         {
-            _animator.SetTrigger($"Attack{attackIndex}");
+            if (!enabled) return;
+
+            Vector3 v      = _move.CharacterController.velocity;
+            float   hSpeed = new Vector3(v.x, 0, v.z).magnitude;
+
+            _anim.SetFloat(SpeedHash,       hSpeed);
+            _anim.SetBool (IsGroundedHash,  _move.Physics.IsGrounded);
+            _anim.SetFloat(VerticalVelHash, v.y);
+            _anim.SetBool (IsRunningHash,   _state.IsInState<RunState>());
+
+            bool isDodging = _state.IsInState<DodgeState>();
+            if (isDodging && !_wasDodging) _anim.SetTrigger(DodgeTriggerHash);
+            _wasDodging = isDodging;
+
+            bool isJumping = _state.IsInState<JumpState>();
+            if (isJumping && !_wasJumping) _anim.SetTrigger(JumpTriggerHash);
+            _wasJumping = isJumping;
         }
 
-        public void SetCombatStance(bool inCombat)
-        {
-            _animator.SetBool("InCombat", inCombat);
-        }
-
-        public void SetAnimationSpeed(float speed)
-        {
-            _animator.speed = speed;
-        }
+        #region Combat helpers
+        public void PlayAttackAnimation(int index) => _anim.SetTrigger($"Attack{index}");
+        public void SetCombatStance(bool inCombat) => _anim.SetBool("InCombat", inCombat);
+        public void SetAnimationSpeed(float speed) => _anim.speed = speed;
+        #endregion
     }
 }

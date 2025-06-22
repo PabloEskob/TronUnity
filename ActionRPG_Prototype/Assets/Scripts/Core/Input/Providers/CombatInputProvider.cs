@@ -1,37 +1,36 @@
 ﻿using Core.Input.Interfaces;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Core.Input.Providers
 {
-    public class CombatInputProvider : MonoBehaviour, ICombatInput
+    public sealed class CombatInputProvider : InputProviderBase<ICombatInput>, ICombatInput
     {
-        private PlayerInputActions _inputActions;
-        private bool _isAttacking;
-        private bool _isBlocking;
-        private bool _isSpecialAttack;
-        private int _weaponSwitchDirection;
+        private int _weaponDir;
+        public bool IsAttacking => input.Player.Attack.IsPressed();
+        public bool IsBlocking => false; // map if needed
+        public bool IsSpecialAttack => false; // map
+        public int WeaponSwitchDirection { get; private set; }
 
-        public bool IsAttacking => _isAttacking;
-        public bool IsBlocking => _isBlocking;
-        public bool IsSpecialAttack => _isSpecialAttack;
-        public int WeaponSwitchDirection => _weaponSwitchDirection;
-
-        public void Initialize(PlayerInputActions inputActions)
+        protected override void RegisterCallbacks()
         {
-            _inputActions = inputActions;
-            SubscribeToEvents();
+            input.Player.Previous.performed += OnPrev;
+            input.Player.Next.performed += OnNext;
+            input.Player.Previous.canceled += OnStop;
+            input.Player.Next.canceled += OnStop;
         }
 
-        private void SubscribeToEvents()
+        protected override void UnregisterCallbacks()
         {
-            _inputActions.Player.Attack.performed += _ => _isAttacking = true;
-            _inputActions.Player.Attack.canceled += _ => _isAttacking = false;
-
-            // Добавьте другие боевые действия по необходимости
-            _inputActions.Player.Previous.performed += _ => _weaponSwitchDirection = -1;
-            _inputActions.Player.Next.performed += _ => _weaponSwitchDirection = 1;
-            _inputActions.Player.Previous.canceled += _ => _weaponSwitchDirection = 0;
-            _inputActions.Player.Next.canceled += _ => _weaponSwitchDirection = 0;
+            input.Player.Previous.performed -= OnPrev;
+            input.Player.Next.performed -= OnNext;
+            input.Player.Previous.canceled -= OnStop;
+            input.Player.Next.canceled -= OnStop;
         }
+
+        private void OnPrev(InputAction.CallbackContext _) => _weaponDir = -1;
+        private void OnNext(InputAction.CallbackContext _) => _weaponDir = 1;
+        private void OnStop(InputAction.CallbackContext _) => _weaponDir = 0;
+        private void Update() => WeaponSwitchDirection = _weaponDir;
     }
 }

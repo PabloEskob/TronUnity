@@ -1,91 +1,47 @@
 ﻿using System;
 using Character.Core;
+using Character.Stats;
 using Core.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace Character.Stats
+namespace Character.Core
 {
-    public class HealthSystem : MonoBehaviour
+    public sealed class HealthSystem : MonoBehaviour
     {
-        [Header("Health Settings")]
-        [SerializeField] private float _currentHealth;
-        [SerializeField] private float _maxHealth = 100f;
-        
-        [Header("Damage Settings")]
-        [SerializeField] private float _invincibilityDuration = 0.5f;
-        
-        private float _lastDamageTime;
-        private CharacterStats _stats;
-        
-        // Events
-        public event Action<float> OnHealthChanged;
-        public event Action<float> OnDamaged;
-        public event Action OnDeath;
-        
-        // Properties
-        public float CurrentHealth => _currentHealth;
-        public float MaxHealth => _maxHealth;
-        public float HealthPercentage => _currentHealth / _maxHealth;
-        public bool IsAlive => _currentHealth > 0;
-        public bool IsInvincible => Time.time - _lastDamageTime < _invincibilityDuration;
-        
-        private void Awake()
-        {
-            _stats = GetComponent<CharacterStats>();
-            _currentHealth = _maxHealth;
-        }
+        [System.Serializable] public class DamageEvent : UnityEvent<float,float>{}
+        [System.Serializable] public class DeathEvent  : UnityEvent{}
 
-        public void InitializeFromConfig(CharacterConfig config)
-        {
-            _maxHealth = config.maxHealth;
-            _currentHealth = _maxHealth;
-        }
+        [SerializeField] private CharacterStats _stats;
+        [SerializeField] private float _invincibilityTime = 0.3f;
 
-        public void TakeDamage(float damage, GameObject attacker = null)
+        public DamageEvent OnDamaged = new();
+        public DeathEvent  OnDied    = new();
+
+        private float _lastHit;
+        public bool  IsDead => _stats.CurrentHealth <= 0;
+        public float Health => _stats.CurrentHealth;
+
+        private void Awake() { if (_stats == null) _stats = GetComponent<CharacterStats>(); }
+
+        public void InitializeFromConfig(CharacterConfig cfg) => _stats.InitializeFromConfig(cfg);
+
+        public void DealDamage(float amount)
         {
-            if (!IsAlive || IsInvincible) return;
-            
-            var actualDamage = _stats.CalculateDefense(damage);
-            _currentHealth = Mathf.Max(0, _currentHealth - actualDamage);
-            _lastDamageTime = Time.time;
-            
-            OnHealthChanged?.Invoke(_currentHealth);
-            OnDamaged?.Invoke(actualDamage);
-            
-            if (CompareTag("Player"))
-            {
-                GameEvents.OnPlayerDamaged.Invoke(actualDamage);
-            }
-            
-            if (_currentHealth <= 0)
-            {
-                Die();
-            }
+            if (Time.time < _lastHit + _invincibilityTime || IsDead) return;
+            _lastHit = Time.time;
+            float old = _stats.CurrentHealth;
+            _stats.CurrentHealth = Mathf.Max(_stats.CurrentHealth - amount, 0);
+            OnDamaged.Invoke(old, _stats.CurrentHealth);
+            if (IsDead) OnDied.Invoke();
         }
 
         public void Heal(float amount)
         {
-            if (!IsAlive) return;
-            
-            _currentHealth = Mathf.Min(_currentHealth + amount, _maxHealth);
-            OnHealthChanged?.Invoke(_currentHealth);
-        }
-
-        public void SetHealth(float health)
-        {
-            _currentHealth = Mathf.Clamp(health, 0, _maxHealth);
-            OnHealthChanged?.Invoke(_currentHealth);
-            
-            if (_currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-
-        private void Die()
-        {
-            OnDeath?.Invoke();
-            // Handle death logic
+            if (IsDead) return;
+            float old = _stats.CurrentHealth;
+            _stats.CurrentHealth = Mathf.Min(_stats.CurrentHealth + amount, _stats.MaxHealth);
+            OnDamaged.Invoke(old, _stats.CurrentHealth);
         }
     }
 }

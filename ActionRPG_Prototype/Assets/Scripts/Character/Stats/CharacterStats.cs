@@ -1,87 +1,58 @@
 ﻿using Character.Core;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Character.Stats
 {
-    public class CharacterStats : MonoBehaviour
+    public sealed class CharacterStats : MonoBehaviour
     {
-        [Header("Base Stats")] [SerializeField]
-        private float _maxHealth = 100f;
+        [System.Serializable] public class StatChangedEvent : UnityEvent<float,float>{}
 
-        [SerializeField] private float _maxStamina = 100f;
-        [SerializeField] private float _defense = 10f;
+        [SerializeField] private float _maxHealth   = 100;
+        [SerializeField] private float _maxStamina  = 100;
+        [SerializeField] private float _staminaRegenPerSec = 15;
 
-        [Header("Combat Stats")] [SerializeField]
-        private float _attackPower = 10f;
+        public float MaxHealth      { get; private set; }
+        public float MaxStamina     { get; private set; }
+        public float CurrentHealth  { get; internal set; }  // <-- internal setter для HealthSystem
+        public float CurrentStamina { get; private set; }
 
-        [SerializeField] private float _criticalChance = 0.1f;
-        [SerializeField] private float _criticalMultiplier = 2f;
-
-        [Header("Movement Stats")] [SerializeField]
-        private float _moveSpeedMultiplier = 1f;
-
-        // Current values
-        private float _currentStamina;
-
-        // Properties
-        public float MaxHealth => _maxHealth;
-        public float MaxStamina => _maxStamina;
-        public float Defense => _defense;
-        public float AttackPower => _attackPower;
-        public float CriticalChance => _criticalChance;
-        public float CriticalMultiplier => _criticalMultiplier;
-        public float CurrentStamina => _currentStamina;
-
-        public float StaminaPercentage => _currentStamina / _maxStamina;
+        public StatChangedEvent OnHealthChanged  = new();
+        public StatChangedEvent OnStaminaChanged = new();
 
         private void Awake()
         {
-            _currentStamina = _maxStamina;
+            MaxHealth      = _maxHealth;
+            MaxStamina     = _maxStamina;
+            CurrentHealth  = MaxHealth;
+            CurrentStamina = MaxStamina;
         }
 
-        public void InitializeFromConfig(CharacterConfig config)
+        private void Update() => RegenerateStamina();
+
+        public void InitializeFromConfig(CharacterConfig cfg)
         {
-            _maxHealth = config.maxHealth;
-            _maxStamina = config.maxStamina;
-            _defense = config.defense;
-            _attackPower = config.baseDamage;
-            _criticalChance = config.criticalChance;
-            _criticalMultiplier = config.criticalMultiplier;
-
-            _currentStamina = _maxStamina;
+            MaxHealth   = cfg.baseHealth;
+            MaxStamina  = cfg.baseStamina;
+            CurrentHealth  = MaxHealth;
+            CurrentStamina = MaxStamina;
         }
 
-        public bool ConsumeStamina(float amount)
+        public void SpendStamina(float cost)
         {
-            if (_currentStamina >= amount)
-            {
-                _currentStamina -= amount;
-                return true;
-            }
-
-            return false;
+            if (CurrentStamina < cost) return;
+            float old = CurrentStamina;
+            CurrentStamina -= cost;
+            OnStaminaChanged.Invoke(old, CurrentStamina);
         }
 
-        public void RegenerateStamina(float amount)
+        public void RestoreStamina(float amount)
         {
-            _currentStamina = Mathf.Min(_currentStamina + amount, _maxStamina);
+            float old = CurrentStamina;
+            CurrentStamina = Mathf.Min(CurrentStamina + amount, MaxStamina);
+            OnStaminaChanged.Invoke(old, CurrentStamina);
         }
 
-        public float CalculateDamage(float baseDamage, bool isCritical = false)
-        {
-            var damage = baseDamage * _attackPower;
-
-            if (isCritical || Random.value < _criticalChance)
-            {
-                damage *= _criticalMultiplier;
-            }
-
-            return damage;
-        }
-
-        public float CalculateDefense(float incomingDamage)
-        {
-            return Mathf.Max(1f, incomingDamage - _defense);
-        }
+        private void RegenerateStamina() => RestoreStamina(_staminaRegenPerSec * Time.deltaTime);
     }
 }

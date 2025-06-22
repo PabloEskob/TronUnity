@@ -3,59 +3,36 @@ using Core.Events;
 
 namespace Character.Movement.States
 {
-    public class IdleState : MovementStateBase
+    public sealed class IdleState : MovementStateBase
     {
-        public IdleState(MovementStateMachine stateMachine) : base(stateMachine)
+        public IdleState(MovementStateMachine m) : base(m)
         {
         }
 
-        public override void Enter()
-        {
-            _controller.Stop();
-        }
+        public override void Enter() => _controller.Stop();
 
         public override void Execute()
         {
-            var input = _controller.Input;
-
-            // Check transitions
-            if (input.MovementVector.magnitude > 0.1f)
+            if (!IsGrounded)
             {
-                if (input.IsRunning)
-                {
-                    _stateMachine.ChangeState<RunState>();
-                }
-                else
-                {
-                    _stateMachine.ChangeState<WalkState>();
-                }
-
+                _machine.ChangeState<FallState>();
                 return;
             }
 
-            if (input.IsDodging && CanDodge())
+            if (_controller.Input.IsDodging)
             {
-                _stateMachine.ChangeState<DodgeState>();
+                _machine.ChangeState<DodgeState>();
                 return;
             }
 
-            if (input.IsJumping && _controller.Physics.IsGrounded)
+            if (_controller.Input.IsJumping)
             {
-                _stateMachine.ChangeState<JumpState>();
+                _machine.ChangeState<JumpState>();
                 return;
             }
 
-            // Check if falling
-            if (!_controller.Physics.IsGrounded)
-            {
-                _stateMachine.ChangeState<FallState>();
-            }
-        }
-
-        private bool CanDodge()
-        {
-            // Add dodge cooldown logic here
-            return true;
+            if (InputDir.sqrMagnitude > .1f)
+                _machine.ChangeState(_controller.Input.IsRunning ? typeof(RunState) : typeof(WalkState));
         }
     }
 }

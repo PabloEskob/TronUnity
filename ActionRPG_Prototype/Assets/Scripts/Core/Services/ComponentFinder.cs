@@ -1,39 +1,34 @@
 ﻿using UnityEngine;
 
-namespace Core.Services
+namespace Core.Utils
 {
     public static class ComponentFinder
     {
-        /// <summary>
-        /// Ищет все компоненты типа T в дочерних объектах и пишет лог, если ничего не найдено.
-        /// </summary>
-        /// <typeparam name="T">Тип компонента</typeparam>
-        /// <param name="parent">Родительский объект</param>
-        /// <param name="logIfMissing">Писать ли лог, если ничего не найдено</param>
-        /// <returns>Массив компонентов T (может быть пустым)</returns>
-        public static T[] FindAllInChildren<T>(GameObject parent, bool logIfMissing = true) where T : Component
+        // === Single ===
+        public static bool TryFind<T>(this GameObject go, out T result, bool includeInactive = true)
+            where T : Component
         {
-            T[] components = parent.GetComponentsInChildren<T>(includeInactive: true);
-            if (components.Length == 0 && logIfMissing)
-            {
-                UnityEngine.Debug.LogWarning($"[ComponentFinder] Не найдено компонентов типа {typeof(T).Name} в дочерних объектах {parent.name}");
-            }
-
-            return components;
+            result = go.GetComponentInChildren<T>(includeInactive);
+#if UNITY_EDITOR
+            if (result == null)
+                Debug.LogWarning($"[ComponentFinder] {typeof(T).Name} not found under {go.name}", go);
+#endif
+            return result;
         }
 
-        /// <summary>
-        /// Ищет первый компонент типа T в дочерних объектах и пишет лог, если он не найден.
-        /// </summary>
-        public static T FindFirstInChildren<T>(GameObject parent, bool logIfMissing = true) where T : Component
+        public static T Require<T>(this GameObject go, bool includeInactive = true) where T : Component
         {
-            T component = parent.GetComponentInChildren<T>(includeInactive: true);
-            if (component == null && logIfMissing)
-            {
-                UnityEngine.Debug.LogWarning($"[ComponentFinder] Компонент типа {typeof(T).Name} не найден в дочерних объектах {parent.name}");
-            }
+            if (!go.TryFind(out T comp, includeInactive))
+                throw new MissingComponentException($"{typeof(T).Name} required on {go.name}");
+            return comp;
+        }
 
-            return component;
+        // === Multiple ===
+        public static int FindAll<T>(this GameObject go, ref T[] buffer, bool includeInactive = true)
+            where T : Component
+        {
+            buffer = go.GetComponentsInChildren<T>(includeInactive);
+            return buffer.Length;
         }
     }
 }

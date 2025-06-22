@@ -5,65 +5,46 @@ using UnityEngine;
 
 namespace Core.Input
 {
-    public class InputManager : MonoBehaviour
+    [AddComponentMenu("Pavel/Input Manager")]
+    [DisallowMultipleComponent]
+    public sealed class InputManager : MonoBehaviour
     {
-        private PlayerInputActions _inputActions;
+        public PlayerInputActions Actions { get; private set; }
 
-        // Public properties
         public IMovementInput Movement { get; private set; }
         public ICameraInput Camera { get; private set; }
         public ICombatInput Combat { get; private set; }
 
         private void Awake()
         {
-            // Создаем Input Actions
-            _inputActions = new PlayerInputActions();
-
-            // Создаем GameObject для провайдеров
-            var providersContainer = new GameObject("InputProviders");
-            providersContainer.transform.SetParent(transform);
-
-            // Создаем и инициализируем провайдеры
-            Movement = CreateProvider<MovementInputProvider>(providersContainer, "MovementProvider");
-            Camera = CreateProvider<CameraInputProvider>(providersContainer, "CameraProvider");
-            Combat = CreateProvider<CombatInputProvider>(providersContainer, "CombatProvider");
-
-            // Регистрируем сервис
-            ServiceLocator.Instance.RegisterService<InputManager>(this);
-
-            // Сохраняем между сценами
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private T CreateProvider<T>(GameObject parent, string name) where T : MonoBehaviour
-        {
-            var providerGO = new GameObject(name);
-            providerGO.transform.SetParent(parent.transform);
-            var provider = providerGO.AddComponent<T>();
-
-            // Если провайдер имеет метод Initialize, вызываем его
-            if (provider is IInputProvider inputProvider)
+            // Если уже есть зарегистрированный экземпляр, уничтожаем дубликат
+            if (Core.Services.ServiceLocator.TryGet<InputManager>(out var existing) && existing != this)
             {
-                inputProvider.Initialize(_inputActions);
+                Destroy(gameObject);
+                return;
             }
 
-            return provider;
-        }
+            Actions = new PlayerInputActions();
+            Actions.Enable();
+            
+            Movement = gameObject.AddComponent<Providers.MovementInputProvider>();
+            Camera   = gameObject.AddComponent<Providers.CameraInputProvider>();
+            Combat   = gameObject.AddComponent<Providers.CombatInputProvider>();
 
-        private void OnEnable()
-        {
-            _inputActions?.Enable();
-        }
+            foreach (var p in GetComponents<Core.Input.Interfaces.IInputProvider>())
+                p.Initialize(Actions);
 
-        private void OnDisable()
-        {
-            _inputActions?.Disable();
+            Core.Services.ServiceLocator.Register(this);
+            DontDestroyOnLoad(gameObject);
         }
 
         private void OnDestroy()
         {
-            ServiceLocator.Instance.UnregisterService<InputManager>();
-            _inputActions?.Dispose();
+            // Отписываемся, только если этот экземпляр был зарегистрирован
+            if (Core.Services.ServiceLocator.TryGet<InputManager>(out var existing) && existing == this)
+                Core.Services.ServiceLocator.Unregister<InputManager>();
+
+            Actions?.Dispose();
         }
     }
 }

@@ -1,27 +1,33 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Core.Events
 {
     public static class GameEvents
     {
-        // Movement Events
-        public static readonly UnityEvent<Vector3> OnPlayerMoved = new UnityEvent<Vector3>();
-        public static readonly UnityEvent OnPlayerStopped = new UnityEvent();
-        public static readonly UnityEvent OnPlayerStartedRunning = new UnityEvent();
-        public static readonly UnityEvent OnPlayerStoppedRunning = new UnityEvent();
+        public static event Action<Vector3> PlayerMoved = delegate { };
+        public static event Action PlayerStopped = delegate { };
+        public static event Action PlayerStartedRunning = delegate { };
+        public static event Action PlayerStoppedRunning = delegate { };
+        public static event Action<float> PlayerDamaged = delegate { };
+        public static event Action PlayerDodged = delegate { };
+        public static event Action<int> PlayerAttacked = delegate { };
+        public static event Action<string> CameraStateChanged = delegate { };
+        public static event Action<Transform> LockOnTargetChanged = delegate { };
+        public static event Action GamePaused = delegate { };
+        public static event Action GameResumed = delegate { };
 
-        // Combat Events
-        public static readonly UnityEvent<float> OnPlayerDamaged = new UnityEvent<float>();
-        public static readonly UnityEvent OnPlayerDodged = new UnityEvent();
-        public static readonly UnityEvent<int> OnPlayerAttacked = new UnityEvent<int>();
-
-        // Camera Events
-        public static readonly UnityEvent<string> OnCameraStateChanged = new UnityEvent<string>();
-        public static readonly UnityEvent<Transform> OnLockOnTargetChanged = new UnityEvent<Transform>();
-
-        // System Events
-        public static readonly UnityEvent OnGamePaused = new UnityEvent();
-        public static readonly UnityEvent OnGameResumed = new UnityEvent();
+        public static void InvokePlayerMoved(Vector3 v) => PlayerMoved.Invoke(v);
+        public static void InvokePlayerStopped() => PlayerStopped.Invoke();
+        public static void InvokePlayerStartedRunning() => PlayerStartedRunning.Invoke();
+        public static void InvokePlayerStoppedRunning() => PlayerStoppedRunning.Invoke();
+        public static void InvokePlayerDamaged(float dmg) => PlayerDamaged.Invoke(dmg);
+        public static void InvokePlayerDodged() => PlayerDodged.Invoke();
+        public static void InvokePlayerAttacked(int idx) => PlayerAttacked.Invoke(idx);
+        public static void InvokeCameraStateChanged(string s) => CameraStateChanged.Invoke(s);
+        public static void InvokeLockOnTargetChanged(Transform t) => LockOnTargetChanged.Invoke(t);
+        public static void InvokeGamePaused() => GamePaused.Invoke();
+        public static void InvokeGameResumed() => GameResumed.Invoke();
     }
 }

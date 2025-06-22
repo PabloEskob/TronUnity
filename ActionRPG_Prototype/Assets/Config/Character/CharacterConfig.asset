@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6a2625c2542bf8d093077c131a631, type: 3}
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
-  characterName: Character
-  characterType: 0
-  maxHealth: 100
-  maxStamina: 100
-  staminaRegenRate: 10
-  defense: 10
-  baseDamage: 10
-  criticalChance: 0.1
-  criticalMultiplier: 2
-  movementConfig: {fileID: 0}
-  animatorController: {fileID: 0}
-  avatar: {fileID: 0}
+  baseHealth: 100
+  baseStamina: 100
+  movement: {fileID: 11400000, guid: 10f5d7211a7319c4a845c71df1e6aa8e, type: 2}
