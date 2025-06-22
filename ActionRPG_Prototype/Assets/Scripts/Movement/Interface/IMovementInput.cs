@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Movement.Interface
+namespace Movement.Interface
 {
     public interface IMovementInput
     {

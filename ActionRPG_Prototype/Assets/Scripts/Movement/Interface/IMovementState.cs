@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Movement.Interface
+﻿namespace Movement.Interface
 {
     public interface IMovementState
     {

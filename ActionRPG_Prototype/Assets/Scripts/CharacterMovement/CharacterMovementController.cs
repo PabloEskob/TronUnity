@@ -1,8 +1,8 @@
 ﻿// CharacterMovementController.cs
 
 using System.Collections.Generic;
-using Assets.Scripts.Movement.Interface;
 using Config.Movement;
+using Movement.Interface;
 using Movement.State;
 using UnityEngine;
 using RunState = Movement.State.RunState;
@@ -10,7 +10,7 @@ using RunState = Movement.State.RunState;
 namespace CharacterMovement
 {
     [RequireComponent(typeof(CharacterController))]
-    public class CharacterMovementController : MonoBehaviour, IMovementHandler
+    public class CharacterMovementController : MonoBehaviour, IMovementHandler, IVelocityProvider
     {
         [SerializeField] private MovementConfig _config;
 
@@ -26,7 +26,7 @@ namespace CharacterMovement
         public MovementConfig Config => _config;
         public bool IsGrounded => _isGrounded;
         public bool CanDodge => Time.time - _lastDodgeTime > _config.dodgeCooldown;
-        
+
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -114,5 +114,8 @@ namespace CharacterMovement
         {
             _lastDodgeTime = Time.time;
         }
+
+        public Vector3 Velocity => _characterController != null ? _characterController.velocity : Vector3.zero;
+        public bool IsAvailable => _characterController != null && enabled;
     }
 }

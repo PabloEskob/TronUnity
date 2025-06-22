@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Movement.Interface;
-using CharacterMovement;
+﻿using CharacterMovement;
 using Config.Movement;
+using Movement.Interface;
 using UnityEngine;
 
 namespace Movement.State

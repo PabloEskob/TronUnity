@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Movement.Interface;
-using CharacterMovement;
+﻿using CharacterMovement;
+using Movement.Interface;
 
 namespace Movement.State
 {

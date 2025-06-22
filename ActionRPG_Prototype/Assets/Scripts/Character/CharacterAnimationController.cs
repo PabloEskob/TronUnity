@@ -27,11 +27,17 @@ namespace Character
         private int _verticalVelocityHash;
         private int _dodgeHash;
         private int _attackHash;
+        private CharacterController _characterController;
 
         // События для эффектов
         public event Action<int> OnFootstep;
         public event Action OnDodgeStart;
         public event Action OnAttackHit;
+
+        private void Start()
+        {
+            _characterController = _movementController.GetComponent<CharacterController>();
+        }
 
         private void Awake()
         {
@@ -49,18 +55,16 @@ namespace Character
 
         private void Update()
         {
-            if (_animator == null || _movementController == null) return;
+            if (!_animator || !_movementController) return;
 
             UpdateMovementAnimations();
         }
 
         private void UpdateMovementAnimations()
         {
-            var velocity = _movementController.GetComponent<CharacterController>().velocity;
+            var velocity = _characterController.velocity;
             float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
             
-            UnityEngine.Debug.Log(horizontalSpeed);
-
             _animator.SetFloat(_speedHash, horizontalSpeed);
             _animator.SetBool(_isGroundedHash, _movementController.IsGrounded);
             _animator.SetFloat(_verticalVelocityHash, velocity.y);
