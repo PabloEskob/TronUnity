@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d40b12f1644fd091484eca2863e692, type: 3}
+  m_Name: GameConfiguration
+  m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 1149409458651675117, guid: 971f36584d7d32048a7454bd3f44a008, type: 3}
+  PlayerSpawnHeight: 1
+  CameraDistance: 10
+  CameraHeight: 2
