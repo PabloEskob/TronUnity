@@ -1,419 +1,352 @@
-﻿// MovementController.cs
-
-using System;
-using Config.Movement;
-using Core.Events;
-using Core.Events.Messages;
-using Core.Input.Interfaces;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using VContainer;
-using UnityVectorExtensions = Character.Movement.States.Base.UnityVectorExtensions;
+using UnityEngine.Events;
 
 namespace Character.Movement
 {
-    [AddComponentMenu("Character/Movement Controller")]
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(CharacterController))]
-    [RequireComponent(typeof(MovementPhysics))]
-    public sealed class MovementController : MonoBehaviour
+    public abstract class MovementControllerBase : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner
     {
-        #region Constants
+        [Tooltip("Ground speed when walking")] public float Speed = 1f;
 
-        static class Constants
+        [Tooltip("Ground speed when sprinting")]
+        public float SprintSpeed = 4;
+
+        [Tooltip("Initial vertical speed when jumping")]
+        public float JumpSpeed = 4;
+
+        [Tooltip("Initial vertical speed when sprint-jumping")]
+        public float SprintJumpSpeed = 6;
+
+        public Action PreUpdate;
+        public Action<Vector3, float> PostUpdate;
+        public Action StartJump;
+        public Action EndJump;
+
+        [Header("Input Axes")] [Tooltip("X Axis movement.  Value is -1..1.  Controls the sideways movement")]
+        public InputAxis MoveX = InputAxis.DefaultMomentary;
+
+        [Tooltip("Z Axis movement.  Value is -1..1. Controls the forward movement")]
+        public InputAxis MoveZ = InputAxis.DefaultMomentary;
+
+        [Tooltip("Jump movement.  Value is 0 or 1. Controls the vertical movement")]
+        public InputAxis Jump = InputAxis.DefaultMomentary;
+
+        [Tooltip("Sprint movement.  Value is 0 or 1. If 1, then is sprinting")]
+        public InputAxis Sprint = InputAxis.DefaultMomentary;
+
+        [Header("Events")] [Tooltip("This event is sent when the player lands after a jump.")]
+        public UnityEvent Landed = new();
+
+        void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
-            public const float MinMovementThreshold = 0.01f;
-            public const float MinInputMagnitude = 0.1f;
-            public const float DeadZone = 0.001f;
+            axes.Add(new() { DrivenAxis = () => ref MoveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
+            axes.Add(new() { DrivenAxis = () => ref MoveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
+            axes.Add(new() { DrivenAxis = () => ref Jump, Name = "Jump" });
+            axes.Add(new() { DrivenAxis = () => ref Sprint, Name = "Sprint" });
         }
 
-        #endregion
+        public virtual void SetStrafeMode(bool b)
+        {
+        }
 
-        #region Enums
+        public abstract bool IsMoving { get; }
+    }
 
-        public enum ForwardMode
+    public class MovementController : MovementControllerBase
+    {
+        [Tooltip("Transition duration (in seconds) when the player changes velocity or rotation.")]
+        public float Damping = 0.5f;
+
+        [Tooltip("Makes the player strafe when moving sideways, otherwise it turns to face the direction of motion.")]
+        public bool Strafe = false;
+
+        public enum ForwardModes
         {
             Camera,
             Player,
             World
-        }
+        };
 
-        public enum UpMode
+        public enum UpModes
         {
             Player,
             World
+        };
+
+        [Tooltip("Reference frame for the input controls:\n"
+                 + "<b>Camera</b>: Input forward is camera forward direction.\n"
+                 + "<b>Player</b>: Input forward is Player's forward direction.\n"
+                 + "<b>World</b>: Input forward is World forward direction.")]
+        public ForwardModes InputForward = ForwardModes.Camera;
+
+        [Tooltip("Up direction for computing motion:\n"
+                 + "<b>Player</b>: Move in the Player's local XZ plane.\n"
+                 + "<b>World</b>: Move in global XZ plane.")]
+        public UpModes UpMode = UpModes.World;
+
+        [Tooltip("If non-null, take the input frame from this camera instead of Camera.main. Useful for split-screen games.")]
+        public Camera CameraOverride;
+
+        [Tooltip("Layers to include in ground detection via Raycasts.")]
+        public LayerMask GroundLayers = 1;
+
+        [Tooltip("Force of gravity in the down direction (m/s^2)")]
+        public float Gravity = 10;
+
+        const float kDelayBeforeInferringJump = 0.3f;
+        float m_TimeLastGrounded = 0;
+
+        Vector3 m_CurrentVelocityXZ;
+        Vector3 m_LastInput;
+        float m_CurrentVelocityY;
+        bool m_IsSprinting;
+        bool m_IsJumping;
+        CharacterController m_Controller; // optional
+
+        // These are part of a strategy to combat input gimbal lock when controlling a player
+        // that can move freely on surfaces that go upside-down relative to the camera.
+        // This is only used in the specific situation where the character is upside-down relative to the input frame,
+        // and the input directives become ambiguous.
+        // If the camera and input frame are travelling along with the player, then these are not used.
+        bool m_InTopHemisphere = true;
+        float m_TimeInHemisphere = 100;
+        Vector3 m_LastRawInput;
+        Quaternion m_Upsidedown = Quaternion.AngleAxis(180, Vector3.left);
+
+        public override void SetStrafeMode(bool b) => Strafe = b;
+        public override bool IsMoving => m_LastInput.sqrMagnitude > 0.01f;
+
+        public bool IsSprinting => m_IsSprinting;
+        public bool IsJumping => m_IsJumping;
+        public Camera Camera => CameraOverride == null ? Camera.main : CameraOverride;
+
+        public bool IsGrounded() => GetDistanceFromGround(transform.position, UpDirection, 10) < 0.01f;
+
+        // Note that m_Controller is an optional component: we'll use it if it's there.
+        void Start() => TryGetComponent(out m_Controller);
+
+        private void OnEnable()
+        {
+            m_CurrentVelocityY = 0;
+            m_IsSprinting = false;
+            m_IsJumping = false;
+            m_TimeLastGrounded = Time.time;
         }
 
-        #endregion
-
-        #region Serialized Fields
-
-        [Header("Configuration")] [SerializeField]
-        MovementConfig _config;
-
-        [Header("Movement Settings")] [SerializeField]
-        float _damping = 0.5f;
-
-        [SerializeField] bool _strafeMode = false;
-        [SerializeField] ForwardMode _inputForward = ForwardMode.Camera;
-        [SerializeField] UpMode _upMode = UpMode.World;
-
-        [Header("Rotation Settings")] [SerializeField]
-        float _rotationDamping = 0.1f;
-
-        [SerializeField] float _strafeRotationMultiplier = 0.5f;
-
-        [Header("Components")] [SerializeField]
-        CharacterController _characterController;
-
-        [SerializeField] MovementPhysics _physics;
-        [SerializeField] Camera _cameraOverride;
-
-        #endregion
-
-        #region Private Fields
-
-        IMovementInput _input;
-        IEventBus _bus;
-
-        Vector3 _currentVelocity;
-        Vector3 _lastInput;
-        Vector3 _lastRawInput;
-        float _currentSpeed;
-        bool _isSprinting;
-
-        // Gimbal lock prevention
-        bool _inTopHemisphere = true;
-        float _timeInHemisphere = 100f;
-        readonly Quaternion _upsideDown = Quaternion.AngleAxis(180, Vector3.left);
-
-        #endregion
-
-        #region Properties
-
-        public MovementConfig Config => _config;
-        public CharacterController CharacterController => _characterController;
-        public MovementPhysics Physics => _physics;
-        public IMovementInput Input => _input;
-
-        public Vector3 CurrentVelocity => _currentVelocity;
-        public float CurrentSpeed => _currentSpeed;
-        public bool IsMoving => _lastInput.sqrMagnitude > Constants.MinMovementThreshold;
-        public bool IsGrounded => _physics.IsGrounded;
-        public bool IsSprinting => _isSprinting;
-        public bool IsStrafing => _strafeMode;
-
-        public Camera ActiveCamera => _cameraOverride != null ? _cameraOverride : Camera.main;
-        Vector3 UpDirection => _upMode == UpMode.World ? Vector3.up : transform.up;
-
-        #endregion
-
-        #region Dependency Injection
-
-        [Inject]
-        public void Construct(IMovementInput input, IEventBus bus)
+        void Update()
         {
-            _input = input ?? throw new ArgumentNullException(nameof(input));
-            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
-        }
+            PreUpdate?.Invoke();
 
-        #endregion
+            // Process Jump and gravity
+            bool justLanded = ProcessJump();
 
-        #region Unity Lifecycle
+            // Get the reference frame for the input
+            var rawInput = new Vector3(MoveX.Value, 0, MoveZ.Value);
+            var inputFrame = GetInputFrame(Vector3.Dot(rawInput, m_LastRawInput) < 0.8f);
+            m_LastRawInput = rawInput;
 
-        void Awake()
-        {
-            ValidateComponents();
-        }
+            // Read the input from the user and put it in the input frame
+            m_LastInput = inputFrame * rawInput;
+            if (m_LastInput.sqrMagnitude > 1)
+                m_LastInput.Normalize();
 
-        void OnEnable()
-        {
-            _currentVelocity = Vector3.zero;
-            _isSprinting = false;
-        }
-
-        void OnValidate()
-        {
-            if (_characterController == null)
-                _characterController = GetComponent<CharacterController>();
-            if (_physics == null)
-                _physics = GetComponent<MovementPhysics>();
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        public void Move(Vector3 direction, float speed)
-        {
-            if (!CanMove()) return;
-
-            if (direction.sqrMagnitude < Constants.MinMovementThreshold)
+            // Compute the new velocity and move the player, but only if not mid-jump
+            if (!m_IsJumping)
             {
-                ApplyDeceleration();
-                return;
+                m_IsSprinting = Sprint.Value > 0.5f;
+                var desiredVelocity = m_LastInput * (m_IsSprinting ? SprintSpeed : Speed);
+                var damping = justLanded ? 0 : Damping;
+                if (Vector3.Angle(m_CurrentVelocityXZ, desiredVelocity) < 100)
+                    m_CurrentVelocityXZ = Vector3.Slerp(
+                        m_CurrentVelocityXZ, desiredVelocity,
+                        Damper.Damp(1, damping, Time.deltaTime));
+                else
+                    m_CurrentVelocityXZ += Damper.Damp(
+                        desiredVelocity - m_CurrentVelocityXZ, damping, Time.deltaTime);
             }
 
-            // Нормализуем и сохраняем направление
-            direction = direction.normalized;
-            _lastInput = direction;
-            _currentSpeed = speed;
+            // Apply the position change
+            ApplyMotion();
 
-            // Применяем демпфирование для плавного движения
-            var targetVelocity = direction * speed;
-            ApplyAcceleration(targetVelocity);
-
-            // Движение персонажа
-            var movement = _currentVelocity * Time.deltaTime;
-            _characterController.Move(movement);
-
-            // Публикуем событие
-            _bus.Publish(new PlayerMoved(direction));
-        }
-
-        public void Rotate(Vector3 direction, float rotationSpeed)
-        {
-            if (direction.sqrMagnitude < Constants.DeadZone) return;
-
-            // В режиме стрейфа поворачиваемся медленнее
-            if (_strafeMode)
+            // If not strafing, rotate the player to face movement direction
+            if (!Strafe && m_CurrentVelocityXZ.sqrMagnitude > 0.001f)
             {
-                RotateStrafe(direction, rotationSpeed);
+                var fwd = inputFrame * Vector3.forward;
+                var qA = transform.rotation;
+                var qB = Quaternion.LookRotation(
+                    (InputForward == ForwardModes.Player && Vector3.Dot(fwd, m_CurrentVelocityXZ) < 0)
+                        ? -m_CurrentVelocityXZ
+                        : m_CurrentVelocityXZ, UpDirection);
+                var damping = justLanded ? 0 : Damping;
+                transform.rotation = Quaternion.Slerp(qA, qB, Damper.Damp(1, damping, Time.deltaTime));
             }
-            else
+
+            if (PostUpdate != null)
             {
-                RotateFree(direction, rotationSpeed);
+                // Get local-space velocity
+                var vel = Quaternion.Inverse(transform.rotation) * m_CurrentVelocityXZ;
+                vel.y = m_CurrentVelocityY;
+                PostUpdate(vel, m_IsSprinting ? JumpSpeed / SprintJumpSpeed : 1);
             }
         }
 
-        public void Stop()
-        {
-            _lastInput = Vector3.zero;
-            _currentSpeed = 0f;
-            ApplyDeceleration();
-            _bus.Publish(new PlayerStopped());
-        }
+        Vector3 UpDirection => UpMode == UpModes.World ? Vector3.up : transform.up;
 
-        public Vector3 GetMovementDirection()
-        {
-            if (_input == null) return Vector3.zero;
-
-            var rawInput = new Vector3(_input.MovementVector.x, 0, _input.MovementVector.y);
-            if (rawInput.magnitude < Constants.MinInputMagnitude)
-                return Vector3.zero;
-
-            // Получаем систему координат для ввода
-            var inputFrame = GetInputFrame(Vector3.Dot(rawInput, _lastRawInput) < 0.8f);
-            _lastRawInput = rawInput;
-
-            // Преобразуем ввод в мировые координаты
-            var worldInput = inputFrame * rawInput;
-            if (worldInput.sqrMagnitude > 1)
-                worldInput.Normalize();
-
-            return worldInput;
-        }
-
-        public void SetStrafeMode(bool enabled)
-        {
-            _strafeMode = enabled;
-        }
-
-        public void SetSprinting(bool sprinting)
-        {
-            _isSprinting = sprinting;
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        void ValidateComponents()
-        {
-            if (_characterController == null)
-            {
-                Debug.LogError($"[MovementController] CharacterController is missing on {name}!", this);
-                enabled = false;
-            }
-
-            if (_physics == null)
-            {
-                Debug.LogError($"[MovementController] MovementPhysics is missing on {name}!", this);
-                enabled = false;
-            }
-
-            if (_config == null)
-            {
-                Debug.LogError($"[MovementController] MovementConfig is not assigned on {name}!", this);
-            }
-        }
-
-        bool CanMove()
-        {
-            return enabled &&
-                   _characterController != null &&
-                   _characterController.enabled &&
-                   _config != null;
-        }
-
-        void ApplyAcceleration(Vector3 targetVelocity)
-        {
-            // Используем SLERP для плавного изменения направления
-            if (Vector3.Angle(_currentVelocity, targetVelocity) < 100)
-            {
-                _currentVelocity = Vector3.Slerp(
-                    _currentVelocity,
-                    targetVelocity,
-                    Damper.Damp(1, _damping, Time.deltaTime));
-            }
-            else
-            {
-                // Для резких поворотов используем линейную интерполяцию
-                _currentVelocity += Damper.Damp(
-                    targetVelocity - _currentVelocity,
-                    _damping,
-                    Time.deltaTime);
-            }
-        }
-
-        void ApplyDeceleration()
-        {
-            _currentVelocity = Vector3.Lerp(
-                _currentVelocity,
-                Vector3.zero,
-                Damper.Damp(1, _damping * 0.5f, Time.deltaTime));
-        }
-
-        void RotateFree(Vector3 direction, float rotationSpeed)
-        {
-            // Не поворачиваемся, если движемся назад в режиме Player
-            var forward = transform.forward;
-            if (_inputForward == ForwardMode.Player && Vector3.Dot(forward, direction) < 0)
-                direction = -direction;
-
-            var targetRotation = Quaternion.LookRotation(direction, UpDirection);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                Damper.Damp(1, rotationSpeed, Time.deltaTime));
-        }
-
-        void RotateStrafe(Vector3 direction, float rotationSpeed)
-        {
-            // В режиме стрейфа персонаж всегда смотрит вперед относительно камеры
-            var cameraForward = ActiveCamera.transform.forward;
-            cameraForward.y = 0;
-            cameraForward.Normalize();
-
-            // Добавляем небольшой поворот в сторону движения
-            var angle = Vector3.SignedAngle(cameraForward, direction, Vector3.up);
-            angle = Mathf.Clamp(angle * _strafeRotationMultiplier, -45f, 45f);
-
-            var targetRotation = Quaternion.LookRotation(cameraForward, UpDirection) *
-                                 Quaternion.Euler(0, angle, 0);
-
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                Damper.Damp(1, rotationSpeed * 2f, Time.deltaTime));
-        }
-
+        // Get the reference frame for the input.  The idea is to map camera fwd/right
+        // to the player's XZ plane.  There is some complexity here to avoid
+        // gimbal lock when the player is tilted 180 degrees relative to the input frame.
         Quaternion GetInputFrame(bool inputDirectionChanged)
         {
+            // Get the raw input frame, depending of forward mode setting
             var frame = Quaternion.identity;
-
-            switch (_inputForward)
+            switch (InputForward)
             {
-                case ForwardMode.Camera:
-                    frame = ActiveCamera.transform.rotation;
-                    break;
-                case ForwardMode.Player:
-                    return transform.rotation;
-                case ForwardMode.World:
-                    break;
+                case ForwardModes.Camera: frame = Camera.transform.rotation; break;
+                case ForwardModes.Player: return transform.rotation;
+                case ForwardModes.World: break;
             }
 
-            // Простая проекция на плоскость игрока для большинства случаев
+            // Map the raw input frame to something that makes sense as a direction for the player
             var playerUp = transform.up;
-            var frameUp = frame * Vector3.up;
+            var up = frame * Vector3.up;
 
-            // Проверяем, не перевернут ли игрок относительно системы ввода
+            // Is the player in the top or bottom hemisphere?  This is needed to avoid gimbal lock,
+            // but only when the player is upside-down relative to the input frame.
             const float BlendTime = 2f;
-            _timeInHemisphere += Time.deltaTime;
-            bool inTopHemisphere = Vector3.Dot(frameUp, playerUp) >= 0;
-
-            if (inTopHemisphere != _inTopHemisphere)
+            m_TimeInHemisphere += Time.deltaTime;
+            bool inTopHemisphere = Vector3.Dot(up, playerUp) >= 0;
+            if (inTopHemisphere != m_InTopHemisphere)
             {
-                _inTopHemisphere = inTopHemisphere;
-                _timeInHemisphere = Mathf.Max(0, BlendTime - _timeInHemisphere);
+                m_InTopHemisphere = inTopHemisphere;
+                m_TimeInHemisphere = Mathf.Max(0, BlendTime - m_TimeInHemisphere);
             }
 
-            // Простой случай - игрок не наклонен
-            var axis = Vector3.Cross(frameUp, playerUp);
+            // If the player is untilted relative to the input frmae, then early-out with a simple LookRotation
+            var axis = Vector3.Cross(up, playerUp);
             if (axis.sqrMagnitude < 0.001f && inTopHemisphere)
                 return frame;
 
-            // Наклоняем систему координат под игрока
-            var angle = UnityVectorExtensions.SignedAngle(frameUp, playerUp, axis);
+            // Player is tilted relative to input frame: tilt the input frame to match
+            var angle = UnityVectorExtensions.SignedAngle(up, playerUp, axis);
             var frameA = Quaternion.AngleAxis(angle, axis) * frame;
 
-            // Обработка gimbal lock при переворачивании
+            // If the player is tilted, then we need to get tricky to avoid gimbal-lock
+            // when player is tilted 180 degrees.  There is no perfect solution for this,
+            // we need to cheat it :/
             Quaternion frameB = frameA;
-            if (!inTopHemisphere || _timeInHemisphere < BlendTime)
+            if (!inTopHemisphere || m_TimeInHemisphere < BlendTime)
             {
-                frameB = frame * _upsideDown;
+                // Compute an alternative reference frame for the bottom hemisphere.
+                // The two reference frames are incompatible where they meet, especially
+                // when player up is pointing along the X axis of camera frame.
+                // There is no one reference frame that works for all player directions.
+                frameB = frame * m_Upsidedown;
                 var axisB = Vector3.Cross(frameB * Vector3.up, playerUp);
                 if (axisB.sqrMagnitude > 0.001f)
                     frameB = Quaternion.AngleAxis(180f - angle, axisB) * frameB;
             }
 
+            // Blend timer force-expires when user changes input direction
             if (inputDirectionChanged)
-                _timeInHemisphere = BlendTime;
+                m_TimeInHemisphere = BlendTime;
 
-            if (_timeInHemisphere >= BlendTime)
+            // If we have been long enough in one hemisphere, then we can just use its reference frame
+            if (m_TimeInHemisphere >= BlendTime)
                 return inTopHemisphere ? frameA : frameB;
 
-            return inTopHemisphere
-                ? Quaternion.Slerp(frameB, frameA, _timeInHemisphere / BlendTime)
-                : Quaternion.Slerp(frameA, frameB, _timeInHemisphere / BlendTime);
+            // Because frameA and frameB do not join seamlessly when player Up is along X axis,
+            // we blend them over a time in order to avoid degenerate spinning.
+            // This will produce weird movements occasionally, but it's the lesser of the evils.
+            if (inTopHemisphere)
+                return Quaternion.Slerp(frameB, frameA, m_TimeInHemisphere / BlendTime);
+            return Quaternion.Slerp(frameA, frameB, m_TimeInHemisphere / BlendTime);
         }
 
-        #endregion
-
-        #region Debug
-
-#if UNITY_EDITOR
-        void OnDrawGizmos()
+        bool ProcessJump()
         {
-            if (!Application.isPlaying) return;
+            bool justLanded = false;
+            var now = Time.time;
+            bool grounded = IsGrounded();
 
-            // Направление движения
-            if (IsMoving)
+            m_CurrentVelocityY -= Gravity * Time.deltaTime;
+
+            if (!m_IsJumping)
             {
-                Gizmos.color = Color.green;
-                Gizmos.DrawRay(transform.position, _currentVelocity.normalized * 2f);
+                // Process jump command
+                if (grounded && Jump.Value > 0.01f)
+                {
+                    m_IsJumping = true;
+                    m_CurrentVelocityY = m_IsSprinting ? SprintJumpSpeed : JumpSpeed;
+                }
+
+                // If we are falling, assume the jump pose
+                if (!grounded && now - m_TimeLastGrounded > kDelayBeforeInferringJump)
+                    m_IsJumping = true;
+
+                if (m_IsJumping)
+                {
+                    StartJump?.Invoke();
+                    grounded = false;
+                }
             }
 
-            // Направление взгляда
-            Gizmos.color = Color.blue;
-            Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * 1.5f);
+            if (grounded)
+            {
+                m_TimeLastGrounded = Time.time;
+                m_CurrentVelocityY = 0;
+
+                // If we were jumping, complete the jump
+                if (m_IsJumping)
+                {
+                    EndJump?.Invoke();
+                    m_IsJumping = false;
+                    justLanded = true;
+                    Landed.Invoke();
+                }
+            }
+
+            return justLanded;
         }
-#endif
 
-        #endregion
-    }
-
-    // Вспомогательный класс для демпфирования
-    public static class Damper
-    {
-        public static float Damp(float current, float damping, float deltaTime)
+        void ApplyMotion()
         {
-            return 1f - Mathf.Exp(-damping * deltaTime);
+            if (m_Controller != null)
+                m_Controller.Move((m_CurrentVelocityY * UpDirection + m_CurrentVelocityXZ) * Time.deltaTime);
+            else
+            {
+                var pos = transform.position + m_CurrentVelocityXZ * Time.deltaTime;
+
+                // Don't fall below ground
+                var up = UpDirection;
+                var altitude = GetDistanceFromGround(pos, up, 10);
+                if (altitude < 0 && m_CurrentVelocityY <= 0)
+                {
+                    pos -= altitude * up;
+                    m_CurrentVelocityY = 0;
+                }
+                else if (m_CurrentVelocityY < 0)
+                {
+                    var dy = -m_CurrentVelocityY * Time.deltaTime;
+                    if (dy > altitude)
+                    {
+                        pos -= altitude * up;
+                        m_CurrentVelocityY = 0;
+                    }
+                }
+
+                transform.position = pos + m_CurrentVelocityY * up * Time.deltaTime;
+            }
         }
 
-        public static Vector3 Damp(Vector3 current, float damping, float deltaTime)
+        float GetDistanceFromGround(Vector3 pos, Vector3 up, float max)
         {
-            return current * (1f - Mathf.Exp(-damping * deltaTime));
+            float kExtraHeight = m_Controller == null ? 2 : 0; // start a little above the player in case it's moving down fast
+            if (UnityEngine.Physics.Raycast(pos + up * kExtraHeight, -up, out var hit,
+                    max + kExtraHeight, GroundLayers, QueryTriggerInteraction.Ignore))
+                return hit.distance - kExtraHeight;
+            return max + 1;
         }
     }
 }

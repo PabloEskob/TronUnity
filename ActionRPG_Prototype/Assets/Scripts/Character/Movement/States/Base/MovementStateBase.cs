@@ -21,7 +21,7 @@ namespace Character.Movement.States.Base
         }
 
         /* helpers */
-        protected bool   IsGrounded => _controller.Physics.IsGrounded;
+        protected bool   IsGrounded => _controller.IsGrounded;
         protected Vector3 InputDir  => _controller.GetMovementDirection();
 
         /* IMovementState */
