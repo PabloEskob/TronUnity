@@ -1,11 +1,12 @@
-﻿using Character.Movement;
+﻿using Config.Camera;
 using Config.Movement;
+using Core.Camera;
 using Core.Events;
 using Core.Input;
 using Core.Input.Interfaces;
 using Core.Interfaces;
 using Core.Spawn;
-using Effect;
+using Unity.Cinemachine;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -17,28 +18,36 @@ namespace DI
         [SerializeField] private GameConfiguration _gameConfig;
         [SerializeField] private MovementConfig _movementConfig;
         [SerializeField] private Transform _playerSpawnPoint;
+        [SerializeField] private CameraConfig _cameraConfig;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            // Конфиги
+            // ─── Конфиги ───────────────────────────────────────────
             builder.RegisterInstance(_gameConfig);
             builder.RegisterInstance(_movementConfig);
+            builder.RegisterInstance(_playerSpawnPoint);
+            builder.RegisterInstance(_cameraConfig); // CameraConfig.asset
+
+            // ─── Инфраструктура ───────────────────────────────────
             builder.Register<IEventBus, EventBus>(Lifetime.Singleton);
 
-            // Сервисы
+            // ─── InputManager (уже есть в сцене) ───────────────────
+            builder.RegisterComponentInHierarchy<InputManager>()
+                .As<IMovementInput, ICameraInput, ICombatInput>();
+
+            // ─── Камера и её компоненты ────────────────────────────
+            builder.RegisterComponentInHierarchy<CinemachineCamera>();
+            builder.RegisterComponentInHierarchy<GenshinCameraController>();
+
+            // ─── Геймплей сервисы ──────────────────────────────────
             builder.Register<IGameSettings, GameSettingsService>(Lifetime.Singleton);
-            builder.RegisterComponentInHierarchy<InputManager>().As<IMovementInput>();
-            
+            builder.Register<IPlayerSpawner, PlayerSpawner>(Lifetime.Singleton);
 
-            // PlayerSpawner с явным указанием параметров
-            builder.Register<IPlayerSpawner>(container => new PlayerSpawner(
-                container.Resolve<GameConfiguration>(),
-                _playerSpawnPoint, // Напрямую передаем Transform
-                container
-            ), Lifetime.Singleton);
-
+            // ─── Entry-points ───────────────────────────────────────
             builder.RegisterEntryPoint<GameSettingsApplier>();
+            builder.RegisterEntryPoint<CinemachinePlayerBinder>(); // прилипание Follow/LookAt
             builder.RegisterEntryPoint<GameInitializer>();
+           
         }
     }
 }

@@ -13,37 +13,12 @@ MonoBehaviour:
   m_Name: MovementConfig
   m_EditorClassIdentifier: 
   walkSpeed: 3
-  walkRotationSpeed: 10
-  walkAccelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   runSpeed: 6
+  walkRotationSpeed: 10
   runRotationSpeed: 15
-  runStaminaDrain: 10
+  jumpForce: 8
   dodgeSpeed: 10
   dodgeDuration: 0.5
-  dodgeCooldown: 1
   dodgeSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -68,14 +43,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpForce: 8
-  jumpCooldown: 0.1
-  maxAirJumps: 1
-  gravity: -19.62
-  groundCheckDistance: 0.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  maxFallSpeed: 20
-  coyoteTime: 0.1
-  jumpBufferTime: 0.1

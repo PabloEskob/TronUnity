@@ -30,4 +30,44 @@ namespace Core.Events.Messages
 
         public PlayerFootstep(Vector3 position) => Position = position;
     }
+
+    public readonly struct PlayerSpawned
+    {
+        public readonly GameObject Player;
+        public PlayerSpawned(GameObject player) => Player = player;
+    }
+
+    public struct CombatStarted
+    {
+    }
+
+    public struct CombatEnded
+    {
+    }
+
+    public struct AimingStarted
+    {
+    }
+
+    public struct AimingEnded
+    {
+    }
+
+    public struct DialogueStarted
+    {
+        public Transform speaker;
+    }
+
+    public struct DialogueEnded
+    {
+    }
+
+    public struct CutsceneStarted
+    {
+        public string cutsceneId;
+    }
+
+    public struct CutsceneEnded
+    {
+    }
 }

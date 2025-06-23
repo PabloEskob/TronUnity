@@ -127,17 +127,22 @@ namespace Character.Movement
             _bus.Publish(new PlayerMoved(normalizedDirection));
         }
 
-        public void Rotate(Vector3 direction, float rotationSpeed)
+        public void Rotate(Vector3 dir, float rotSpeed)
         {
-            if (direction == Vector3.zero || direction.sqrMagnitude < Constants.DeadZone)
-                return;
+            if (dir.sqrMagnitude < Constants.DeadZone) return;
 
-            var targetRotation = Quaternion.LookRotation(direction);
+            float angle = Vector3.Angle(transform.forward, dir);
+
+            // 1. бэк-педал: не крутим вовсе
+            if (angle > 135f) return;
+
+            // 2. стрэйф-дуга: замедляем поворот
+            if (angle > 90f)
+                rotSpeed *= 0.35f; // тонкая подстройка «ощущения»
+
+            var target = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+                transform.rotation, target, rotSpeed * Time.deltaTime);
         }
 
         public void Stop()
