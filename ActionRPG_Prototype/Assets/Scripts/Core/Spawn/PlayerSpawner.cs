@@ -17,7 +17,7 @@ namespace Core.Spawn
             Transform spawnPoint, // Без атрибута
             IObjectResolver container)
         {
-            _prefab = cfg.PlayerPrefab;
+            _prefab = cfg.Player.Prefab;
             _spawnPoint = spawnPoint;
             _container = container;
         }

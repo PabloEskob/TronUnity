@@ -1,6 +1,8 @@
 ﻿using Character.Animation;
 using Core.Events;
+using Core.Events.Messages;
 using UnityEngine;
+using VContainer;
 
 namespace Effect
 {
@@ -12,6 +14,10 @@ namespace Effect
         [SerializeField] private float _rayDistance = 1.4f;
 
         private Transform _tf;
+        private IEventBus _bus;
+
+        [Inject]
+        public void Construct(IEventBus bus) => _bus = bus;
 
         private void Awake()
         {
@@ -20,7 +26,7 @@ namespace Effect
             if (TryGetComponent(out AnimationEventHandler ev))
                 ev.OnFootstep();
         }
-
+        
         private void OnAnimEvent(string evt)
         {
             if (evt == "FootstepL" || evt == "FootstepR")
@@ -64,7 +70,7 @@ namespace Effect
             }
 
             // 4. Optional global event (for sound occlusion / analytics)
-            GameEvents.InvokePlayerMoved(Vector3.zero); // placeholder
+            _bus?.Publish(new PlayerFootstep(hit.point));
         }
 
         // ───── helpers ─────

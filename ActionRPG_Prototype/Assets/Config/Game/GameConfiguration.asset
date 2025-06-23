@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d40b12f1644fd091484eca2863e692, type: 3}
   m_Name: GameConfiguration
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 1149409458651675117, guid: 971f36584d7d32048a7454bd3f44a008, type: 3}
-  PlayerSpawnHeight: 1
-  CameraDistance: 10
-  CameraHeight: 2
+  Player:
+    Prefab: {fileID: 1149409458651675117, guid: 971f36584d7d32048a7454bd3f44a008, type: 3}
+    SpawnHeight: 0
+  Camera:
+    Distance: 0
+    Height: 0

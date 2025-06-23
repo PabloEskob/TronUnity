@@ -1,4 +1,5 @@
-﻿using Movement.Interface;
+﻿using Core.Events;
+using Movement.Interface;
 using UnityEngine;
 
 namespace Character.Movement.States.Base
@@ -8,12 +9,14 @@ namespace Character.Movement.States.Base
         protected readonly MovementStateMachine _machine;
         protected readonly MovementController   _controller;
         protected readonly Transform            _tf;
+        protected readonly IEventBus            _bus;
 
         protected MovementStateBase(MovementStateMachine m)
         {
             _machine    = m;
             _controller = m.Controller;
             _tf         = m.transform;
+            _bus     = m.Bus;
         }
 
         protected bool   IsGrounded => _controller.Physics.IsGrounded;

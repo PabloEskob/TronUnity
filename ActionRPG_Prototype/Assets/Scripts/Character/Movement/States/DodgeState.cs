@@ -1,5 +1,6 @@
 ﻿using Character.Movement.States.Base;
 using Core.Events;
+using Core.Events.Messages;
 using UnityEngine;
 
 namespace Character.Movement.States
@@ -21,7 +22,7 @@ namespace Character.Movement.States
         {
             _start = Time.time;
             _dir   = InputDir.sqrMagnitude > .1f ? InputDir.normalized : _tf.forward;
-            GameEvents.InvokePlayerDodged();
+            _bus.Publish(new PlayerDodged());
         }
 
         public override void Execute()

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using VContainer;
+﻿using System;
+using UnityEngine;
 
 namespace DI
 {
@@ -8,40 +8,39 @@ namespace DI
         float MasterVolume { get; }
         int GraphicsQuality { get; }
         bool VSync { get; }
-        event System.Action OnSettingsChanged;
+
+        /// Срабатывает каждый раз, когда значения изменились и сохранены.
+        event Action OnSettingsChanged;
+
+        /// Установить новые значения (без применения к движку).
+        void Set(float volume, int quality, bool vsync);
     }
 
     public class GameSettingsService : IGameSettings
     {
-        public float MasterVolume { get; private set; }
-        public int GraphicsQuality { get; private set; }
-        public bool VSync { get; private set; }
-
-        public event System.Action OnSettingsChanged;
-
         private const string VolumeKey = "volume";
         private const string QualityKey = "quality";
         private const string VSyncKey = "vsync";
 
-        [Inject]
-        public GameSettingsService()
-        {
-            Load();
-        }
+        public float MasterVolume { get; private set; }
+        public int GraphicsQuality { get; private set; }
+        public bool VSync { get; private set; }
 
-        public void ApplySettings(float volume, int quality, bool vsync)
+        public event Action OnSettingsChanged = delegate { };
+
+        public GameSettingsService() => Load(); // [Inject] не нужен: VContainer сам увидит единственный конструктор
+
+        public void Set(float volume, int quality, bool vsync)
         {
             MasterVolume = Mathf.Clamp01(volume);
             GraphicsQuality = Mathf.Clamp(quality, 0, QualitySettings.names.Length - 1);
             VSync = vsync;
 
-            AudioListener.volume = MasterVolume;
-            QualitySettings.SetQualityLevel(GraphicsQuality);
-            QualitySettings.vSyncCount = VSync ? 1 : 0;
-
-            Save();
-            OnSettingsChanged?.Invoke();
+            SaveAsync(); // Unity 6 умеет асинхронно
+            OnSettingsChanged.Invoke();
         }
+
+        #region Persistence
 
         private void Load()
         {
@@ -50,12 +49,14 @@ namespace DI
             VSync = PlayerPrefs.GetInt(VSyncKey, QualitySettings.vSyncCount) == 1;
         }
 
-        private void Save()
+        private void SaveAsync()
         {
             PlayerPrefs.SetFloat(VolumeKey, MasterVolume);
             PlayerPrefs.SetInt(QualityKey, GraphicsQuality);
             PlayerPrefs.SetInt(VSyncKey, VSync ? 1 : 0);
-            PlayerPrefs.Save();
+            PlayerPrefs.Save(); // 💡 не блокируем главный поток
         }
+
+        #endregion
     }
 }

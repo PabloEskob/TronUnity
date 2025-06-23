@@ -1,8 +1,11 @@
-﻿using Config.Movement;
+﻿using Character.Movement;
+using Config.Movement;
+using Core.Events;
 using Core.Input;
 using Core.Input.Interfaces;
 using Core.Interfaces;
 using Core.Spawn;
+using Effect;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -20,10 +23,12 @@ namespace DI
             // Конфиги
             builder.RegisterInstance(_gameConfig);
             builder.RegisterInstance(_movementConfig);
+            builder.Register<IEventBus, EventBus>(Lifetime.Singleton);
 
             // Сервисы
             builder.Register<IGameSettings, GameSettingsService>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<InputManager>().As<IMovementInput>();
+            
 
             // PlayerSpawner с явным указанием параметров
             builder.Register<IPlayerSpawner>(container => new PlayerSpawner(
@@ -32,7 +37,7 @@ namespace DI
                 container
             ), Lifetime.Singleton);
 
-            builder.Register<IGameSettingsApplier, GameSettingsApplier>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<GameSettingsApplier>();
             builder.RegisterEntryPoint<GameInitializer>();
         }
     }

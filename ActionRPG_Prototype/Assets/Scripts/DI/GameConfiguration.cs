@@ -1,16 +1,34 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DI
 {
-    [CreateAssetMenu(fileName = nameof(GameConfiguration), menuName = "Config/GameConfiguration")]
+    [CreateAssetMenu(menuName = "Config/GameConfiguration")]
     public class GameConfiguration : ScriptableObject
     {
-        [Header("Player")]
-        public GameObject PlayerPrefab;
-        [Min(0f)] public float PlayerSpawnHeight = 1f;
+        [Serializable]
+        public struct PlayerCfg
+        {
+            public GameObject Prefab;
+            [Min(0)] public float SpawnHeight;
+        }
 
-        [Header("Camera")]
-        [Min(0f)] public float CameraDistance = 10f;
-        [Min(0f)] public float CameraHeight   = 2f;
+        [Serializable]
+        public struct CameraCfg
+        {
+            [Min(0)] public float Distance;
+            [Min(0)] public float Height;
+        }
+
+        [Header("Player")] public PlayerCfg Player;
+        [Header("Camera")] public CameraCfg Camera;
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (Player.Prefab == null)
+                Debug.LogError("[GameConfiguration] Player Prefab is null", this);
+        }
+#endif
     }
 }

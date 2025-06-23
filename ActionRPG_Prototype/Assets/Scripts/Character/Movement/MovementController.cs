@@ -4,6 +4,7 @@ using Config.Movement;
 using Core.Events;
 using VContainer;
 using System;
+using Core.Events.Messages;
 
 namespace Character.Movement
 {
@@ -40,6 +41,7 @@ namespace Character.Movement
         #region Private Fields
 
         private IMovementInput _input;
+        private IEventBus _bus;
         private Camera _mainCamera;
         private Transform _cameraTransform;
         private Vector3 _lastMovementDirection;
@@ -66,9 +68,10 @@ namespace Character.Movement
         #region Dependency Injection
 
         [Inject]
-        public void Construct(IMovementInput input)
+        public void Construct(IMovementInput input, IEventBus bus)
         {
             _input = input ?? throw new ArgumentNullException(nameof(input));
+            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
         #endregion
@@ -121,7 +124,7 @@ namespace Character.Movement
             _characterController.Move(movement);
 
             // Вызываем событие
-            GameEvents.InvokePlayerMoved(normalizedDirection);
+            _bus.Publish(new PlayerMoved(normalizedDirection));
         }
 
         public void Rotate(Vector3 direction, float rotationSpeed)
@@ -242,7 +245,7 @@ namespace Character.Movement
         {
             _lastMovementDirection = Vector3.zero;
             _currentSpeed = 0f;
-            GameEvents.InvokePlayerStopped();
+            _bus.Publish(new PlayerStopped());
         }
 
         private Vector3 CalculateCameraRelativeDirection(Vector2 input)
