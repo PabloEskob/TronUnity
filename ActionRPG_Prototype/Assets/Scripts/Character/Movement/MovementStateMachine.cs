@@ -51,7 +51,9 @@ namespace Character.Movement
 
             _current?.Exit();
             _current = next;
+            Debug.Log($"[FSM] -> {_current.GetType().Name}");   // ← сюда
             _current.Enter();
+            
         }
 
         public bool IsInState<T>() where T : IMovementState => _current?.GetType() == typeof(T);

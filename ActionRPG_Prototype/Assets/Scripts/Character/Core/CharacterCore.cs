@@ -62,20 +62,6 @@ namespace Character.Core
             Health.InitializeFromConfig(Config);
 
             IsPlayer = CompareTag("Player");
-            if (IsPlayer) SetupPlayerCamera();
-        }
-
-        /// <summary>
-        /// Подключает Cinemachine‑камеру либо, для старых сцен, CameraController.
-        /// </summary>
-        private void SetupPlayerCamera()
-        {
-            // 1) Новый вариант – Cinemachine rig
-            var cmRig = FindFirstObjectByType<CameraModeSwitcher>();
-            if (cmRig != null)
-            {
-                cmRig.SetMode(CameraMode.Free);
-            }
         }
     }
 }

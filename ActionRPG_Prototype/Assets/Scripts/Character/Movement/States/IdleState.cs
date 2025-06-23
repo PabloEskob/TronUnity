@@ -1,5 +1,5 @@
 ﻿using Character.Movement.States.Base;
-using Core.Events;
+using UnityEngine;
 
 namespace Character.Movement.States
 {
@@ -15,6 +15,7 @@ namespace Character.Movement.States
         {
             if (!IsGrounded)
             {
+                Debug.Log(IsGrounded);
                 _machine.ChangeState<FallState>();
                 return;
             }
@@ -32,7 +33,9 @@ namespace Character.Movement.States
             }
 
             if (InputDir.sqrMagnitude > .1f)
-                _machine.ChangeState(_controller.Input.IsRunning ? typeof(RunState) : typeof(WalkState));
+                _machine.ChangeState(_controller.Input.IsRunning
+                    ? typeof(RunState)
+                    : typeof(WalkState));
         }
     }
 }

@@ -36,10 +36,6 @@ namespace Core.Camera
             Debug.Log("[Binder] Attach " + target.name);
             _cam.Follow = target;
             _cam.LookAt = target;
-            
-            var controller = _cam.GetComponent<GenshinCameraController>();
-            Debug.Log("[Binder] controller = " + controller);   // ①
-            controller.SetPlayer(target); 
         }
 
         public void Dispose() => _cd.Dispose();

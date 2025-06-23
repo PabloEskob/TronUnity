@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709f065d37532b745bb95ffcf494fa67, type: 3}
   m_Name: MovementConfig
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 6
-  walkRotationSpeed: 10
-  runRotationSpeed: 15
+  walkSpeed: 10
+  runSpeed: 12
+  sprintSpeed: 8.5
+  crouchSpeed: 1.5
   jumpForce: 8
+  sprintJumpForce: 12
+  airControl: 0.3
   dodgeSpeed: 10
   dodgeDuration: 0.5
   dodgeSpeedCurve:
@@ -43,3 +45,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  walkRotationSpeed: 20
+  runRotationSpeed: 15
+  strafeRotationSpeed: 360
+  gravityMultiplier: 1.5
+  groundCheckDistance: 0.4

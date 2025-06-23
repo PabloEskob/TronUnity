@@ -1,4 +1,5 @@
-﻿using Character.Movement.States.Base;
+﻿// WalkState.cs
+using Character.Movement.States.Base;
 using UnityEngine;
 
 namespace Character.Movement.States
@@ -12,18 +13,50 @@ namespace Character.Movement.States
 
         public override void Execute()
         {
-            if (!IsGrounded) { _machine.ChangeState<FallState>(); return; }
+            if (!IsGrounded) 
+            { 
+                _machine.ChangeState<FallState>(); 
+                return; 
+            }
 
-            if (InputDir.sqrMagnitude < 0.1f) { _machine.ChangeState<IdleState>(); return; }
-            if (_controller.Input.IsRunning && HasStamina()) { _machine.ChangeState<RunState>(); return; }
-            if (_controller.Input.IsDodging && CanDodge())  { _machine.ChangeState<DodgeState>(); return; }
-            if (_controller.Input.IsJumping)                { _machine.ChangeState<JumpState>(); return; }
+            var inputDir = _controller.GetMovementDirection();
+            
+            if (inputDir.sqrMagnitude < 0.1f) 
+            { 
+                _machine.ChangeState<IdleState>(); 
+                return; 
+            }
+            
+            // Обновляем режим спринта
+            _controller.SetSprinting(_controller.Input.IsRunning);
+            
+            if (_controller.Input.IsRunning && HasStamina()) 
+            { 
+                _machine.ChangeState<RunState>(); 
+                return; 
+            }
+            
+            if (_controller.Input.IsDodging && CanDodge()) 
+            { 
+                _machine.ChangeState<DodgeState>(); 
+                return; 
+            }
+            
+            if (_controller.Input.IsJumping) 
+            { 
+                _machine.ChangeState<JumpState>(); 
+                return; 
+            }
+
+            // Обновляем режим стрейфа (например, при прицеливании)
+           // _controller.SetStrafeMode(_controller.Input.IsBlocking);
         }
 
         public override void FixedExecute()
         {
-            _controller.Move(InputDir, _controller.Config.walkSpeed);
-            _controller.Rotate(InputDir, _controller.Config.walkRotationSpeed);
+            var inputDir = _controller.GetMovementDirection();
+            _controller.Move(inputDir, _controller.Config.walkSpeed);
+            _controller.Rotate(inputDir, _controller.Config.walkRotationSpeed);
         }
 
         public override void Exit()
@@ -32,7 +65,10 @@ namespace Character.Movement.States
                 _lastDodge = Time.time;
         }
 
-        private bool HasStamina() => _controller.GetComponent<Character.Stats.CharacterStats>().CurrentStamina > 0;
-        private bool CanDodge()   => Time.time - _lastDodge > DodgeCooldown;
+        private bool HasStamina() => 
+            _controller.GetComponent<Stats.CharacterStats>()?.CurrentStamina > 0;
+            
+        private bool CanDodge() => 
+            Time.time - _lastDodge > DodgeCooldown;
     }
 }

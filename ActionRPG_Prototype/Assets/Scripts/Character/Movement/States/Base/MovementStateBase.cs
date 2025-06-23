@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Character.Movement.States.Base
 {
+    /// <summary>Базовый класс для всех State-классов FSM движения.</summary>
     public abstract class MovementStateBase : IMovementState
     {
         protected readonly MovementStateMachine _machine;
@@ -16,17 +17,20 @@ namespace Character.Movement.States.Base
             _machine    = m;
             _controller = m.Controller;
             _tf         = m.transform;
-            _bus     = m.Bus;
+            _bus        = m.Bus;
         }
 
+        /* helpers */
         protected bool   IsGrounded => _controller.Physics.IsGrounded;
-        protected Vector3 InputDir   => _controller.GetMovementDirection();
+        protected Vector3 InputDir  => _controller.GetMovementDirection();
 
-        public virtual void Enter() {}
-        public abstract void Execute();
-        public virtual void FixedExecute() {}
-        public virtual void Exit() {}
+        /* IMovementState */
+        public virtual void Enter()          { }
+        public abstract void Execute();      // Update
+        public virtual void FixedExecute()   { }
+        public virtual void Exit()           { }
 
-        public virtual bool CanTransitionTo<T>() where T : IMovementState => typeof(T) != GetType();
+        public virtual bool CanTransitionTo<T>() where T : IMovementState =>
+            typeof(T) != GetType();
     }
 }

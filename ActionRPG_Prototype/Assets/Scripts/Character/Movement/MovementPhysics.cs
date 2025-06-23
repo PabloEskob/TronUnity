@@ -1,44 +1,108 @@
-﻿using UnityEngine;
-using Config.Movement;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Character.Movement
 {
+    /// <summary>Обёртка над CharacterController с надёжным isGrounded.</summary>
     [RequireComponent(typeof(CharacterController))]
     public sealed class MovementPhysics : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField] private float _gravity      = -25f;
-        [SerializeField] private float _terminalVel  = -60f;
-        [SerializeField] private LayerMask _groundLayers = ~0;
-        [SerializeField] private Vector3 _groundCheckOffset = new(0, 0.1f, 0);
-        [SerializeField] private float   _groundCheckRadius = 0.28f;
+        [Header("Ground Check (SphereCast)")] [SerializeField]
+        LayerMask groundMaskSphereCast = ~0; // Переименовал для ясности
 
-        private CharacterController _cc;
-        public bool   IsGrounded { get; private set; }
-        public Vector3 Velocity   { get; private set; }
+        [Tooltip("Допуск, когда всё ещё считаем, что стоим (сек)")] [Range(0, 0.5f)]
+        public float coyoteTime = 0.1f;
 
-        private void Awake() => _cc = GetComponent<CharacterController>();
-        private void Update() => ApplyGravity();
+        [Tooltip("Смещение SphereCast вверх от низа капсулы")]
+        public float sphereCastRayOffset = 0.05f; // Переименовал для ясности
 
-        private void ApplyGravity()
+        [Header("Ground Check (Raycast - из SimplePlayerController)")] [Tooltip("Слои для Raycast проверки земли")]
+        public LayerMask groundMaskRaycast = 1; // Как в SimplePlayerController
+
+        [Tooltip("Максимальная дистанция для Raycast проверки земли")]
+        public float raycastMaxDistance = 10f;
+
+        public enum UpModes
         {
-            GroundCheck();
-            if (IsGrounded && Velocity.y < 0) Velocity = new(Velocity.x, -2f, Velocity.z);
-            else                             Velocity += Vector3.up * _gravity * Time.deltaTime;
-            if (Velocity.y < _terminalVel)   Velocity = new(Velocity.x, _terminalVel, Velocity.z);
-            _cc.Move(Velocity * Time.deltaTime);
+            Player,
+            World
+        };
+
+        [Tooltip("Направление 'вверх' для Raycast проверки:\n"
+                 + "Player: Локальная ось Y игрока.\n"
+                 + "World: Глобальная ось Y.")]
+        public UpModes RaycastUpMode = UpModes.World;
+
+
+        [Header("Gravity")] public float gravity = -9.81f;
+
+        /* ─ Runtime ─ */
+        public bool IsGrounded { get; private set; } // Это будет обновляться через SphereCast
+        public Vector3 Velocity { get; private set; }
+
+        CharacterController cc;
+        float lastGroundedTime;
+
+        // Твой метод, который ты хотел, теперь будет использовать Raycast-логику
+        public bool IsGroundedByRaycast() => GetDistanceFromGround_Raycast(transform.position, CurrentRaycastUpDirection, raycastMaxDistance) < 0.01f;
+
+        // Вспомогательное свойство для определения направления "вверх" для Raycast
+        Vector3 CurrentRaycastUpDirection => RaycastUpMode == UpModes.World ? Vector3.up : transform.up;
+
+        void Awake() => cc = GetComponent<CharacterController>();
+
+        void FixedUpdate()
+        {
+            /* 1. Обновляем вертикальную скорость */
+            Velocity += Vector3.up * gravity * Time.deltaTime; // Гравитация всегда по мировому Y
+
+            /* 2. Двигаемся CC */
+            cc.Move(Velocity * Time.deltaTime);
+
+            /* 3. Кастуем SphereCast от центра вниз (основная проверка на землю) */
+            // Используем мировое Vector3.up/down для SphereCast, как было изначально
+            Vector3 sphereOrigin = transform.position + Vector3.up * (sphereCastRayOffset + 0.01f);
+            float sphereRayLen = sphereCastRayOffset + 0.1f; // ~5 см
+            bool hitSphere = Physics.SphereCast(sphereOrigin, cc.radius * 0.95f,
+                Vector3.down, out var hitInfo,
+                sphereRayLen, groundMaskSphereCast,
+                QueryTriggerInteraction.Ignore);
+
+            if (hitSphere && Vector3.Angle(hitInfo.normal, Vector3.up) < 60f) // Проверка угла по мировому Vector3.up
+            {
+                lastGroundedTime = Time.time;
+                // прилипание к поверхности
+                float penetration = sphereCastRayOffset - hitInfo.distance;
+                if (penetration > 0f)
+                    cc.Move(Vector3.down * penetration); // Прилипание по мировому Vector3.down
+                Velocity = new Vector3(Velocity.x, 0, Velocity.z);
+            }
+
+            IsGrounded = Time.time - lastGroundedTime <= coyoteTime; // IsGrounded управляется SphereCast'ом
         }
 
-        public void Jump(float force)
+        public void Jump(float impulse)
         {
-            if (!IsGrounded) return;
-            Velocity = new(Velocity.x, force, Velocity.z);
+            // одиночный импульс вверх
+            Velocity = new Vector3(Velocity.x, impulse, Velocity.z);
+            IsGrounded = false; // Сразу считаем, что не на земле
+            lastGroundedTime = Time.time - coyoteTime - 0.01f; // Сбрасываем таймер, чтобы coyote time не сработал сразу
         }
 
-        private void GroundCheck()
+        public float GetDistanceFromGround_Raycast(Vector3 pos, Vector3 up, float maxDistance)
         {
-            Vector3 pos = transform.position + _groundCheckOffset;
-            IsGrounded   = Physics.CheckSphere(pos, _groundCheckRadius, _groundLayers, QueryTriggerInteraction.Ignore);
+            float kExtraHeight = cc.skinWidth > 0.001f ? cc.skinWidth : 0.01f; // Небольшой отступ, чтобы луч не начался внутри коллайдера
+
+
+            Vector3 rayStartPoint = pos + up * kExtraHeight;
+
+            if (Physics.Raycast(rayStartPoint, -up, out var hit,
+                    maxDistance + kExtraHeight, groundMaskRaycast, QueryTriggerInteraction.Ignore))
+            {
+                return hit.distance - kExtraHeight;
+            }
+
+            return maxDistance + 1; // Земля не найдена в пределах maxDistance
         }
     }
 }

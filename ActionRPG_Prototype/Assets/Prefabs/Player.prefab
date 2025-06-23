@@ -187,8 +187,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 10f5d7211a7319c4a845c71df1e6aa8e, type: 2}
+  _damping: 0.5
+  _strafeMode: 0
+  _inputForward: 0
+  _upMode: 1
+  _rotationDamping: 1
+  _strafeRotationMultiplier: 0.5
   _characterController: {fileID: 7096631915742930899}
   _physics: {fileID: 483799738877760043}
+  _cameraOverride: {fileID: 0}
 --- !u!114 &483799738877760043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,13 +208,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ada90499e43bf96c128634b87fa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravity: -25
-  _terminalVel: -60
-  _groundLayers:
+  groundMaskSphereCast:
     serializedVersion: 2
     m_Bits: 64
-  _groundCheckOffset: {x: 0, y: 1, z: 0}
-  _groundCheckRadius: 0.28
+  coyoteTime: 0.1
+  sphereCastRayOffset: 0.53
+  groundMaskRaycast:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastMaxDistance: 10
+  RaycastUpMode: 1
+  gravity: -9.81
 --- !u!114 &4897247968281627004
 MonoBehaviour:
   m_ObjectHideFlags: 0

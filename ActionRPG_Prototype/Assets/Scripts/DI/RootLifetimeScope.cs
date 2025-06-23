@@ -1,5 +1,4 @@
-﻿using Config.Camera;
-using Config.Movement;
+﻿using Config.Movement;
 using Core.Camera;
 using Core.Events;
 using Core.Input;
@@ -18,7 +17,6 @@ namespace DI
         [SerializeField] private GameConfiguration _gameConfig;
         [SerializeField] private MovementConfig _movementConfig;
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private CameraConfig _cameraConfig;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -26,7 +24,6 @@ namespace DI
             builder.RegisterInstance(_gameConfig);
             builder.RegisterInstance(_movementConfig);
             builder.RegisterInstance(_playerSpawnPoint);
-            builder.RegisterInstance(_cameraConfig); // CameraConfig.asset
 
             // ─── Инфраструктура ───────────────────────────────────
             builder.Register<IEventBus, EventBus>(Lifetime.Singleton);
@@ -37,7 +34,6 @@ namespace DI
 
             // ─── Камера и её компоненты ────────────────────────────
             builder.RegisterComponentInHierarchy<CinemachineCamera>();
-            builder.RegisterComponentInHierarchy<GenshinCameraController>();
 
             // ─── Геймплей сервисы ──────────────────────────────────
             builder.Register<IGameSettings, GameSettingsService>(Lifetime.Singleton);
