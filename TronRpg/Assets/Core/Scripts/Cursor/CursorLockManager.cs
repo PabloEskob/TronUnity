@@ -23,7 +23,7 @@ namespace Core.Scripts.Cursor
             });
         }
 
-        void OnEnable() => UnlockCursor();
+        void OnEnable() => LockCursor();
         void OnDisable() => UnlockCursor();
 
         void Update()

@@ -1,29 +1,11 @@
 ﻿using System.Collections.Generic;
 using Core.Scripts.Character.Controller;
 using Unity.Cinemachine;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Core.Scripts.Aim
 {
-    /// <summary>
-    /// This is an add-on for SimplePlayerController that controls the player's Aiming Core.
-    ///
-    /// This component expects to be in a child object of a player that has a SimplePlayerController
-    /// behaviour.  It works intimately with that component.
-    //
-    /// The purpose of the aiming core is to decouple the camera rotation from the player rotation.
-    /// Camera rotation is determined by the rotation of the player core GameObject, and this behaviour
-    /// provides input axes for controlling it.  When the player core is used as the target for
-    /// a CinemachineCamera with a ThirdPersonFollow component, the camera will look along the core's
-    /// forward axis, and pivot around the core's origin.
-    ///
-    /// The aiming core is also used to define the origin and direction of player shooting, if player
-    /// has that ability.
-    ///
-    /// To implement player shooting, add a SimplePlayerShoot behaviour to this GameObject.
-    /// </summary>
-    public class SimplePlayerAimController : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner
+    public class SimplePlayerAimController : MonoBehaviour, IInputAxisOwner
     {
         public enum CouplingMode
         {
@@ -96,8 +78,6 @@ namespace Core.Scripts.Aim
             }
         }
 
-        /// <summary>Recenters the player to match my rotation</summary>
-        /// <param name="damping">How long the recentering should take</param>
         public void RecenterPlayer(float damping = 0)
         {
             if (m_ControllerTransform == null)
@@ -173,8 +153,6 @@ namespace Core.Scripts.Aim
         {
             if (PlayerRotation == CouplingMode.Decoupled)
             {
-                // After player has been rotated, we subtract any rotation change
-                // from our own transform, to maintain our world rotation
                 transform.rotation = m_DesiredWorldRotation;
                 var delta = (Quaternion.Inverse(m_ControllerTransform.rotation) * m_DesiredWorldRotation).eulerAngles;
                 VerticalLook.Value = NormalizeAngle(delta.x);
