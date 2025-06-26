@@ -4118,8 +4118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 1877609238}
-  MovementSpeed: 2
-  SprintSpeed: 4
+  MovementSpeed: 4
+  SprintSpeed: 6
   IsSprinting: 0
   Damping: 0.5
   Strafe: 0

@@ -3,7 +3,7 @@ using Core.Scripts.Character;
 using Unity.Cinemachine;
 using UnityEngine;
 
-namespace Core.Scripts.Aim
+namespace Core.Scripts.CameraLogic
 {
     public class SimplePlayerAimController : MonoBehaviour, IInputAxisOwner
     {
@@ -13,7 +13,7 @@ namespace Core.Scripts.Aim
             CoupledWhenMoving,
             Decoupled
         }
-        
+
         public CouplingMode PlayerRotation;
         public float RotationDamping = 0.2f;
         public InputAxis HorizontalLook = new() { Range = new Vector2(-180, 180), Wrap = true, Recentering = InputAxis.RecenteringSettings.Default };
@@ -22,7 +22,7 @@ namespace Core.Scripts.Aim
         private HeroMove _controller;
         private Transform _controllerTransform;
         private Quaternion _desiredWorldRotation;
-        
+
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
             axes.Add(new() { DrivenAxis = () => ref HorizontalLook, Name = "Horizontal Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
@@ -66,20 +66,20 @@ namespace Core.Scripts.Aim
         {
             if (_controllerTransform == null)
                 return;
-            
+
             var rot = transform.localRotation.eulerAngles;
             rot.y = NormalizeAngle(rot.y);
             var delta = rot.y;
             delta = Damper.Damp(delta, damping, Time.deltaTime);
-            
+
             _controllerTransform.rotation = Quaternion.AngleAxis(
                 delta, _controllerTransform.up) * _controllerTransform.rotation;
-            
+
             HorizontalLook.Value -= delta;
             rot.y -= delta;
             transform.localRotation = Quaternion.Euler(rot);
         }
-        
+
         public void SetLookDirection(Vector3 worldspaceDirection)
         {
             if (_controllerTransform == null)
@@ -89,7 +89,7 @@ namespace Core.Scripts.Aim
             HorizontalLook.Value = HorizontalLook.ClampValue(rot.y);
             VerticalLook.Value = VerticalLook.ClampValue(NormalizeAngle(rot.x));
         }
-        
+
         void UpdatePlayerRotation()
         {
             var t = transform;
@@ -120,7 +120,7 @@ namespace Core.Scripts.Aim
             VerticalLook.UpdateRecentering(Time.deltaTime, VerticalLook.TrackValueChange());
             HorizontalLook.UpdateRecentering(Time.deltaTime, HorizontalLook.TrackValueChange());
         }
-        
+
         void PostUpdate(Vector3 vel, float speed)
         {
             if (PlayerRotation == CouplingMode.Decoupled)

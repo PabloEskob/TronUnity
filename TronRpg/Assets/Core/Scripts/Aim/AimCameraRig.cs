@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Scripts.CameraLogic;
 using Unity.Cinemachine;
 using UnityEngine;
 
