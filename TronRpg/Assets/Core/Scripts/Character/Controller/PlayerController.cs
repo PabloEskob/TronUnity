@@ -120,7 +120,7 @@ namespace Core.Scripts.Character.Controller
         public bool IsSprinting => _isSprinting;
         public bool IsJumping => _isJumping;
         public Camera Camera => CameraOverride == null ? Camera.main : CameraOverride;
-        
+
         public bool IsGrounded() => CapsuleGroundCheck();
 
         void Start() => TryGetComponent(out _controller);

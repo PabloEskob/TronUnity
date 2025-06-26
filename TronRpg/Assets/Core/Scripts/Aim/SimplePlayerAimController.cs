@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Scripts.Character.Controller;
+using Core.Scripts.Character;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -13,32 +13,16 @@ namespace Core.Scripts.Aim
             CoupledWhenMoving,
             Decoupled
         }
-
-        [Tooltip("How the player's rotation is coupled to the camera's rotation.  Three modes are available:\n"
-                 + "<b>Coupled</b>: The player rotates with the camera.  Sideways movement will result in strafing.\n"
-                 + "<b>Coupled When Moving</b>: Camera can rotate freely around the player when the player is stationary, "
-                 + "but the player will rotate to face camera forward when it starts moving.\n"
-                 + "<b>Decoupled</b>: The player's rotation is independent of the camera's rotation.")]
+        
         public CouplingMode PlayerRotation;
-
-        [Tooltip("How fast the player rotates to face the camera direction when the player starts moving.  "
-                 + "Only used when Player Rotation is Coupled When Moving.")]
         public float RotationDamping = 0.2f;
-
-        [Tooltip("Horizontal Rotation.  Value is in degrees, with 0 being centered.")]
         public InputAxis HorizontalLook = new() { Range = new Vector2(-180, 180), Wrap = true, Recentering = InputAxis.RecenteringSettings.Default };
-
-        [Tooltip("Vertical Rotation.  Value is in degrees, with 0 being centered.")]
         public InputAxis VerticalLook = new() { Range = new Vector2(-70, 70), Recentering = InputAxis.RecenteringSettings.Default };
 
-        PlayerControllerBase m_Controller;
-        Transform m_ControllerTransform; // cached for efficiency
-        Quaternion m_DesiredWorldRotation;
-
-        /// Report the available input axes to the input axis controller.
-        /// We use the Input Axis Controller because it works with both the Input package
-        /// and the Legacy input system.  This is sample code and we
-        /// want it to work everywhere.
+        private HeroMove _controller;
+        private Transform _controllerTransform;
+        private Quaternion _desiredWorldRotation;
+        
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
             axes.Add(new() { DrivenAxis = () => ref HorizontalLook, Name = "Horizontal Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
@@ -55,91 +39,80 @@ namespace Core.Scripts.Aim
 
         void OnEnable()
         {
-            m_Controller = GetComponentInParent<PlayerControllerBase>();
-            if (m_Controller == null)
+            _controller = GetComponentInParent<HeroMove>();
+            if (_controller == null)
                 Debug.LogError("SimplePlayerController not found on parent object");
             else
             {
-                m_Controller.PreUpdate -= UpdatePlayerRotation;
-                m_Controller.PreUpdate += UpdatePlayerRotation;
-                m_Controller.PostUpdate -= PostUpdate;
-                m_Controller.PostUpdate += PostUpdate;
-                m_ControllerTransform = m_Controller.transform;
+                _controller.PreUpdate -= UpdatePlayerRotation;
+                _controller.PreUpdate += UpdatePlayerRotation;
+                _controller.PostUpdate -= PostUpdate;
+                _controller.PostUpdate += PostUpdate;
+                _controllerTransform = _controller.transform;
             }
         }
 
         void OnDisable()
         {
-            if (m_Controller != null)
+            if (_controller != null)
             {
-                m_Controller.PreUpdate -= UpdatePlayerRotation;
-                m_Controller.PostUpdate -= PostUpdate;
-                m_ControllerTransform = null;
+                _controller.PreUpdate -= UpdatePlayerRotation;
+                _controller.PostUpdate -= PostUpdate;
+                _controllerTransform = null;
             }
         }
 
         public void RecenterPlayer(float damping = 0)
         {
-            if (m_ControllerTransform == null)
+            if (_controllerTransform == null)
                 return;
-
-            // Get my rotation relative to parent
+            
             var rot = transform.localRotation.eulerAngles;
             rot.y = NormalizeAngle(rot.y);
             var delta = rot.y;
             delta = Damper.Damp(delta, damping, Time.deltaTime);
-
-            // Rotate the parent towards me
-            m_ControllerTransform.rotation = Quaternion.AngleAxis(
-                delta, m_ControllerTransform.up) * m_ControllerTransform.rotation;
-
-            // Rotate me in the opposite direction
+            
+            _controllerTransform.rotation = Quaternion.AngleAxis(
+                delta, _controllerTransform.up) * _controllerTransform.rotation;
+            
             HorizontalLook.Value -= delta;
             rot.y -= delta;
             transform.localRotation = Quaternion.Euler(rot);
         }
-
-        /// <summary>
-        /// Set my rotation to look in this direction, without changing player rotation.
-        /// Here we only set the axis values, we let the player controller do the actual rotation.
-        /// </summary>
-        /// <param name="worldspaceDirection">Direction to look in, in worldspace</param>
+        
         public void SetLookDirection(Vector3 worldspaceDirection)
         {
-            if (m_ControllerTransform == null)
+            if (_controllerTransform == null)
                 return;
-            var rot = (Quaternion.Inverse(m_ControllerTransform.rotation)
-                       * Quaternion.LookRotation(worldspaceDirection, m_ControllerTransform.up)).eulerAngles;
+            var rot = (Quaternion.Inverse(_controllerTransform.rotation)
+                       * Quaternion.LookRotation(worldspaceDirection, _controllerTransform.up)).eulerAngles;
             HorizontalLook.Value = HorizontalLook.ClampValue(rot.y);
             VerticalLook.Value = VerticalLook.ClampValue(NormalizeAngle(rot.x));
         }
-
-        // This is called by the player controller before it updates its own rotation.
+        
         void UpdatePlayerRotation()
         {
             var t = transform;
             t.localRotation = Quaternion.Euler(VerticalLook.Value, HorizontalLook.Value, 0);
-            m_DesiredWorldRotation = t.rotation;
+            _desiredWorldRotation = t.rotation;
             switch (PlayerRotation)
             {
                 case CouplingMode.Coupled:
                 {
-                    m_Controller.SetStrafeMode(true);
+                    _controller.SetStrafeMode(true);
                     RecenterPlayer();
                     break;
                 }
                 case CouplingMode.CoupledWhenMoving:
                 {
-                    // If the player is moving, rotate its yaw to match the camera direction,
-                    // otherwise let the camera orbit
-                    m_Controller.SetStrafeMode(true);
-                    if (m_Controller.IsMoving)
+                    _controller.SetStrafeMode(true);
+                    if (_controller.IsMoving)
                         RecenterPlayer(RotationDamping);
                     break;
                 }
                 case CouplingMode.Decoupled:
                 {
-                    m_Controller.SetStrafeMode(false);
+                    _controller.SetStrafeMode(false);
                     break;
                 }
             }
@@ -147,14 +120,13 @@ namespace Core.Scripts.Aim
             VerticalLook.UpdateRecentering(Time.deltaTime, VerticalLook.TrackValueChange());
             HorizontalLook.UpdateRecentering(Time.deltaTime, HorizontalLook.TrackValueChange());
         }
-
-        // Callback for player controller to update our rotation after it has updated its own.
+        
         void PostUpdate(Vector3 vel, float speed)
         {
             if (PlayerRotation == CouplingMode.Decoupled)
             {
-                transform.rotation = m_DesiredWorldRotation;
-                var delta = (Quaternion.Inverse(m_ControllerTransform.rotation) * m_DesiredWorldRotation).eulerAngles;
+                transform.rotation = _desiredWorldRotation;
+                var delta = (Quaternion.Inverse(_controllerTransform.rotation) * _desiredWorldRotation).eulerAngles;
                 VerticalLook.Value = NormalizeAngle(delta.x);
                 HorizontalLook.Value = NormalizeAngle(delta.y);
             }
