@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Scripts.Logic;
 
 namespace Core.Scripts.Infrastructure
 {
@@ -8,12 +9,13 @@ namespace Core.Scripts.Infrastructure
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain),
+                [typeof(GameLoopState)] = new GameLoopState(this)
             };
         }
 
@@ -22,7 +24,7 @@ namespace Core.Scripts.Infrastructure
             var state = ChangeState<TState>();
             state.Enter();
         }
-        
+
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
             var state = ChangeState<TState>();

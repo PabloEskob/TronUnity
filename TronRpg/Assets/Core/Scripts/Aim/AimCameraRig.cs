@@ -16,6 +16,7 @@ namespace Core.Scripts.Aim
 
         bool IsAiming => AimMode.Value > 0.5f;
 
+
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
             axes.Add(new() { DrivenAxis = () => ref AimMode, Name = "Aim" });
@@ -48,7 +49,7 @@ namespace Core.Scripts.Aim
             if (_freeCamera == null)
                 Debug.LogError("AimCameraRig: no valid non-aiming camera found among children");
         }
-
+        
         protected override CinemachineVirtualCameraBase ChooseCurrentCamera(Vector3 worldUp, float deltaTime)
         {
             var oldCam = (CinemachineVirtualCameraBase)LiveChild;
