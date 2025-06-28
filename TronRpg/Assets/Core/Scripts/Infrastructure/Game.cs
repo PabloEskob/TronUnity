@@ -4,11 +4,12 @@ namespace Core.Scripts.Infrastructure
 {
     public class Game
     {
+        public readonly GameStateMachine StateMachine;
         public static IInputService InputService;
 
-        public Game()
+        public Game(ICoroutineRunner coroutineRunner)
         {
-            InputService = new InputService(new GameInput());
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
         }
     }
 }

@@ -30,9 +30,7 @@ namespace Core.Scripts.Aim
                 var cam = ChildCameras[i];
                 if (!cam.isActiveAndEnabled)
                     continue;
-                if (_aimCamera == null
-                    && cam.TryGetComponent<CinemachineThirdPersonAim>(out var aim)
-                    && aim.NoiseCancellation)
+                if (_aimCamera == null && cam.TryGetComponent<CinemachineThirdPersonAim>(out var aim) && aim.NoiseCancellation)
                 {
                     _aimCamera = cam;
                     var player = _aimCamera.Follow;
@@ -55,7 +53,7 @@ namespace Core.Scripts.Aim
         {
             var oldCam = (CinemachineVirtualCameraBase)LiveChild;
             var newCam = IsAiming ? _aimCamera : _freeCamera;
-            
+
             if (_aimController && oldCam != newCam)
             {
                 _aimController.PlayerRotation = IsAiming
@@ -63,6 +61,7 @@ namespace Core.Scripts.Aim
                     : SimplePlayerAimController.CouplingMode.Decoupled;
                 _aimController.RecenterPlayer();
             }
+
             return newCam;
         }
     }
