@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Scripts.Infrastructure.Loading;
-using Core.Scripts.Infrastructure.States.GameStates;
 using Core.Scripts.Infrastructure.States.StateInfrastructure;
-using Core.Scripts.Logic;
+using VContainer;
 
 namespace Core.Scripts.Infrastructure.States.StateMachine
 {
-    public class GameStateMachine
+    public class GameStateMachine : IGameStateMachine
     {
-        private readonly Dictionary<Type, IExitableState> _states;
+        private readonly IObjectResolver _container;
+        private readonly Dictionary<Type, IExitableState> _states = new();
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
+        public GameStateMachine(IObjectResolver container)
         {
-            _states = new Dictionary<Type, IExitableState>()
-            {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain),
-                [typeof(GameLoopState)] = new GameLoopState(this)
-            };
+            _container = container;
         }
 
         public void Enter<TState>() where TState : class, IState
@@ -34,15 +28,23 @@ namespace Core.Scripts.Infrastructure.States.StateMachine
             state.Enter(payload);
         }
 
-        private TState GetState<TState>() where TState : class, IExitableState =>
-            _states[typeof(TState)] as TState;
+        public TState GetState<TState>() where TState : class, IExitableState
+        {
+            var stateType = typeof(TState);
+            if (!_states.TryGetValue(stateType, out var state))
+            {
+                // Создаем состояние через DI контейнер
+                state = _container.Resolve<TState>();
+                _states[stateType] = state;
+            }
+            return state as TState;
+        }
 
-        private TState ChangeState<TState>() where TState : class, IExitableState
+        public TState ChangeState<TState>() where TState : class, IExitableState
         {
             _activeState?.Exit();
             var state = GetState<TState>();
             _activeState = state;
-
             return state;
         }
     }

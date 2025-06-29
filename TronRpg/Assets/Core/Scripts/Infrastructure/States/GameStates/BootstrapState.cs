@@ -9,11 +9,11 @@ namespace Core.Scripts.Infrastructure.States.GameStates
     public class BootstrapState : IState
     {
         private const string Initial = "Initial";
-        private readonly GameStateMachine _stateMachine;
-        private readonly SceneLoader _sceneLoader;
+        private readonly IGameStateMachine _stateMachine;
+        private readonly ISceneLoader _sceneLoader;
 
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(IGameStateMachine stateMachine, ISceneLoader sceneLoader)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -21,25 +21,15 @@ namespace Core.Scripts.Infrastructure.States.GameStates
 
         public void Enter()
         {
-            RegisterServices();
             _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
         }
 
         private void EnterLoadLevel() =>
             _stateMachine.Enter<LoadLevelState, string>("Main");
-
-        private void RegisterServices()
-        {
-            Game.InputService = RegisterInputService();
-        }
+        
 
         public void Exit()
         {
-        }
-
-        private static IInputService RegisterInputService()
-        {
-            return new InputService(new GameInput());
         }
     }
 }

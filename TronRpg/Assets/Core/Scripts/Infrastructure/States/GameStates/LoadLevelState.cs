@@ -11,20 +11,22 @@ namespace Core.Scripts.Infrastructure.States.GameStates
     {
         private const string InitialPointTag = "InitialPoint";
 
-        private readonly GameStateMachine _gameStateMachine;
-        private readonly SceneLoader _sceneLoader;
+        private readonly IGameStateMachine _gameStateMachine;
+        private readonly ISceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
 
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
+        public LoadLevelState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
+            _gameFactory = gameFactory;
         }
 
         public void Enter(string sceneName)
         {
+            Debug.Log($"LoadLevelState.Enter called with scene: {sceneName}");
             _loadingCurtain.Show();
             _sceneLoader.Load(sceneName, onLoaded: OnLoaded);
         }

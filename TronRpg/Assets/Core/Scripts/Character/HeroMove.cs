@@ -1,9 +1,8 @@
 using System;
-using Core.Scripts.Infrastructure;
-using Core.Scripts.Infrastructure.Installers;
 using Core.Scripts.Services.Input;
 using Unity.Cinemachine;
 using UnityEngine;
+using VContainer;
 
 namespace Core.Scripts.Character
 {
@@ -33,9 +32,14 @@ namespace Core.Scripts.Character
         private Vector3 _currentVelocityXZ;
         private float _currentVelocityY;
         
+        [Inject]
+        public void Construct(IInputService inputService)
+        {
+            _inputService = inputService;
+        }
+        
         private void Awake()
         {
-            _inputService = Game.InputService;
             if (!CharacterController)
                 CharacterController = GetComponent<CharacterController>();
         }
