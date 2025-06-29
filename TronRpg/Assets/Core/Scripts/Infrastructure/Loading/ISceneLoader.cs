@@ -5,7 +5,6 @@ namespace Core.Scripts.Infrastructure.Loading
 {
     public interface ISceneLoader
     {
-        void Load(string sceneName, Action onLoaded = null);
-        IEnumerator LoadScene(string sceneName, Action onLoaded = null);
+        void LoadScene(string name, Action onLoaded = null);
     }
 }

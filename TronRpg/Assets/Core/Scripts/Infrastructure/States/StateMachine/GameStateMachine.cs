@@ -33,7 +33,6 @@ namespace Core.Scripts.Infrastructure.States.StateMachine
             var stateType = typeof(TState);
             if (!_states.TryGetValue(stateType, out var state))
             {
-                // Создаем состояние через DI контейнер
                 state = _container.Resolve<TState>();
                 _states[stateType] = state;
             }

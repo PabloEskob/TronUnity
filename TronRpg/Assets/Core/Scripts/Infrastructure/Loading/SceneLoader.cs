@@ -9,78 +9,28 @@ namespace Core.Scripts.Infrastructure.Loading
     {
         private readonly ICoroutineRunner _coroutineRunner;
 
-        public SceneLoader(ICoroutineRunner coroutineRunner) =>
-            _coroutineRunner = coroutineRunner;
-
-        public void Load(string sceneName, Action onLoaded = null)
+        public SceneLoader(ICoroutineRunner coroutineRunner)
         {
-            Debug.Log($"SceneLoader.Load called with scene: {sceneName}");
-        
-            if (SceneManager.GetActiveScene().name == sceneName)
-            {
-                onLoaded?.Invoke();
-                return;
-            }
-        
-            if (onLoaded != null)
-            {
-                void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-                {
-                    if (scene.name == sceneName)
-                    {
-                        SceneManager.sceneLoaded -= OnSceneLoaded;
-                        Debug.Log($"Scene {sceneName} loaded via event, calling onLoaded");
-                        onLoaded?.Invoke();
-                    }
-                }
-            
-                SceneManager.sceneLoaded += OnSceneLoaded;
-            }
-        
-            Debug.Log($"Starting to load scene: {sceneName}");
-            SceneManager.LoadScene(sceneName);
+            _coroutineRunner = coroutineRunner;
         }
 
-        public IEnumerator LoadScene(string sceneName, Action onLoaded = null)
+        public void LoadScene(string name, Action onLoaded = null) =>
+            _coroutineRunner.StartCoroutine(Load(name, onLoaded));
+
+        private IEnumerator Load(string nextScene, Action onLoaded)
         {
-            Debug.Log($"LoadScene coroutine started for: {sceneName}");
-    
-            if (SceneManager.GetActiveScene().name == sceneName)
+            if (SceneManager.GetActiveScene().name == nextScene)
             {
-                Debug.Log($"Scene {sceneName} already active");
                 onLoaded?.Invoke();
                 yield break;
             }
-    
-            Debug.Log($"Loading scene {sceneName} async...");
-            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(sceneName);
-    
-            if (waitNextScene == null)
-            {
-                Debug.LogError($"LoadSceneAsync returned null for scene: {sceneName}");
-                yield break;
-            }
-    
-            // ВАЖНО: Убедитесь, что сцена может активироваться
-            waitNextScene.allowSceneActivation = true;
-    
-            // Используйте progress >= 0.9f вместо isDone
-            while (waitNextScene.progress < 0.9f)
-            {
-                Debug.Log($"Loading progress: {waitNextScene.progress}");
-                yield return null;
-            }
-    
-            // Дождитесь полного завершения
-            while (!waitNextScene.isDone)
-            {
-                Debug.Log($"Waiting for scene activation... progress: {waitNextScene.progress}");
-                yield return null;
-            }
 
-            Debug.Log($"Scene {sceneName} loaded successfully, calling onLoaded");
+            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+
+            while (!waitNextScene.isDone)
+                yield return null;
+
             onLoaded?.Invoke();
-            Debug.Log($"onLoaded called");
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2905723700700721403}
   - component: {fileID: 1994116248036128120}
   - component: {fileID: 4343609532143452736}
+  - component: {fileID: 3130977473763293566}
   m_Layer: 0
   m_Name: Curtain
   m_TagString: LoadingCurtain
@@ -111,6 +112,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Curtain: {fileID: 1994116248036128120}
+--- !u!114 &3130977473763293566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2895824883100716906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dac7d26599081a4ab5aac8b85870ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6416245640960104390
 GameObject:
   m_ObjectHideFlags: 0

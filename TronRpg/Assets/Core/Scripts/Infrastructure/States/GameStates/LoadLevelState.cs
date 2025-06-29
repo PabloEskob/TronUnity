@@ -26,9 +26,8 @@ namespace Core.Scripts.Infrastructure.States.GameStates
 
         public void Enter(string sceneName)
         {
-            Debug.Log($"LoadLevelState.Enter called with scene: {sceneName}");
             _loadingCurtain.Show();
-            _sceneLoader.Load(sceneName, onLoaded: OnLoaded);
+            _sceneLoader.LoadScene(sceneName, onLoaded: OnLoaded);
         }
 
         public void Exit()

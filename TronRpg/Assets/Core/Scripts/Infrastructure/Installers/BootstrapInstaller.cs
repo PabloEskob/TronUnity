@@ -6,6 +6,7 @@ using Core.Scripts.Infrastructure.States.StateMachine;
 using Core.Scripts.Logic;
 using Core.Scripts.Services.Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -14,7 +15,7 @@ namespace Core.Scripts.Infrastructure.Installers
     public class BootstrapInstaller : LifetimeScope, IStartable
     {
         [SerializeField] 
-        private CoroutineRunner _coroutineRunner;
+        private CoroutineRunner CoroutineRunner;
         public LoadingCurtain LoadingCurtain;
 
         protected override void Configure(IContainerBuilder builder)
@@ -22,27 +23,27 @@ namespace Core.Scripts.Infrastructure.Installers
             BindInputService(builder);
             BindAssetManagementServices(builder);
             BindCommonServices(builder);
-            BindCameraProvider(builder);
             BindStateMachine(builder);
             BindStateFactory(builder);
             BindGameStates(builder);
         }
-        
+
         protected override void Awake()
         {
             base.Awake();
-            DontDestroyOnLoad(gameObject); // Добавьте эту строку
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public void Start()
+        {
+            Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
 
         private void BindCommonServices(IContainerBuilder builder)
         {
+            builder.RegisterComponent(CoroutineRunner).AsImplementedInterfaces();
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
-            
-            if (LoadingCurtain != null)
-                builder.RegisterComponent(LoadingCurtain);
-            
-            if (_coroutineRunner != null)
-                builder.RegisterComponent(_coroutineRunner).AsImplementedInterfaces();
+            builder.RegisterComponent(LoadingCurtain);
         }
 
         private void BindStateMachine(IContainerBuilder builder)
@@ -58,15 +59,10 @@ namespace Core.Scripts.Infrastructure.Installers
         private void BindGameStates(IContainerBuilder builder)
         {
             builder.Register<BootstrapState>(Lifetime.Singleton);
-            builder.Register<LoadLevelState>(Lifetime.Singleton); 
+            builder.Register<LoadLevelState>(Lifetime.Singleton);
             builder.Register<GameLoopState>(Lifetime.Singleton);
         }
-
-
-        private void BindCameraProvider(IContainerBuilder builder)
-        {
-        }
-
+        
         private void BindAssetManagementServices(IContainerBuilder builder)
         {
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);
@@ -76,11 +72,6 @@ namespace Core.Scripts.Infrastructure.Installers
         {
             builder.Register<GameInput>(Lifetime.Singleton);
             builder.Register<IInputService, InputService>(Lifetime.Singleton);
-        }
-
-        public void Start()
-        {
-            Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
     }
 }

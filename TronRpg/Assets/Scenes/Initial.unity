@@ -119,50 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &95955810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 95955812}
-  - component: {fileID: 95955811}
-  m_Layer: 0
-  m_Name: CoroutineRunner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &95955811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95955810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dac7d26599081a4ab5aac8b85870ff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &95955812
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95955810}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &697465135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,9 +172,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1875917951}
     - target: {fileID: 2359566115011194634, guid: 285d2a37a8558c14fbf0b1ebb9e64971, type: 3}
+      propertyPath: CoroutineRunner
+      value: 
+      objectReference: {fileID: 1875917956}
+    - target: {fileID: 2359566115011194634, guid: 285d2a37a8558c14fbf0b1ebb9e64971, type: 3}
       propertyPath: _coroutineRunner
       value: 
-      objectReference: {fileID: 95955811}
+      objectReference: {fileID: 0}
     - target: {fileID: 9148464414464130770, guid: 285d2a37a8558c14fbf0b1ebb9e64971, type: 3}
       propertyPath: m_Name
       value: GameBootsrapper
@@ -481,6 +441,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cca542e5ac26774988aead775b8640f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1875917956 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3130977473763293566, guid: 0c552f3d4771ed241aedb33a2a022fae, type: 3}
+  m_PrefabInstance: {fileID: 1875917950}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dac7d26599081a4ab5aac8b85870ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -488,4 +459,3 @@ SceneRoots:
   - {fileID: 1644284212}
   - {fileID: 697465135}
   - {fileID: 1875917950}
-  - {fileID: 95955812}
