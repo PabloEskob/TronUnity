@@ -1,5 +1,6 @@
 using System;
 using Core.Scripts.Infrastructure;
+using Core.Scripts.Infrastructure.Installers;
 using Core.Scripts.Services.Input;
 using Unity.Cinemachine;
 using UnityEngine;

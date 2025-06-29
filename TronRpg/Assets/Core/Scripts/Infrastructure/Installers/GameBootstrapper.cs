@@ -1,7 +1,8 @@
+using Core.Scripts.Infrastructure.States.GameStates;
 using Core.Scripts.Logic;
 using UnityEngine;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.Installers
 {
     public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Core.Scripts.Infrastructure.States.StateInfrastructure;
+using Core.Scripts.Infrastructure.States.StateMachine;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.States.GameStates
 {
     public class GameLoopState : IState
     {

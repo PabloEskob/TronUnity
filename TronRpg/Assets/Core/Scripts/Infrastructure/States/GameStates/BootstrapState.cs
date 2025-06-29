@@ -1,6 +1,10 @@
-﻿using Core.Scripts.Services.Input;
+﻿using Core.Scripts.Infrastructure.Installers;
+using Core.Scripts.Infrastructure.Loading;
+using Core.Scripts.Infrastructure.States.StateInfrastructure;
+using Core.Scripts.Infrastructure.States.StateMachine;
+using Core.Scripts.Services.Input;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.States.GameStates
 {
     public class BootstrapState : IState
     {

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Scripts.Infrastructure.Loading;
+using Core.Scripts.Infrastructure.States.GameStates;
+using Core.Scripts.Infrastructure.States.StateInfrastructure;
 using Core.Scripts.Logic;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.States.StateMachine
 {
     public class GameStateMachine
     {

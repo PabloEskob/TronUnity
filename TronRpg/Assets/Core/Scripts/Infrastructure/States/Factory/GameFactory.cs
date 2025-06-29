@@ -2,7 +2,7 @@
 using Core.Scripts.CameraLogic;
 using UnityEngine;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.States.Factory
 {
     public class GameFactory : IGameFactory
     {

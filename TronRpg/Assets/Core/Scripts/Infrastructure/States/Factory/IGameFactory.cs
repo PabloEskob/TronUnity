@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.States.Factory
 {
     public interface IGameFactory
     {

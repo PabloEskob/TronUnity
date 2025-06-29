@@ -1,7 +1,11 @@
-﻿using Core.Scripts.Logic;
+﻿using Core.Scripts.Infrastructure.Loading;
+using Core.Scripts.Infrastructure.States.Factory;
+using Core.Scripts.Infrastructure.States.StateInfrastructure;
+using Core.Scripts.Infrastructure.States.StateMachine;
+using Core.Scripts.Logic;
 using UnityEngine;
 
-namespace Core.Scripts.Infrastructure
+namespace Core.Scripts.Infrastructure.States.GameStates
 {
     public class LoadLevelState : IPayloadedState<string>
     {
