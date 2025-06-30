@@ -27,6 +27,7 @@ namespace Core.Scripts.Infrastructure.States.GameStates
         public void Enter(string sceneName)
         {
             _loadingCurtain.Show();
+            _gameFactory.Cleanup();
             _sceneLoader.LoadScene(sceneName, onLoaded: OnLoaded);
         }
 

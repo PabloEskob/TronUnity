@@ -1,5 +1,7 @@
-﻿using Core.Scripts.AssetManagement;
+﻿using System.Collections.Generic;
+using Core.Scripts.AssetManagement;
 using Core.Scripts.CameraLogic;
+using Core.Scripts.Services.PersistentProgress;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -9,9 +11,11 @@ namespace Core.Scripts.Infrastructure.States.Factory
     public class GameFactory : IGameFactory
     {
         private readonly IAssetProvider _assets;
-        
         private readonly IObjectResolver _container;
-        
+
+        public List<ISavedProgressReader> ProgressReaders { get; } = new();
+        public List<ISavedProgress> ProgressWriters { get; } = new();
+
         public GameFactory(IAssetProvider assets, IObjectResolver container)
         {
             _assets = assets;
@@ -20,14 +24,44 @@ namespace Core.Scripts.Infrastructure.States.Factory
 
         public GameObject CreateHero(GameObject at)
         {
-            var hero = _assets.Instantiate(AssetPath.HeroPlayerPath, at.transform.position);
+            var hero = InstantiateRegistered(AssetPath.HeroPlayerPath, at.transform.position);
             _container.InjectGameObject(hero);
             return hero;
         }
 
-        public void CreateCamera(GameObject hero)
-        {
+        public void CreateCamera(GameObject hero) =>
             _assets.Instantiate(AssetPath.CameraPath).GetComponent<CameraFollow>().Follow(hero);
+
+        public void Cleanup()
+        {
+            ProgressReaders.Clear();
+            ProgressWriters.Clear();
+        }
+
+        private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
+        {
+            RegisterProgressWatchers(_assets.Instantiate(prefabPath, at));
+            return _assets.Instantiate(prefabPath, at);
+        }
+
+        private GameObject InstantiateRegistered(string prefabPath)
+        {
+            RegisterProgressWatchers(_assets.Instantiate(prefabPath));
+            return _assets.Instantiate(prefabPath);
+        }
+
+        private void RegisterProgressWatchers(GameObject hero)
+        {
+            foreach (var progressReader in hero.GetComponentsInChildren<ISavedProgressReader>())
+                Register(progressReader);
+        }
+
+        private void Register(ISavedProgressReader progressReader)
+        {
+            if (progressReader is ISavedProgress progressWriter)
+                ProgressWriters.Add(progressWriter);
+
+            ProgressReaders.Add(progressReader);
         }
     }
 }
