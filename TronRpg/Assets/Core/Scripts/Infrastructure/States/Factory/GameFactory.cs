@@ -40,14 +40,16 @@ namespace Core.Scripts.Infrastructure.States.Factory
 
         private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
         {
-            RegisterProgressWatchers(_assets.Instantiate(prefabPath, at));
-            return _assets.Instantiate(prefabPath, at);
+            var gameObject = _assets.Instantiate(prefabPath, at);
+            RegisterProgressWatchers(gameObject);
+            return gameObject;
         }
 
         private GameObject InstantiateRegistered(string prefabPath)
         {
-            RegisterProgressWatchers(_assets.Instantiate(prefabPath));
-            return _assets.Instantiate(prefabPath);
+            var gameObject = _assets.Instantiate(prefabPath);
+            RegisterProgressWatchers(gameObject);
+            return gameObject;
         }
 
         private void RegisterProgressWatchers(GameObject hero)

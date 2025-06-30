@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5325c9157cb5e40b6affff1cf19123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  SystemComponentsPrefab: {fileID: 2895824883100716906, guid: 0c552f3d4771ed241aedb33a2a022fae, type: 3}
 --- !u!114 &6549940311121741009
 MonoBehaviour:
   m_ObjectHideFlags: 0

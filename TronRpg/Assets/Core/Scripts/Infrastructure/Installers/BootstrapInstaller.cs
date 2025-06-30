@@ -15,11 +15,17 @@ namespace Core.Scripts.Infrastructure.Installers
 {
     public class BootstrapInstaller : LifetimeScope, IStartable
     {
-        [SerializeField] private CoroutineRunner CoroutineRunner;
-        public LoadingCurtain LoadingCurtain;
+        [Header("System Prefabs")] [SerializeField]
+        private GameObject SystemComponentsPrefab;
+
+        private GameObject _systemComponentsInstance;
+        private CoroutineRunner _coroutineRunner;
+        private LoadingCurtain _loadingCurtain;
 
         protected override void Configure(IContainerBuilder builder)
         {
+            CreateSystemComponents();
+
             BindInputService(builder);
             BindAssetManagementServices(builder);
             BindCommonServices(builder);
@@ -29,22 +35,47 @@ namespace Core.Scripts.Infrastructure.Installers
             BindProgressService(builder);
         }
 
-        /*protected override void Awake()
+        protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
-        }*/
+        }
 
         public void Start()
         {
             Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
 
+        private void CreateSystemComponents()
+        {
+            if (SystemComponentsPrefab != null)
+            {
+                _systemComponentsInstance = Instantiate(SystemComponentsPrefab);
+                DontDestroyOnLoad(_systemComponentsInstance);
+
+                _coroutineRunner = _systemComponentsInstance.GetComponent<CoroutineRunner>();
+                _loadingCurtain = _systemComponentsInstance.GetComponent<LoadingCurtain>();
+
+                if (_coroutineRunner == null)
+                    Debug.LogError("CoroutineRunner not found on SystemComponentsPrefab!");
+                if (_loadingCurtain == null)
+                    Debug.LogError("LoadingCurtain not found on SystemComponentsPrefab!");
+            }
+            else
+            {
+                Debug.LogError("SystemComponentsPrefab is not assigned!");
+            }
+        }
+
         private void BindCommonServices(IContainerBuilder builder)
         {
-            builder.RegisterComponent(CoroutineRunner).AsImplementedInterfaces();
+            if (_coroutineRunner != null)
+                builder.RegisterComponent(_coroutineRunner).AsImplementedInterfaces();
+
             builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
-            builder.RegisterComponent(LoadingCurtain);
+
+            if (_loadingCurtain != null)
+                builder.RegisterComponent(_loadingCurtain);
         }
 
         private void BindStateMachine(IContainerBuilder builder)
