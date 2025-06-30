@@ -5,8 +5,8 @@ using Core.Scripts.Infrastructure.States.GameStates;
 using Core.Scripts.Infrastructure.States.StateMachine;
 using Core.Scripts.Logic;
 using Core.Scripts.Services.Input;
+using Core.Scripts.Services.PersistentProgress;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -14,8 +14,7 @@ namespace Core.Scripts.Infrastructure.Installers
 {
     public class BootstrapInstaller : LifetimeScope, IStartable
     {
-        [SerializeField] 
-        private CoroutineRunner CoroutineRunner;
+        [SerializeField] private CoroutineRunner CoroutineRunner;
         public LoadingCurtain LoadingCurtain;
 
         protected override void Configure(IContainerBuilder builder)
@@ -26,6 +25,7 @@ namespace Core.Scripts.Infrastructure.Installers
             BindStateMachine(builder);
             BindStateFactory(builder);
             BindGameStates(builder);
+            BindProgressService(builder);
         }
 
         protected override void Awake()
@@ -62,7 +62,12 @@ namespace Core.Scripts.Infrastructure.Installers
             builder.Register<LoadLevelState>(Lifetime.Singleton);
             builder.Register<GameLoopState>(Lifetime.Singleton);
         }
-        
+
+        private void BindProgressService(IContainerBuilder builder)
+        {
+            builder.Register<IPersistentProgressService, PersistentProgressService>(Lifetime.Singleton);
+        }
+
         private void BindAssetManagementServices(IContainerBuilder builder)
         {
             builder.Register<IAssetProvider, AssetProvider>(Lifetime.Singleton);

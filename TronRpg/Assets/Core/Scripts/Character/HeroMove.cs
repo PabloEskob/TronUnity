@@ -1,15 +1,16 @@
 using System;
+using Core.Scripts.Data;
 using Core.Scripts.Services.Input;
+using Core.Scripts.Services.PersistentProgress;
 using Unity.Cinemachine;
 using UnityEngine;
 using VContainer;
 
 namespace Core.Scripts.Character
 {
-    public class HeroMove : MonoBehaviour
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
-        [Header("Movement")]
-        public CharacterController CharacterController;
+        [Header("Movement")] public CharacterController CharacterController;
         public float MovementSpeed = 1f;
         public float SprintSpeed = 4f;
         public bool IsSprinting;
@@ -17,12 +18,11 @@ namespace Core.Scripts.Character
         [Tooltip("Плавность изменения скорости и поворота")]
         public float Damping = 0.5f;
 
-        [Header("Rotation")]
-        [Tooltip("Если false, персонаж поворачивается в направлении движения")]
-        public bool Strafe = false;
-        
+        [Header("Rotation")] [Tooltip("Если false, персонаж поворачивается в направлении движения")]
+        public bool Strafe;
+
         public bool IsMoving => _currentVelocityXZ.sqrMagnitude > 0.01f;
-        
+
         public Action PreUpdate;
         public Action<Vector3, float> PostUpdate;
 
@@ -31,13 +31,13 @@ namespace Core.Scripts.Character
         private Vector3 _lastInput;
         private Vector3 _currentVelocityXZ;
         private float _currentVelocityY;
-        
+
         [Inject]
         public void Construct(IInputService inputService)
         {
             _inputService = inputService;
         }
-        
+
         private void Awake()
         {
             if (!CharacterController)
@@ -52,7 +52,7 @@ namespace Core.Scripts.Character
         private void Update()
         {
             PreUpdate?.Invoke();
-            
+
             Vector3 rawInput = new Vector3(_inputService.Axis.x, 0, _inputService.Axis.y);
 
             Quaternion inputFrame = GetCameraInputFrame();
@@ -100,7 +100,7 @@ namespace Core.Scripts.Character
                     targetRotation,
                     Damper.Damp(1, Damping, Time.deltaTime));
             }
-            
+
             if (PostUpdate != null)
             {
                 Vector3 localVelocity = Quaternion.Inverse(transform.rotation) * _currentVelocityXZ;
@@ -108,7 +108,7 @@ namespace Core.Scripts.Character
                 PostUpdate(localVelocity, 1f);
             }
         }
-        
+
         public void SetStrafeMode(bool strafe)
         {
             Strafe = strafe;
@@ -126,6 +126,15 @@ namespace Core.Scripts.Character
             }
 
             return Quaternion.LookRotation(cameraForward, Vector3.up);
+        }
+
+        public void UpdateProgress(PlayerProgress playerProgress)
+        {
+            playerProgress.WorldData.Position = transform.position.AsVectorData();
+        }
+
+        public void LoadProgress(PlayerProgress playerProgress)
+        {
         }
     }
 }
