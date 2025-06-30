@@ -22,8 +22,8 @@ namespace Core.Scripts.Infrastructure.States.GameStates
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>(Scenes.Main);
-        
+            _stateMachine.Enter<LoadProgressState>();
+
 
         public void Exit()
         {

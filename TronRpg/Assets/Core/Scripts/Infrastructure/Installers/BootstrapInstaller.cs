@@ -6,6 +6,7 @@ using Core.Scripts.Infrastructure.States.StateMachine;
 using Core.Scripts.Logic;
 using Core.Scripts.Services.Input;
 using Core.Scripts.Services.PersistentProgress;
+using Core.Scripts.Services.SaveLoad;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -61,11 +62,13 @@ namespace Core.Scripts.Infrastructure.Installers
             builder.Register<BootstrapState>(Lifetime.Singleton);
             builder.Register<LoadLevelState>(Lifetime.Singleton);
             builder.Register<GameLoopState>(Lifetime.Singleton);
+            builder.Register<LoadProgressState>(Lifetime.Singleton);
         }
 
         private void BindProgressService(IContainerBuilder builder)
         {
             builder.Register<IPersistentProgressService, PersistentProgressService>(Lifetime.Singleton);
+            builder.Register<ISaveLoadService, SaveLoadService>(Lifetime.Singleton);
         }
 
         private void BindAssetManagementServices(IContainerBuilder builder)

@@ -4,6 +4,7 @@ using Core.Scripts.Services.Input;
 using Core.Scripts.Services.PersistentProgress;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace Core.Scripts.Character
@@ -128,13 +129,27 @@ namespace Core.Scripts.Character
             return Quaternion.LookRotation(cameraForward, Vector3.up);
         }
 
-        public void UpdateProgress(PlayerProgress playerProgress)
-        {
-            playerProgress.WorldData.Position = transform.position.AsVectorData();
-        }
+        public void UpdateProgress(PlayerProgress playerProgress) =>
+            playerProgress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
 
         public void LoadProgress(PlayerProgress playerProgress)
         {
+            if (CurrentLevel() == playerProgress.WorldData.PositionOnLevel.Level)
+            {
+                var savedPosition = playerProgress.WorldData.PositionOnLevel.Position;
+                if (savedPosition != null)
+                    Warp(to: savedPosition);
+            }
         }
+
+        private void Warp(Vector3Data to)
+        {
+            CharacterController.enabled = false;
+            transform.position = to.AsUnityVector();
+            CharacterController.enabled = true;
+        }
+
+        private static string CurrentLevel() =>
+            SceneManager.GetActiveScene().name;
     }
 }
