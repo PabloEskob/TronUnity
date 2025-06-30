@@ -29,11 +29,11 @@ namespace Core.Scripts.Infrastructure.Installers
             BindProgressService(builder);
         }
 
-        protected override void Awake()
+        /*protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
-        }
+        }*/
 
         public void Start()
         {

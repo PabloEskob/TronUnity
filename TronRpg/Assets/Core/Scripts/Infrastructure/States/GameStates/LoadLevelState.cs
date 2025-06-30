@@ -3,6 +3,7 @@ using Core.Scripts.Infrastructure.States.Factory;
 using Core.Scripts.Infrastructure.States.StateInfrastructure;
 using Core.Scripts.Infrastructure.States.StateMachine;
 using Core.Scripts.Logic;
+using Core.Scripts.Services.PersistentProgress;
 using UnityEngine;
 
 namespace Core.Scripts.Infrastructure.States.GameStates
@@ -15,13 +16,16 @@ namespace Core.Scripts.Infrastructure.States.GameStates
         private readonly ISceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
 
-        public LoadLevelState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
+        public LoadLevelState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory,
+            IPersistentProgressService progressService)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _gameFactory = gameFactory;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
@@ -38,10 +42,24 @@ namespace Core.Scripts.Infrastructure.States.GameStates
 
         private void OnLoaded()
         {
-            var hero = _gameFactory.CreateHero(GameObject.FindGameObjectWithTag(InitialPointTag));
-            _gameFactory.CreateCamera(hero);
+            InitGameWorld();
+            InformProgressReaders();
 
             _gameStateMachine.Enter<GameLoopState>();
+        }
+
+        private void InformProgressReaders()
+        {
+            foreach (var progressReader in _gameFactory.ProgressReaders)
+            {
+                progressReader.LoadProgress(_progressService.Progress);
+            }
+        }
+
+        private void InitGameWorld()
+        {
+            var hero = _gameFactory.CreateHero(GameObject.FindGameObjectWithTag(InitialPointTag));
+            _gameFactory.CreateCamera(hero);
         }
     }
 }

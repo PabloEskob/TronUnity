@@ -145,7 +145,7 @@ namespace Core.Scripts.Character
         private void Warp(Vector3Data to)
         {
             CharacterController.enabled = false;
-            transform.position = to.AsUnityVector();
+            transform.position = to.AsUnityVector().AddY(CharacterController.height);
             CharacterController.enabled = true;
         }
 
