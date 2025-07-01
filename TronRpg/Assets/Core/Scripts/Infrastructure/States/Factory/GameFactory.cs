@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Scripts.AssetManagement;
-using Core.Scripts.CameraLogic;
 using Core.Scripts.Services.PersistentProgress;
 using UnityEngine;
 using VContainer;
@@ -29,9 +28,7 @@ namespace Core.Scripts.Infrastructure.States.Factory
             return hero;
         }
 
-        public void CreateCamera(GameObject hero) =>
-            _assets.Instantiate(AssetPath.CameraPath).GetComponent<CameraFollow>().Follow(hero);
-
+        
         public void Cleanup()
         {
             ProgressReaders.Clear();

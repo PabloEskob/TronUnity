@@ -1,9 +1,11 @@
-﻿using Core.Scripts.Infrastructure.Loading;
+﻿using Core.Scripts.Character;
+using Core.Scripts.Infrastructure.Loading;
 using Core.Scripts.Infrastructure.States.Factory;
 using Core.Scripts.Infrastructure.States.StateInfrastructure;
 using Core.Scripts.Infrastructure.States.StateMachine;
 using Core.Scripts.Logic;
 using Core.Scripts.Services.PersistentProgress;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Core.Scripts.Infrastructure.States.GameStates
@@ -59,7 +61,6 @@ namespace Core.Scripts.Infrastructure.States.GameStates
         private void InitGameWorld()
         {
             var hero = _gameFactory.CreateHero(GameObject.FindGameObjectWithTag(InitialPointTag));
-            _gameFactory.CreateCamera(hero);
         }
     }
 }

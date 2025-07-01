@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InitialPoint
   - LoadingCurtain
+  - Cinemachine
   layers:
   - Default
   - TransparentFX

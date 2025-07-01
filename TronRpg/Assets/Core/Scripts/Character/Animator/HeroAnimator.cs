@@ -2,7 +2,7 @@ using System;
 using Core.Scripts.Logic;
 using UnityEngine;
 
-namespace Core.Scripts.Character
+namespace Core.Scripts.Character.Animator
 {
     public class HeroAnimator : MonoBehaviour, IAnimationStateReader
     {
@@ -23,7 +23,7 @@ namespace Core.Scripts.Character
         public AnimatorState State { get; private set; }
 
         public UnityEngine.Animator Animator;
-        public CharacterController CharacterController;
+        public ECM2.Character CharacterController;
 
         private void Update()
         {

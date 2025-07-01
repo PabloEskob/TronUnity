@@ -1,37 +1,47 @@
-using System;
 using Core.Scripts.Data;
 using Core.Scripts.Services.Input;
 using Core.Scripts.Services.PersistentProgress;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ECM2;
 using VContainer;
 
 namespace Core.Scripts.Character
 {
     public class HeroMove : MonoBehaviour, ISavedProgress
     {
-        [Header("Movement")] public CharacterController CharacterController;
-        public float MovementSpeed = 1f;
-        public float SprintSpeed = 4f;
-        public bool IsSprinting;
+        [Header("Cinemachine")] [Tooltip("The CM virtual Camera following the target.")]
+        public CinemachineCamera FollowCamera;
 
-        [Tooltip("Плавность изменения скорости и поворота")]
-        public float Damping = 0.5f;
+        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow.")]
+        public GameObject FollowTarget;
 
-        [Header("Rotation")] [Tooltip("Если false, персонаж поворачивается в направлении движения")]
-        public bool Strafe;
+        [Tooltip("The default distance behind the Follow target.")] [SerializeField]
+        public float FollowDistance = 5.0f;
 
-        public bool IsMoving => _currentVelocityXZ.sqrMagnitude > 0.01f;
+        [Tooltip("The minimum distance to Follow target.")] [SerializeField]
+        public float FollowMinDistance = 2.0f;
 
-        public Action PreUpdate;
-        public Action<Vector3, float> PostUpdate;
+        [Tooltip("The maximum distance to Follow target.")] [SerializeField]
+        public float FollowMaxDistance = 10.0f;
 
+        [Tooltip("How far in degrees can you move the camera up.")]
+        public float MaxPitch = 80.0f;
+
+        [Tooltip("How far in degrees can you move the camera down.")]
+        public float MinPitch = -80.0f;
+
+        [Space(15.0f)] public bool InvertLook = true;
+
+        [Tooltip("Mouse look sensitivity")] public Vector2 LookSensitivity = new(1.5f, 1.25f);
+
+        private ECM2.Character _character;
+        private float _cameraTargetYaw;
+        private float _cameraTargetPitch;
+        private CinemachineThirdPersonFollow _cmThirdPersonFollow;
         private IInputService _inputService;
-        private Camera _camera;
-        private Vector3 _lastInput;
-        private Vector3 _currentVelocityXZ;
-        private float _currentVelocityY;
+        private float _followDistanceSmoothVelocity;
 
         [Inject]
         public void Construct(IInputService inputService)
@@ -41,93 +51,54 @@ namespace Core.Scripts.Character
 
         private void Awake()
         {
-            if (!CharacterController)
-                CharacterController = GetComponent<CharacterController>();
+            _character = GetComponent<ECM2.Character>();
+
+            FollowCamera = GameObject.FindGameObjectWithTag("Cinemachine").GetComponent<CinemachineCamera>();
+            
+            FollowCamera.Follow = FollowTarget.transform;
+
+            _cmThirdPersonFollow = FollowCamera.GetComponent<CinemachineThirdPersonFollow>();
+
+            if (_cmThirdPersonFollow)
+            {
+                _cmThirdPersonFollow.CameraDistance = FollowDistance;
+            }
         }
 
         private void Start()
         {
-            _camera = Camera.main;
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
+            _character.camera = Camera.main;
         }
 
         private void Update()
         {
-            PreUpdate?.Invoke();
+            Vector3 movementDirection = Vector3.zero;
 
-            Vector3 rawInput = new Vector3(_inputService.Axis.x, 0, _inputService.Axis.y);
+            movementDirection += Vector3.right * _inputService.AxisMove.x;
+            movementDirection += Vector3.forward * _inputService.AxisMove.y;
 
-            Quaternion inputFrame = GetCameraInputFrame();
-
-            _lastInput = inputFrame * rawInput;
-
-            if (_lastInput.sqrMagnitude > 1)
-                _lastInput.Normalize();
-
-            float targetSpeed = IsSprinting ? SprintSpeed : MovementSpeed;
-            Vector3 desiredVelocity = _lastInput * targetSpeed;
-
-            if (Damping > 0)
+            if (_character.camera)
             {
-                if (Vector3.Angle(_currentVelocityXZ, desiredVelocity) < 100)
-                {
-                    _currentVelocityXZ = Vector3.Slerp(
-                        _currentVelocityXZ,
-                        desiredVelocity,
-                        Damper.Damp(1, Damping, Time.deltaTime));
-                }
-                else
-                {
-                    _currentVelocityXZ += Damper.Damp(
-                        desiredVelocity - _currentVelocityXZ,
-                        Damping,
-                        Time.deltaTime);
-                }
-            }
-            else
-            {
-                _currentVelocityXZ = desiredVelocity;
+                movementDirection = movementDirection.relativeTo(_character.cameraTransform);
             }
 
-            Vector3 motion = (_currentVelocityXZ + _currentVelocityY * Vector3.up) * Time.deltaTime;
-            motion += Physics.gravity * Time.deltaTime;
+            _character.SetMovementDirection(movementDirection);
 
-            CharacterController.Move(motion);
 
-            if (!Strafe && _currentVelocityXZ.sqrMagnitude > 0.001f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(_currentVelocityXZ, Vector3.up);
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    targetRotation,
-                    Damper.Damp(1, Damping, Time.deltaTime));
-            }
+            AddControlYawInput(_inputService.AxisLook.x * LookSensitivity.x);
+            AddControlPitchInput(_inputService.AxisLook.y * LookSensitivity.y, MinPitch, MaxPitch);
 
-            if (PostUpdate != null)
-            {
-                Vector3 localVelocity = Quaternion.Inverse(transform.rotation) * _currentVelocityXZ;
-                localVelocity.y = _currentVelocityY;
-                PostUpdate(localVelocity, 1f);
-            }
+            float mouseScrollInput = Input.GetAxisRaw("Mouse ScrollWheel");
+            AddControlZoomInput(mouseScrollInput);
         }
 
-        public void SetStrafeMode(bool strafe)
+        private void LateUpdate()
         {
-            Strafe = strafe;
+            UpdateCamera();
         }
 
-        private Quaternion GetCameraInputFrame()
-        {
-            Vector3 cameraForward = _camera.transform.forward;
-            cameraForward.y = 0;
-            cameraForward.Normalize();
-
-            if (cameraForward.sqrMagnitude < 0.001f)
-            {
-                cameraForward = _camera.transform.right;
-            }
-
-            return Quaternion.LookRotation(cameraForward, Vector3.up);
-        }
 
         public void UpdateProgress(PlayerProgress playerProgress) =>
             playerProgress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
@@ -142,14 +113,40 @@ namespace Core.Scripts.Character
             }
         }
 
+        private void AddControlYawInput(float value, float minValue = -180.0f, float maxValue = 180.0f)
+        {
+            if (value != 0.0f) _cameraTargetYaw = MathLib.ClampAngle(_cameraTargetYaw + value, minValue, maxValue);
+        }
+
+        private void AddControlPitchInput(float value, float minValue = -80.0f, float maxValue = 80.0f)
+        {
+            if (value == 0.0f)
+                return;
+
+            if (InvertLook)
+                value = -value;
+
+            _cameraTargetPitch = MathLib.ClampAngle(_cameraTargetPitch + value, minValue, maxValue);
+        }
+
+        protected virtual void AddControlZoomInput(float value)
+        {
+            FollowDistance = Mathf.Clamp(FollowDistance - value, FollowMinDistance, FollowMaxDistance);
+        }
+
         private void Warp(Vector3Data to)
         {
-            CharacterController.enabled = false;
-            transform.position = to.AsUnityVector().AddY(CharacterController.height);
-            CharacterController.enabled = true;
         }
 
         private static string CurrentLevel() =>
             SceneManager.GetActiveScene().name;
+
+        private void UpdateCamera()
+        {
+            FollowTarget.transform.rotation = Quaternion.Euler(_cameraTargetPitch, _cameraTargetYaw, 0.0f);
+
+            _cmThirdPersonFollow.CameraDistance =
+                Mathf.SmoothDamp(_cmThirdPersonFollow.CameraDistance, FollowDistance, ref _followDistanceSmoothVelocity, 0.1f);
+        }
     }
 }
