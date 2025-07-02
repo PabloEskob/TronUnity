@@ -54,7 +54,7 @@ namespace Core.Scripts.Character
             _character = GetComponent<ECM2.Character>();
 
             FollowCamera = GameObject.FindGameObjectWithTag("Cinemachine").GetComponent<CinemachineCamera>();
-            
+
             FollowCamera.Follow = FollowTarget.transform;
 
             _cmThirdPersonFollow = FollowCamera.GetComponent<CinemachineThirdPersonFollow>();
@@ -70,33 +70,40 @@ namespace Core.Scripts.Character
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
 
             _character.camera = Camera.main;
+            
         }
 
         private void Update()
         {
-            Vector3 movementDirection = Vector3.zero;
-
-            movementDirection += Vector3.right * _inputService.AxisMove.x;
-            movementDirection += Vector3.forward * _inputService.AxisMove.y;
-
-            if (_character.camera)
-            {
-                movementDirection = movementDirection.relativeTo(_character.cameraTransform);
-            }
-
-            _character.SetMovementDirection(movementDirection);
-
-
-            AddControlYawInput(_inputService.AxisLook.x * LookSensitivity.x);
-            AddControlPitchInput(_inputService.AxisLook.y * LookSensitivity.y, MinPitch, MaxPitch);
-
-            float mouseScrollInput = Input.GetAxisRaw("Mouse ScrollWheel");
-            AddControlZoomInput(mouseScrollInput);
+            HandleMovementInput();
+            HandleLookInput();
+            HandleZoomInput();
         }
 
         private void LateUpdate()
         {
             UpdateCamera();
+        }
+
+        private void HandleMovementInput()
+        {
+            Vector3 dir = new Vector3(_inputService.AxisMove.x, 0, _inputService.AxisMove.y);
+
+            if (_character.camera)
+                dir = dir.relativeTo(_character.cameraTransform);
+
+            _character.SetMovementDirection(dir);
+        }
+
+        private void HandleLookInput()
+        {
+            AddControlYawInput(_inputService.AxisLook.x * LookSensitivity.x);
+            AddControlPitchInput(_inputService.AxisLook.y * LookSensitivity.y, MinPitch, MaxPitch);
+        }
+
+        private void HandleZoomInput()
+        {
+            AddControlZoomInput(Input.GetAxisRaw("Mouse ScrollWheel"));
         }
 
 
@@ -136,6 +143,7 @@ namespace Core.Scripts.Character
 
         private void Warp(Vector3Data to)
         {
+            _character.SetPosition(to.AsUnityVector().AddY(_character.height), updateGround: true);
         }
 
         private static string CurrentLevel() =>

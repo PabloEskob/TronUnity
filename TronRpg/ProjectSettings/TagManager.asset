@@ -4,9 +4,13 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Fly
   - InitialPoint
   - LoadingCurtain
   - Cinemachine
+  - Ground
+  - Animal
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -14,6 +18,7 @@ TagManager:
   - 
   - Water
   - UI
+  - Ground
   - 
   - 
   - 
@@ -27,8 +32,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Animal
   - 
   - 
   - 
