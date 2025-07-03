@@ -27,7 +27,7 @@ namespace Core.Scripts.Character.Animator
 
         private void Update()
         {
-            Animator.SetFloat(MoveHash, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
+            //Animator.SetFloat(MoveHash, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
         }
 
         public bool IsAttacking => State == AnimatorState.Attack;
