@@ -25,17 +25,12 @@ namespace NHance.Assets.Scripts
         public Transform rootGeometry;
 
         public List<BodypartWrapper> PartsMap = new List<BodypartWrapper>();
-
-        private Animator _animator;
-        private int _animationIndex;
-        private List<AnimationClip> _animationClips;
-
+        
         public string characterPrefix;
         public bool FoldoutBodyPartSetup = false;
         public bool FoldoutSocketsSetup = false;
         public bool FoldoutSocketsTransformSetup = false;
         public bool FoldoutItemToBoneMapper = false;
-        public bool showAnimationControls = false;
         public Gender Gender;
 
         public List<Material> BodyMaterialsToReplace = new List<Material>();
@@ -70,16 +65,7 @@ namespace NHance.Assets.Scripts
         ? Items[ItemTypeEnum.OrF_Brows].Mappers.SelectMany(m => m.Materials).Where(m => m != null).ToArray()
         : DefaultOrcFemBrowsMaterial.Where(m => m != null).ToArray();
 
-        private void Start()
-        {
-            if(_animator == null)
-                _animator = GetComponent<Animator>();
-            if(_animator == null)
-                _animator = GetComponentInChildren<Animator>();
-            _animationClips = _animator.runtimeAnimatorController.animationClips.ToList();
-            NormalizeAnimationIndex();
-        }
-
+        
         public NHAvatar SetItem(NHItem item)
         {
             if (item == null) return this;
@@ -369,43 +355,7 @@ namespace NHance.Assets.Scripts
             Cache.Remove(type);
         }
 
-        private void NormalizeAnimationIndex()
-        {
-            if (_animationIndex <= -1)
-                _animationIndex = _animationClips.Count - 1;
-            else if (_animationIndex >= _animationClips.Count)
-                _animationIndex = 0;
-        }
-
-        private void OnGUI()
-        {
-            if (!showAnimationControls || _animationClips.Count == 0)
-                return;
-
-            if (GUI.Button(new Rect(10, 10, 150, 20), "Prev"))
-            {
-                _animationIndex--;
-                NormalizeAnimationIndex();
-                _animator.CrossFade(_animationClips[_animationIndex].name, 0.1f);
-            }
-
-            GUIStyle clipNameStyle = new GUIStyle();
-            Texture2D debugTex = new Texture2D(1, 1);
-            debugTex.SetPixel(0, 0, Color.grey);
-            debugTex.Apply();
-            clipNameStyle.normal.background = debugTex;
-            clipNameStyle.alignment = TextAnchor.MiddleCenter;
-            clipNameStyle.normal.textColor = Color.white;
-
-            GUI.Label(new Rect(170, 10, 150, 20), $"{_animationClips[_animationIndex].name} ▶️", clipNameStyle);
-
-            if (GUI.Button(new Rect(330, 10, 150, 20), "Next"))
-            {
-                _animationIndex++;
-                NormalizeAnimationIndex();
-                _animator.CrossFade(_animationClips[_animationIndex].name, 0.1f);
-            }
-        }
+        
 #if UNITY_EDITOR
         public void Save()
         {

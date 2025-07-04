@@ -329,10 +329,7 @@ namespace NHance.Assets.Scripts
         public override void OnInspectorGUI()
         {
             GUIUtils.DrawJoinButton();
-
-            _instance.showAnimationControls =
-                GUIUtils.DrawEnumWithLabel(_instance.showAnimationControls, "Show animation controls");
-
+            
             GUILayout.Space(10);
 
             ClearAnotherGender();
