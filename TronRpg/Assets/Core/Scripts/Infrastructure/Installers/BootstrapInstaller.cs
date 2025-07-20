@@ -1,4 +1,5 @@
 using Core.Scripts.AssetManagement;
+using Core.Scripts.Character.Enemy;
 using Core.Scripts.Infrastructure.Loading;
 using Core.Scripts.Infrastructure.States.Factory;
 using Core.Scripts.Infrastructure.States.GameStates;
@@ -60,6 +61,7 @@ namespace Core.Scripts.Infrastructure.Installers
                     Debug.LogError("CoroutineRunner not found on SystemComponentsPrefab!");
                 if (_loadingCurtain == null)
                     Debug.LogError("LoadingCurtain not found on SystemComponentsPrefab!");
+                
             }
             else
             {
@@ -76,6 +78,7 @@ namespace Core.Scripts.Infrastructure.Installers
 
             if (_loadingCurtain != null)
                 builder.RegisterComponent(_loadingCurtain);
+            
         }
 
         private void BindStateMachine(IContainerBuilder builder)

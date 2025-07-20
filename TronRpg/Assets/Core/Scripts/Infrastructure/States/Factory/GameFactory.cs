@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Scripts.AssetManagement;
 using Core.Scripts.Services.PersistentProgress;
 using UnityEngine;
@@ -14,7 +15,10 @@ namespace Core.Scripts.Infrastructure.States.Factory
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
-
+        
+        public GameObject HeroGameObject { get; private set; }
+        public event Action<GameObject> HeroCreated;
+        
         public GameFactory(IAssetProvider assets, IObjectResolver container)
         {
             _assets = assets;
@@ -23,18 +27,18 @@ namespace Core.Scripts.Infrastructure.States.Factory
 
         public GameObject CreateHero(GameObject at)
         {
-            var hero = InstantiateRegistered(AssetPath.HeroPlayerPath, at.transform.position);
-            _container.InjectGameObject(hero);
-            return hero;
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPlayerPath, at.transform.position);
+            _container.InjectGameObject(HeroGameObject);
+            HeroCreated?.Invoke(HeroGameObject);
+            return HeroGameObject;
         }
 
-        
         public void Cleanup()
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
         }
-
+        
         private GameObject InstantiateRegistered(string prefabPath, Vector3 at)
         {
             var gameObject = _assets.Instantiate(prefabPath, at);

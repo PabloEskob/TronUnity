@@ -1,6 +1,8 @@
 ﻿using Animancer;
 using Animancer.TransitionLibraries;
+using Pathfinding;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Core.Scripts.Character.Enemy
 {
@@ -13,10 +15,10 @@ namespace Core.Scripts.Character.Enemy
         [SerializeField] protected StringAsset SpeedParameterName;
 
         [Header("External")]
-        [SerializeField] protected ECM2.Character Controller;
+        [SerializeField] protected FollowerEntity Controller;
         [SerializeField] protected AnimancerComponent Animancer;
 
-        protected EnemyState CurrentState = EnemyState.Idle;
+        protected internal EnemyState CurrentState = EnemyState.Idle;
         private SmoothedFloatParameter _speedParam;
         private TransitionLibrary _idleLibraryCache;
 
@@ -46,13 +48,13 @@ namespace Core.Scripts.Character.Enemy
         {
             UpdateSpeedParameter();
         }
-
+        
         protected void UpdateSpeedParameter()
         {
             if (CurrentState == EnemyState.Walk || CurrentState == EnemyState.Run)
             {
                 var speed = Controller.velocity.magnitude;
-                var normalized = Mathf.InverseLerp(0f, Controller.speed, speed);
+                var normalized = Mathf.InverseLerp(0f, Controller.maxSpeed, speed);
                 _speedParam.TargetValue = normalized;
             }
         }
@@ -87,7 +89,7 @@ namespace Core.Scripts.Character.Enemy
             }
         }
 
-        public AnimancerState PlayAnimation(TransitionAsset transition)
+        public AnimancerState PlayAnimation(ITransition transition)
         {
             return Animancer.Play(transition);
         }
