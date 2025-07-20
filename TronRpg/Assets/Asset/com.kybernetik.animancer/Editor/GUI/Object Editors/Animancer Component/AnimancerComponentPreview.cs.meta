@@ -16,6 +16,6 @@ AssetOrigin:
   productId: 293522
   packageName: Animancer Pro v8
   packageVersion: 8.1.1
-  assetPath: Packages/com.kybernetik.animancer/Editor/GUI/Object Editors/Animancer
+  assetPath: Assets/Asset/com.kybernetik.animancer/Editor/GUI/Object Editors/Animancer
     Component/AnimancerComponentPreview.cs
   uploadId: 759818

@@ -14,5 +14,6 @@ AssetOrigin:
   productId: 293522
   packageName: Animancer Pro v8
   packageVersion: 8.1.1
-  assetPath: Packages/com.kybernetik.animancer/Runtime/Utilities/Redirect Root Motion/RedirectRootMotionToCharacterController.cs
+  assetPath: Assets/Asset/com.kybernetik.animancer/Runtime/Utilities/Redirect Root
+    Motion/RedirectRootMotionToCharacterController.cs
   uploadId: 759818

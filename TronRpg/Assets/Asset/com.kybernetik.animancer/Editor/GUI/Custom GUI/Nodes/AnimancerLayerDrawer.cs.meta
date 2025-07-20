@@ -16,5 +16,5 @@ AssetOrigin:
   productId: 293522
   packageName: Animancer Pro v8
   packageVersion: 8.1.1
-  assetPath: Packages/com.kybernetik.animancer/Editor/GUI/Custom GUI/Nodes/AnimancerLayerDrawer.cs
+  assetPath: Assets/Asset/com.kybernetik.animancer/Editor/GUI/Custom GUI/Nodes/AnimancerLayerDrawer.cs
   uploadId: 759818

@@ -27,8 +27,8 @@ MonoBehaviour:
           _Callbacks: []
           _Names: []
         _Animations:
-        - {fileID: 8630388038575456667, guid: 527ecefb0b0347d88279120243ee1895, type: 3}
-        - {fileID: 8396163733330767424, guid: 527ecefb0b0347d88279120243ee1895, type: 3}
+        - {fileID: -5252816984213320552, guid: dbe061002f33e2d419f5e4dc25c0feda, type: 3}
+        - {fileID: -3419257869308726280, guid: 6884dd4cfa0be294c9f1e909d82315dd, type: 3}
         _Speeds: []
         _SynchronizeChildren: 
         _Thresholds:

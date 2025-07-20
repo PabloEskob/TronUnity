@@ -15,11 +15,11 @@ namespace Core.Scripts.Character.Animator
         [SerializeField] private ECM2.Character Controller;
         [SerializeField] private AnimancerComponent Animancer;
 
-        private Parameter<float> _speedParam;
+        private SmoothedFloatParameter _speedParam;
 
         private void Awake()
         {
-            _speedParam = Animancer.Parameters.GetOrCreate<float>(ParameterNameMixerIdleRun);
+            _speedParam = new SmoothedFloatParameter(Animancer, ParameterNameMixerIdleRun, 0.05f);
             Animancer.Play(AnimationMixerIdleRun);
         }
 
@@ -28,7 +28,7 @@ namespace Core.Scripts.Character.Animator
             var horizontalVel = Vector3.ProjectOnPlane(Controller.velocity, Controller.GetGravityDirection());
             var speed = horizontalVel.magnitude;
             var normalized = Mathf.InverseLerp(0f, Controller.maxWalkSpeed, speed);
-            _speedParam.Value = Mathf.Clamp01(normalized);
+            _speedParam.TargetValue = normalized;
         }
     }
 }
