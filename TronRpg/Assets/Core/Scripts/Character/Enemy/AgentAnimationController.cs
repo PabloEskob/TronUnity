@@ -2,44 +2,33 @@
 
 namespace Core.Scripts.Character.Enemy
 {
-    public class AgentAnimationController : MonoBehaviour
+    public class AgentAnimationController : BaseMovementHandler
     {
-        [SerializeField] private MonoBehaviour _movementProviderComponent; // Реализует IMovementProvider
-        [SerializeField] private MonoBehaviour _animatorComponent; // Реализует IEnemyAnimator
         [SerializeField] private float _moveThreshold = 0.1f; // Порог для начала движения
         [SerializeField] private float _runThreshold = 0.5f; // Порог normalized speed для Run vs Walk
-
-        private IMovementProvider _movementProvider;
-        private IEnemyAnimator _animator;
+        
         private float _cachedMaxSpeed; // Кэш для оптимизации
 
-        private void Awake()
+        protected override void Awake()
         {
-            _movementProvider = _movementProviderComponent as IMovementProvider ?? GetComponent<IMovementProvider>();
-            _animator = _animatorComponent as IEnemyAnimator ?? GetComponent<IEnemyAnimator>();
-
-            if (_movementProvider == null || _animator == null)
-            {
-                Debug.LogError("AgentAnimationController: Missing IMovementProvider or IEnemyAnimator!");
-                enabled = false;
-                return;
-            }
-
-            _cachedMaxSpeed = _movementProvider.MaxSpeed;
-            _movementProvider.OnVelocityChanged += HandleVelocityChanged; // Подписка
+            base.Awake();
+            if (!enabled) return;
+            _cachedMaxSpeed = MovementProvider.MaxSpeed;
         }
 
-        private void OnDestroy()
+        protected override void SubscribeToEvents()
         {
-            if (_movementProvider != null)
-            {
-                _movementProvider.OnVelocityChanged -= HandleVelocityChanged; // Отписка
-            }
+            MovementProvider.OnVelocityChanged += HandleVelocityChanged;
+        }
+
+        protected override void UnsubscribeFromEvents()
+        {
+            MovementProvider.OnVelocityChanged -= HandleVelocityChanged;
         }
 
         private void HandleVelocityChanged(Vector3 newVelocity)
         {
-            if (_animator.CurrentState == BaseEnemyAnimator.EnemyState.Death) return;
+            if (Animator.CurrentState == BaseEnemyAnimator.EnemyState.Death) return;
 
             var speed = newVelocity.magnitude;
             var normalizedSpeed = Mathf.InverseLerp(0f, _cachedMaxSpeed, speed);
@@ -48,9 +37,9 @@ namespace Core.Scripts.Character.Enemy
                 ? (normalizedSpeed >= _runThreshold ? BaseEnemyAnimator.EnemyState.Run : BaseEnemyAnimator.EnemyState.Walk)
                 : BaseEnemyAnimator.EnemyState.Idle;
 
-            if (newState != _animator.CurrentState)
+            if (newState != Animator.CurrentState)
             {
-                _animator.UpdateAnimationState(newState);
+                Animator.UpdateAnimationState(newState);
             }
         }
     }

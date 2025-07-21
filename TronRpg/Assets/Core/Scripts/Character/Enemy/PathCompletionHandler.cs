@@ -2,45 +2,26 @@
 
 namespace Core.Scripts.Character.Enemy
 {
-    public class PathCompletionHandler : MonoBehaviour
+    public class PathCompletionHandler : BaseMovementHandler
     {
-        [SerializeField] private MonoBehaviour _movementProviderComponent; // Реализует IMovementProvider
-        [SerializeField] private MonoBehaviour _animatorComponent; // Реализует IEnemyAnimator
-
-        private IMovementProvider _movementProvider;
-        private IEnemyAnimator _animator;
-
-        private void Awake()
+        protected override void SubscribeToEvents()
         {
-            _movementProvider = _movementProviderComponent as IMovementProvider ?? GetComponent<IMovementProvider>();
-            _animator = _animatorComponent as IEnemyAnimator ?? GetComponent<IEnemyAnimator>();
-
-            if (_movementProvider == null || _animator == null)
-            {
-                Debug.LogError("PathCompletionHandler: Missing IMovementProvider or IEnemyAnimator!");
-                enabled = false;
-                return;
-            }
-
-            _movementProvider.OnPathCompleted += HandlePathCompleted; // Подписка на событие
+            MovementProvider.OnPathCompleted += HandlePathCompleted;
         }
 
-        private void OnDestroy()
+        protected override void UnsubscribeFromEvents()
         {
-            if (_movementProvider != null)
-            {
-                _movementProvider.OnPathCompleted -= HandlePathCompleted; // Отписка для избежания leaks
-            }
+            MovementProvider.OnPathCompleted -= HandlePathCompleted;
         }
 
         private void HandlePathCompleted()
         {
-            if (_animator.CurrentState == BaseEnemyAnimator.EnemyState.Death) return;
+            if (Animator.CurrentState == BaseEnemyAnimator.EnemyState.Death) return;
 
-            if (_animator.CurrentState == BaseEnemyAnimator.EnemyState.Walk ||
-                _animator.CurrentState == BaseEnemyAnimator.EnemyState.Run)
+            if (Animator.CurrentState == BaseEnemyAnimator.EnemyState.Walk ||
+                Animator.CurrentState == BaseEnemyAnimator.EnemyState.Run)
             {
-                _animator.UpdateAnimationState(BaseEnemyAnimator.EnemyState.Idle);
+                Animator.UpdateAnimationState(BaseEnemyAnimator.EnemyState.Idle);
                 Debug.Log("Target reached.");
             }
         }
