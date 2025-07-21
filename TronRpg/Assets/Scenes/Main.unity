@@ -1179,7 +1179,9 @@ GameObject:
   - component: {fileID: 2041613435}
   - component: {fileID: 2041613436}
   - component: {fileID: 2041613438}
-  - component: {fileID: 2041613439}
+  - component: {fileID: 2041613440}
+  - component: {fileID: 2041613441}
+  - component: {fileID: 2041613442}
   m_Layer: 20
   m_Name: TigerDragoPrefab
   m_TagString: Untagged
@@ -1220,7 +1222,7 @@ MonoBehaviour:
   AttackTransition: {fileID: 0}
   DeathTransition: {fileID: 0}
   SpeedParameterName: {fileID: 11400000, guid: e9b018d40feaa0741abd34b82e134ed9, type: 2}
-  Controller: {fileID: 2041613436}
+  Controller: {fileID: 2041613440}
   Animancer: {fileID: 1867632354}
   _dragonModel: {fileID: 1503660053}
 --- !u!114 &2041613436
@@ -1318,7 +1320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 2041613436}
---- !u!114 &2041613439
+--- !u!114 &2041613440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1327,11 +1329,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 2041613429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2b1baea207c4e88b8ebcd6daa209d89, type: 3}
+  m_Script: {fileID: 11500000, guid: 3473c36a2ebe4f79871e32ce31323468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 2041613436}
-  _animator: {fileID: 2041613435}
+  _follower: {fileID: 2041613436}
+--- !u!114 &2041613441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041613429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acecfa33cac8430ea12ca4ce01646fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementProviderComponent: {fileID: 2041613435}
+  _animatorComponent: {fileID: 2041613435}
+--- !u!114 &2041613442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041613429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e64f880c8254520b1f1ebcc6fb310b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementProviderComponent: {fileID: 2041613435}
+  _animatorComponent: {fileID: 2041613435}
   _moveThreshold: 0.1
   _runThreshold: 0.5
 --- !u!1001 &2076918407

@@ -26,8 +26,8 @@ namespace Core.Scripts.Character.Enemy
 
         private void Update()
         {
-            if (_heroTransform && HeroNotReached()) 
-                _agent.destination = _heroTransform.position;
+            if (!_heroTransform || !HeroNotReached()) return;
+            _agent.destination = _heroTransform.position;
         }
 
         private bool HeroNotReached() => 
@@ -36,7 +36,17 @@ namespace Core.Scripts.Character.Enemy
         private void HeroCreated(GameObject obj) =>
             InitializeHeroTransform();
 
-        private void InitializeHeroTransform() =>
+        private void InitializeHeroTransform()
+        {
+            if (!_gameFactory.HeroGameObject)
+            {
+                Debug.LogWarning("HeroGameObject is null!");
+                return;
+            }
             _heroTransform = _gameFactory.HeroGameObject.transform;
+        }
+
+        private void OnDestroy() => 
+            _gameFactory.HeroCreated -= HeroCreated;
     }
 }

@@ -1,26 +1,36 @@
 ﻿using Animancer;
 using Animancer.TransitionLibraries;
-using Pathfinding;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using System.Collections.Generic;
+using Core.Scripts.Infrastructure.States.AnimationFactory;
 
 namespace Core.Scripts.Character.Enemy
 {
     public abstract class BaseEnemyAnimator : MonoBehaviour, IEnemyAnimator
     {
         [SerializeField] protected TransitionLibraryAsset IdleTransitionLibrary;
-        [SerializeField] protected TransitionAsset WalkRunMixerTransition;
-        [SerializeField] protected TransitionAsset AttackTransition;
-        [SerializeField] protected TransitionAsset DeathTransition;
+        [SerializeField] protected internal TransitionAsset WalkRunMixerTransition;
+        [SerializeField] protected internal TransitionAsset AttackTransition;
+        [SerializeField] protected internal TransitionAsset DeathTransition;
         [SerializeField] protected StringAsset SpeedParameterName;
 
         [Header("External")]
-        [SerializeField] protected FollowerEntity Controller;
+        [SerializeField] protected MonoBehaviour Controller; // Реализует IMovementProvider
         [SerializeField] protected AnimancerComponent Animancer;
 
-        protected internal EnemyState CurrentState = EnemyState.Idle;
-        private SmoothedFloatParameter _speedParam;
+        public EnemyState CurrentState { get; set; } = EnemyState.Idle;
+        protected internal SmoothedFloatParameter SpeedParam { get; private set; }
+        protected internal IMovementProvider MovementProvider { get; private set; }
         private TransitionLibrary _idleLibraryCache;
+
+        private static readonly Dictionary<EnemyState, IAnimationState> StateMap = new()
+        {
+            { EnemyState.Idle, new IdleState() },
+            { EnemyState.Walk, new WalkRunState() },
+            { EnemyState.Run, new WalkRunState() },
+            { EnemyState.Attack, new AttackState() },
+            { EnemyState.Death, new DeathState() }
+        };
 
         public enum EnemyState
         {
@@ -33,34 +43,24 @@ namespace Core.Scripts.Character.Enemy
 
         protected virtual void Awake()
         {
-            _speedParam = new SmoothedFloatParameter(Animancer, SpeedParameterName, 0.05f);
+            if (!ValidateDependencies()) return;
+
+            SpeedParam = new SmoothedFloatParameter(Animancer, SpeedParameterName, 0.05f);
             if (IdleTransitionLibrary != null)
             {
-                _idleLibraryCache = IdleTransitionLibrary.Library; 
+                _idleLibraryCache = IdleTransitionLibrary.Library;
             }
+
             InitializeSpecific();
             UpdateAnimationState(EnemyState.Idle);
         }
 
         protected abstract void InitializeSpecific();
 
-        protected virtual void Update()
-        {
-            UpdateSpeedParameter();
-        }
-        
-        protected void UpdateSpeedParameter()
-        {
-            if (CurrentState == EnemyState.Walk || CurrentState == EnemyState.Run)
-            {
-                var speed = Controller.velocity.magnitude;
-                var normalized = Mathf.InverseLerp(0f, Controller.maxSpeed, speed);
-                _speedParam.TargetValue = normalized;
-            }
-        }
-
         public virtual void UpdateAnimationState(EnemyState newState)
         {
+            if (CurrentState == EnemyState.Death && newState != EnemyState.Death) return; // Нельзя выйти из Death
+
             if (newState != EnemyState.Idle && CurrentState == EnemyState.Idle)
             {
                 var currentState = Animancer.Layers[0].CurrentState;
@@ -70,35 +70,33 @@ namespace Core.Scripts.Character.Enemy
                 }
             }
 
-            CurrentState = newState;
-            switch (newState)
+            if (StateMap.TryGetValue(newState, out var state))
             {
-                case EnemyState.Idle:
-                    PlayRandomIdle();
-                    break;
-                case EnemyState.Walk:
-                case EnemyState.Run:
-                    PlayAnimation(WalkRunMixerTransition);
-                    break;
-                case EnemyState.Attack:
-                    PlayAnimation(AttackTransition);
-                    break;
-                case EnemyState.Death:
-                    PlayAnimation(DeathTransition);
-                    break;
+                CurrentState = newState;
+                state.Enter(this);
+            }
+            else
+            {
+                Debug.LogWarning($"No IAnimationState found for {newState}!");
             }
         }
 
         public AnimancerState PlayAnimation(ITransition transition)
         {
+            if (transition == null)
+            {
+                Debug.LogWarning("Attempted to play null transition!");
+                return null;
+            }
+
             return Animancer.Play(transition);
         }
 
-        private void PlayRandomIdle()
+        protected internal void PlayRandomIdle()
         {
             if (_idleLibraryCache == null || _idleLibraryCache.Count <= 0)
             {
-                Debug.LogWarning("IdleTransitionLibrary пуста или не инициализирована!");
+                Debug.LogWarning("IdleTransitionLibrary is empty or not initialized!");
                 return;
             }
 
@@ -114,13 +112,33 @@ namespace Core.Scripts.Character.Enemy
                 }
                 else
                 {
-                    Debug.LogWarning("Получен null Transition из группы!");
+                    Debug.LogWarning("Received null Transition from group!");
                 }
             }
             else
             {
-                Debug.LogWarning("Не удалось получить TransitionModifierGroup по индексу!");
+                Debug.LogWarning("Failed to get TransitionModifierGroup by index!");
             }
+        }
+
+        private bool ValidateDependencies()
+        {
+            if (Animancer == null || SpeedParameterName == null)
+            {
+                Debug.LogError("Animancer or SpeedParameterName not set!");
+                enabled = false;
+                return false;
+            }
+
+            MovementProvider = Controller as IMovementProvider;
+            if (MovementProvider == null)
+            {
+                Debug.LogError("Controller must implement IMovementProvider!");
+                enabled = false;
+                return false;
+            }
+
+            return true;
         }
     }
 }
