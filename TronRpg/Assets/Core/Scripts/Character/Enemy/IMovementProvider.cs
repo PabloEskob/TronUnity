@@ -15,5 +15,8 @@ namespace Core.Scripts.Character.Enemy
 
         event Action OnPathCompleted;
         event Action<Vector3> OnVelocityChanged;
+        
+        void StopMovement();
+        void ResumeMovement(float originalMaxSpeed);
     }
 }

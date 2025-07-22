@@ -5,15 +5,11 @@ using VContainer;
 
 namespace Core.Scripts.Character.Enemy
 {
-    public class AgentMoveToPlayer : MonoBehaviour
+    public class AgentMoveToPlayer : Follow
     {
-        private const float MinimalDistance = 2;
-
+        [SerializeField] private float _minimalDistance = 2f;
         [SerializeField] private FollowerEntity _agent;
-
-        [Inject]
-        private IGameFactory _gameFactory;
-
+        
         private Transform _heroTransform;
 
         private void Start()
@@ -26,14 +22,15 @@ namespace Core.Scripts.Character.Enemy
 
         private void Update()
         {
-            if (!_heroTransform || !HeroNotReached()) return;
+            if (!_isPursuing || !_heroTransform || !HeroNotReached()) return;
             _agent.destination = _heroTransform.position;
         }
+        
+        
+        private bool HeroNotReached() =>
+            Vector3.Distance(_agent.transform.position, _heroTransform.position) >= _minimalDistance;
 
-        private bool HeroNotReached() => 
-            Vector3.Distance(_agent.transform.position, _heroTransform.position) >= MinimalDistance;
-
-        private void HeroCreated(GameObject obj) =>
+        private void HeroCreated() =>
             InitializeHeroTransform();
 
         private void InitializeHeroTransform()
@@ -43,10 +40,11 @@ namespace Core.Scripts.Character.Enemy
                 Debug.LogWarning("HeroGameObject is null!");
                 return;
             }
+
             _heroTransform = _gameFactory.HeroGameObject.transform;
         }
 
-        private void OnDestroy() => 
+        private void OnDestroy() =>
             _gameFactory.HeroCreated -= HeroCreated;
     }
 }

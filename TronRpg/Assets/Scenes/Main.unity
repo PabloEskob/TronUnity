@@ -541,7 +541,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   SaveTrigger: {fileID: 1730463459}
-  AgentMoveToPlayer: {fileID: 2041613438}
+  Follow: {fileID: 2041613438}
 --- !u!4 &891596850
 Transform:
   m_ObjectHideFlags: 0
@@ -731,7 +731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1073741824
   data:
-    dataString: UEsDBBQAAAgIAAAwIexRm564XQIAAMYEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1v2zAM/SuBz1vh2HHj7Lik6w79GOIAKzrswMi0LVSWMklOmgb97xXlj7jrdhL8yEeRj08+BawCDcyiXkPOGxN8mYQXyadJwJS0qtG38HyltdIOjwhFITL+gj4torwDiCfYCvyOvKxsl9aDS8Hr7VCyhudMqB2R47D9vspLvEFZ2oqYHuRyjSVXsrsmdhjm3Cq94QI7cBqlDrYd8PABeRyQxiDxaC6rG3TIDvUNHFHfqpwXnIF1d1H4128XzHmN0jjERemiYNUD8Spw8S2wp1KrRuYbDXvUBrZccHuk1J/d0JSnUeAepL3WsKuyRhfAcCip7pRd45+Ga5/LlBDIqI0MreWypG5OI7gn+rYNUXbV0XBmMoaSIqfXv7Bo1aPCjwrmiYBJsAfReAHDWZrMkwmlWCi7BC+BBuPc4ERcugZ4TjcO2g2xWzSVF7UAYd5FNqg1cPkPzkbjeA+2TWx9U8NupQ7SQL0TToFvzpHec3GnD/Wx7gut0AIXNIWLKrlshRpako0QNJdW1i+3nfyZbOjQY3e+0OnnL5RmmH+lpZolSnfHR0Z0kSxmi0X6X2JnzI6W9LzkIpqGYZjMLztm0lJNpQ7U8H1j3bx4VoUCd27fSyVlu/2xyj2tc9SZJhE0Gpu5g1X3UhwfHkc0lOTLO9jXjrtsvMnO3LLh+Xt3BOlsHsfptMjhMgJE/ByG2yJNFvk0jefzdJYGfgouueUgfrj6wvbCugc+2r6E2ldcI3Prm/j3QA7ONRyu+UutRo7gslAZcy6R922NYWy3dhBO4fzK/wlG7yQ4vQavb1BLAwQUAAAICAAAMCHs0BIBN24AAAB5AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDVM9az0FFQSi9KLMgoBgoYgjilmSkgdrSShYm5sbGFYVpKoplRYmpqqq6BQVKahalliqGFsbm5hYmFUixQfUllQapfYm4qRE9AYklGWmZeSmZeul5QanJicYk7yHCl2FoAUEsBAi0AFAAACAgAADAh7FGbnrhdAgAAxgQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAADAh7NASATduAAAAeQAAAAkAJAAAAAAAAAAAAAAAqgIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABjAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAwIeyWHaWGXwIAAMwEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMtu2zAQ/BVD5zaQJSuWe6ydpoc8CstAgxQ9rMmVRIQiXZKy4wT593IpWVGS9kRoZme5j6GeI1aDAebQrIGL1kZfJvFZ9mkSMa2cbs01PF4Yo43HE0JRykI8YQhLKO4A8gG2Er+jqGrXh53ApRTNdkjZwGMh9Y7Eadx9X/AKr1BVriZlAIVaYyW06q9JPYZcOG02QmIPTpPcw64H7j4g9wPSWiQd9eVMix7ZobmCI5przUUpGDh/F9G/fnuSiwaV9Yhn6aJodQLSVeT5LbCHyuhW8Y2BPRoLWyGFO1Loz75pijMocQ/KXRrY1UVrSmA4pNQ32q3xTytMiGVaSmRURoHOCVVRNc8j+CQMZVuS7OqjFcwWDBUxqpXyHZqsXnEZ2gX7QHkn0R5kG4YYz/Jsnk1eaHBQ9QFhDAasd4Qf5NIXITjdOsxv4K7R1mGwJUj7htmgMSDUPzQbg+NduC6w804Du5U+KAvNTvopfPOuDL5L+xlRHetTohU6EJK68KxWy25YQ0nUOfVltAsL7jp/JCt69NifT3SG/kttGPKvtFi7ROXv+KhIzrLFbLHI/yvszdnLspMuO0umcRxn8/NemXVSW+sDFXzbOt8vjgZJzI1f+lIr1VnAvmNJ19tqxCgEg9YV/mD1rZLHu/sRi4rceQP7xouXbbDa6yqqVvC3/ojy2TxN82nJ4TwBRPwcx9syzxZ8mqfzeT7Lo9CHUMIJkD98fulOo/XPfLR/BU3IuEbmFzgJr4J8zA0cLsVTo0eeEKrUBfM+UbddjqFvv3iQfsb8IvwPRq8len6JXv4CUEsDBBQAAAgIAAAwIezQEgE3bgAAAHkAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNUz1rPQUVBKL0osyCgGChiCOKWZKSB2tJKFibmxsYVhWkqimVFiamqqroFBUpqFqWWKoYWxubmFiYVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66XlBqcmJxiTvIcKXYWgBQSwECLQAUAAAICAAAMCHslh2lhl8CAADMBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAMCHs0BIBN24AAAB5AAAACQAkAAAAAAAAAAAAAACsAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAGUDAAAAAA==
     file_cachedStartup: {fileID: 0}
     cacheStartup: 0
   showNavGraphs: 1
@@ -792,7 +792,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   navmeshUpdates:
@@ -1166,6 +1166,89 @@ MonoBehaviour:
   _Animator: {fileID: 1867632353}
   _Transitions: {fileID: 0}
   _ActionOnDisable: 0
+--- !u!1 &1999930865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999930866}
+  - component: {fileID: 1999930867}
+  - component: {fileID: 1999930869}
+  - component: {fileID: 1999930868}
+  m_Layer: 20
+  m_Name: AggroZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1999930866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999930865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2041613430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1999930867
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999930865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1999930868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999930865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af06963d5941480f8c512c5debc91a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1999930869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999930865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70982705ab6b4307bc5568a1c115d055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerObserver: {fileID: 1999930868}
+  _follow: {fileID: 2041613440}
+  _moveToPlayer: {fileID: 2041613438}
+  _cooldown: 3
 --- !u!1 &2041613429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,8 +1259,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2041613430}
   - component: {fileID: 2041613437}
-  - component: {fileID: 2041613435}
   - component: {fileID: 2041613436}
+  - component: {fileID: 2041613435}
   - component: {fileID: 2041613438}
   - component: {fileID: 2041613440}
   - component: {fileID: 2041613441}
@@ -1198,11 +1281,12 @@ Transform:
   m_GameObject: {fileID: 2041613429}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.18, y: 0.002, z: 0}
+  m_LocalPosition: {x: 16.92, y: 0.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 232840913}
+  - {fileID: 1999930866}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2041613435
@@ -1319,6 +1403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded35953caee4b25a736f0d6b4a41fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minimalDistance: 2
   _agent: {fileID: 2041613436}
 --- !u!114 &2041613440
 MonoBehaviour:
@@ -1345,7 +1430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acecfa33cac8430ea12ca4ce01646fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementProviderComponent: {fileID: 2041613435}
+  _movementProviderComponent: {fileID: 2041613440}
   _animatorComponent: {fileID: 2041613435}
 --- !u!114 &2041613442
 MonoBehaviour:
@@ -1359,7 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e64f880c8254520b1f1ebcc6fb310b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementProviderComponent: {fileID: 2041613435}
+  _movementProviderComponent: {fileID: 2041613440}
   _animatorComponent: {fileID: 2041613435}
   _moveThreshold: 0.1
   _runThreshold: 0.5
@@ -1481,6 +1566,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1450992891}
   - {fileID: 2076918407}
   - {fileID: 678705428098274274}
   - {fileID: 1103513664}
@@ -1489,4 +1575,3 @@ SceneRoots:
   - {fileID: 891596850}
   - {fileID: 1730463460}
   - {fileID: 2041613430}
-  - {fileID: 1450992891}

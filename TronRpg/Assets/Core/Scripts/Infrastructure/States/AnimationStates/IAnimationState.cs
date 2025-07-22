@@ -1,6 +1,6 @@
 ﻿using Core.Scripts.Character.Enemy;
 
-namespace Core.Scripts.Infrastructure.States.AnimationFactory
+namespace Core.Scripts.Infrastructure.States.AnimationStates
 {
     /// <summary>
     /// Интерфейс для состояния анимации, реализует паттерн State.

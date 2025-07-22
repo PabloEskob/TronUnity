@@ -2,7 +2,7 @@
 using Animancer.TransitionLibraries;
 using UnityEngine;
 using System.Collections.Generic;
-using Core.Scripts.Infrastructure.States.AnimationFactory;
+using Core.Scripts.Infrastructure.States.AnimationStates;
 
 namespace Core.Scripts.Character.Enemy
 {

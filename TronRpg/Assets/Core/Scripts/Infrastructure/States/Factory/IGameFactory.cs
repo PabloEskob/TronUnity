@@ -9,7 +9,7 @@ namespace Core.Scripts.Infrastructure.States.Factory
     {
         GameObject CreateHero(GameObject at);
         GameObject HeroGameObject { get; }
-        event Action<GameObject> HeroCreated;
+        event Action HeroCreated;
         void Cleanup();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }

@@ -17,7 +17,7 @@ namespace Core.Scripts.Infrastructure.States.Factory
         public List<ISavedProgress> ProgressWriters { get; } = new();
         
         public GameObject HeroGameObject { get; private set; }
-        public event Action<GameObject> HeroCreated;
+        public event Action HeroCreated;
         
         public GameFactory(IAssetProvider assets, IObjectResolver container)
         {
@@ -29,7 +29,7 @@ namespace Core.Scripts.Infrastructure.States.Factory
         {
             HeroGameObject = InstantiateRegistered(AssetPath.HeroPlayerPath, at.transform.position);
             _container.InjectGameObject(HeroGameObject);
-            HeroCreated?.Invoke(HeroGameObject);
+            HeroCreated?.Invoke();
             return HeroGameObject;
         }
 

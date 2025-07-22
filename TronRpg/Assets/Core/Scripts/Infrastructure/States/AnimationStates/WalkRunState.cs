@@ -1,7 +1,7 @@
 ﻿using Core.Scripts.Character.Enemy;
 using UnityEngine;
 
-namespace Core.Scripts.Infrastructure.States.AnimationFactory
+namespace Core.Scripts.Infrastructure.States.AnimationStates
 {
     /// <summary>
     /// Состояние Walk/Run: проигрывает WalkRunMixer с blending по скорости.

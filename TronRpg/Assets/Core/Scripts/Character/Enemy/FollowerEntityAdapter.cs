@@ -53,5 +53,18 @@ namespace Core.Scripts.Character.Enemy
                 _lastVelocity = _follower.velocity;
             }
         }
+
+        public void StopMovement()
+        {
+            _follower.isStopped = true;
+            OnPathCompleted?.Invoke();
+        }
+
+        public void ResumeMovement(float originalMaxSpeed = -1f)
+        {
+            _follower.isStopped = false;
+            if (originalMaxSpeed > 0)
+                _follower.maxSpeed = originalMaxSpeed;
+        }
     }
 }
