@@ -8,7 +8,8 @@ namespace Core.Scripts.Character.Enemy
     {
         protected bool _isPursuing;
         
-        [Inject] protected IGameFactory _gameFactory;
+        [Inject] 
+        protected IGameFactory _gameFactory;
 
         public void StopPursuit()
         {

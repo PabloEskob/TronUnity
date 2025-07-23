@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Core.Scripts.Character.Enemy
+﻿namespace Core.Scripts.Character.Enemy
 {
     public class PathCompletionHandler : BaseMovementHandler
     {
@@ -22,7 +20,6 @@ namespace Core.Scripts.Character.Enemy
                 Animator.CurrentState == BaseEnemyAnimator.EnemyState.Run)
             {
                 Animator.UpdateAnimationState(BaseEnemyAnimator.EnemyState.Idle);
-                Debug.Log("Target reached.");
             }
         }
     }

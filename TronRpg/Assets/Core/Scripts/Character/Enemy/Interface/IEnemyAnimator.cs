@@ -1,6 +1,6 @@
 ﻿using Animancer;
 
-namespace Core.Scripts.Character.Enemy
+namespace Core.Scripts.Character.Enemy.Interface
 {
     public interface IEnemyAnimator
     {

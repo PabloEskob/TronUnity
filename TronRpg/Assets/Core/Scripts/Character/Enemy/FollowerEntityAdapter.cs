@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Pathfinding;
 using System;
+using Core.Scripts.Character.Enemy.Interface;
 
 namespace Core.Scripts.Character.Enemy
 {
@@ -47,7 +48,7 @@ namespace Core.Scripts.Character.Enemy
             }
 
             // Триггер OnVelocityChanged только при значимом изменении
-            if (_follower.velocity != _lastVelocity)
+            if (Vector3.SqrMagnitude(_follower.velocity - _lastVelocity) > 0.01f)
             {
                 OnVelocityChanged?.Invoke(_follower.velocity);
                 _lastVelocity = _follower.velocity;

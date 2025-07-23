@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.Scripts.Character.Enemy.Interface;
+using UnityEngine;
 
 namespace Core.Scripts.Character.Enemy
 {

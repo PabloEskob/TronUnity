@@ -2,26 +2,35 @@
 using Animancer.TransitionLibraries;
 using UnityEngine;
 using System.Collections.Generic;
+using Core.Scripts.Character.Enemy.Interface;
 using Core.Scripts.Infrastructure.States.AnimationStates;
 
 namespace Core.Scripts.Character.Enemy
 {
     public abstract class BaseEnemyAnimator : MonoBehaviour, IEnemyAnimator
     {
+        public StringAsset AttackHitEventName;
+        
         [SerializeField] protected TransitionLibraryAsset IdleTransitionLibrary;
         [SerializeField] protected internal TransitionAsset WalkRunMixerTransition;
         [SerializeField] protected internal TransitionAsset AttackTransition;
         [SerializeField] protected internal TransitionAsset DeathTransition;
         [SerializeField] protected StringAsset SpeedParameterName;
+        
+        [Header("External")] 
+        [SerializeField] protected MonoBehaviour Controller;
 
-        [Header("External")]
-        [SerializeField] protected MonoBehaviour Controller; // Реализует IMovementProvider
         [SerializeField] protected AnimancerComponent Animancer;
 
         public EnemyState CurrentState { get; set; } = EnemyState.Idle;
         protected internal SmoothedFloatParameter SpeedParam { get; private set; }
         protected internal IMovementProvider MovementProvider { get; private set; }
+
         private TransitionLibrary _idleLibraryCache;
+
+        public event System.Action<EnemyState> OnAnimationStateEnded;
+        public event System.Action OnAttack;
+
 
         private static readonly Dictionary<EnemyState, IAnimationState> StateMap = new()
         {
@@ -59,7 +68,8 @@ namespace Core.Scripts.Character.Enemy
 
         public virtual void UpdateAnimationState(EnemyState newState)
         {
-            if (CurrentState == EnemyState.Death && newState != EnemyState.Death) return; // Нельзя выйти из Death
+            if (CurrentState == newState) return;
+            if (CurrentState == EnemyState.Death && newState != EnemyState.Death) return;
 
             if (newState != EnemyState.Idle && CurrentState == EnemyState.Idle)
             {
@@ -81,6 +91,16 @@ namespace Core.Scripts.Character.Enemy
             }
         }
 
+        protected internal void RaiseStateEnded(EnemyState state)
+        {
+            OnAnimationStateEnded?.Invoke(state);
+        }
+
+        protected internal void RaiseAttackPerformed()
+        {
+           OnAttack?.Invoke();
+        }
+
         public AnimancerState PlayAnimation(ITransition transition)
         {
             if (transition == null)
@@ -88,7 +108,7 @@ namespace Core.Scripts.Character.Enemy
                 Debug.LogWarning("Attempted to play null transition!");
                 return null;
             }
-
+            
             return Animancer.Play(transition);
         }
 
@@ -108,7 +128,8 @@ namespace Core.Scripts.Character.Enemy
                 if (group.Transition != null)
                 {
                     var state = Animancer.Play(group.Transition);
-                    state.Events(this).OnEnd ??= PlayRandomIdle;
+                    state.Events(this).OnEnd = null;
+                    state.Events(this).OnEnd = PlayRandomIdle;
                 }
                 else
                 {

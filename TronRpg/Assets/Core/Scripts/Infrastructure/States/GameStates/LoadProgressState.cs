@@ -30,12 +30,15 @@ namespace Core.Scripts.Infrastructure.States.GameStates
         {
         }
 
-        private void LoadProgressOrInitNew()
-        {
+        private void LoadProgressOrInitNew() =>
             _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
-        }
 
-        private PlayerProgress NewProgress() =>
-            new(Scenes.Main);
+        private PlayerProgress NewProgress()
+        {
+            var progress = new PlayerProgress(Scenes.Main);
+            progress.HeroState.MaxHealth = 50;
+            progress.HeroState.ResetHP();
+            return progress;
+        }
     }
 }

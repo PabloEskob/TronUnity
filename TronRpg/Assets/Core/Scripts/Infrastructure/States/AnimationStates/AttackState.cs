@@ -1,4 +1,5 @@
 ﻿using Core.Scripts.Character.Enemy;
+using UnityEngine;
 
 namespace Core.Scripts.Infrastructure.States.AnimationStates
 {
@@ -9,7 +10,14 @@ namespace Core.Scripts.Infrastructure.States.AnimationStates
     {
         public void Enter(BaseEnemyAnimator animator)
         {
-            animator.PlayAnimation(animator.AttackTransition);
+            var state = animator.PlayAnimation(animator.AttackTransition);
+
+            if (state != null)
+            {
+                state.Events(this).SetCallback(animator.AttackHitEventName, animator.RaiseAttackPerformed);
+                state.Events(this).OnEnd = () =>
+                    animator.RaiseStateEnded(BaseEnemyAnimator.EnemyState.Attack);
+            }
         }
     }
 }

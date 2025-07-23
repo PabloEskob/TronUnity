@@ -13,9 +13,9 @@ namespace Core.Scripts.Infrastructure.States.AnimationStates
             var state = animator.PlayAnimation(animator.WalkRunMixerTransition);
             if (state != null)
             {
-                var speed = animator.MovementProvider.Velocity.magnitude; // Используем геттер
+                var speed = animator.MovementProvider.Velocity.magnitude;
                 var normalized = Mathf.InverseLerp(0f, animator.MovementProvider.MaxSpeed, speed);
-                animator.SpeedParam.TargetValue = normalized; // Используем геттер
+                animator.SpeedParam.TargetValue = normalized;
             }
         }
     }

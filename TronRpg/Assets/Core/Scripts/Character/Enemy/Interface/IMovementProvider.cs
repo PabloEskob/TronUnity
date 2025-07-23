@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
-namespace Core.Scripts.Character.Enemy
+namespace Core.Scripts.Character.Enemy.Interface
 {
     /// <summary>
     /// Интерфейс для предоставления данных о движении, абстрагирует FollowerEntity.

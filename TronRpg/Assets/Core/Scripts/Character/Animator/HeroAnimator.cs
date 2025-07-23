@@ -7,6 +7,9 @@ namespace Core.Scripts.Character.Animator
     {
         [SerializeField] 
         private TransitionAsset AnimationMixerIdleRun;
+        
+        [SerializeField] 
+        private TransitionAsset Hit;
 
         [SerializeField] 
         private StringAsset ParameterNameMixerIdleRun;
@@ -29,6 +32,11 @@ namespace Core.Scripts.Character.Animator
             var speed = horizontalVel.magnitude;
             var normalized = Mathf.InverseLerp(0f, Controller.maxWalkSpeed, speed);
             _speedParam.TargetValue = normalized;
+        }
+
+        public void PlayHit()
+        {
+            Animancer.Play(Hit);
         }
     }
 }

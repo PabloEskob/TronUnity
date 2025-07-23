@@ -1,13 +1,13 @@
 using Core.Scripts.Data;
 using Core.Scripts.Services.Input;
 using Core.Scripts.Services.PersistentProgress;
+using ECM2;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ECM2;
 using VContainer;
 
-namespace Core.Scripts.Character
+namespace Core.Scripts.Character.Hero
 {
     public class HeroMove : MonoBehaviour, ISavedProgress
     {

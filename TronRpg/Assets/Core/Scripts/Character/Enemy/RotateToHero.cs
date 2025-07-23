@@ -10,9 +10,7 @@ namespace Core.Scripts.Character.Enemy
 
         private Transform _heroTransform;
         private Vector3 _positionToLook;
-
-        [Inject] private IGameFactory _gameFactory;
-
+        
         private void Start()
         {
             if (HeroExists())

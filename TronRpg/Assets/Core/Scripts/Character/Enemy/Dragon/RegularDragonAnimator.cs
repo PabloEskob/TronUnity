@@ -14,11 +14,12 @@ namespace Core.Scripts.Character.Enemy
         {
             if (_dragonModel == null)
             {
-                Debug.LogError("DragonModel is not assigned!");
+                Debug.LogError("DragonModel is not assigned in RegularDragonAnimator!");
+                enabled = false;
                 return;
             }
             _dragonModel.SetActive(true);
-            CurrentState = EnemyState.Idle; // Теперь сеттер доступен
+            CurrentState = EnemyState.Idle;
         }
     }
 }
