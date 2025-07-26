@@ -8,6 +8,7 @@ namespace Core.Scripts.Infrastructure.States.Factory
     public interface IGameFactory
     {
         GameObject CreateHero(GameObject at);
+        GameObject CreateHud();
         GameObject HeroGameObject { get; }
         event Action HeroCreated;
         void Cleanup();

@@ -15,10 +15,11 @@ namespace Core.Scripts.Infrastructure.States.Factory
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
-        
+
         public GameObject HeroGameObject { get; private set; }
+
         public event Action HeroCreated;
-        
+
         public GameFactory(IAssetProvider assets, IObjectResolver container)
         {
             _assets = assets;
@@ -31,6 +32,13 @@ namespace Core.Scripts.Infrastructure.States.Factory
             _container.InjectGameObject(HeroGameObject);
             HeroCreated?.Invoke();
             return HeroGameObject;
+        }
+
+        public GameObject CreateHud()
+        {
+            var hud = InstantiateRegistered(AssetPath.HudPath);
+            _container.InjectGameObject(HeroGameObject);
+            return hud;
         }
 
         public void Cleanup()

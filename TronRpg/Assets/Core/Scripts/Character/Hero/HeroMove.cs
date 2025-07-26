@@ -85,6 +85,30 @@ namespace Core.Scripts.Character.Hero
             UpdateCamera();
         }
 
+        public void UpdateProgress(PlayerProgress playerProgress) =>
+            playerProgress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
+
+        public void LoadProgress(PlayerProgress playerProgress)
+        {
+            if (CurrentLevel() == playerProgress.WorldData.PositionOnLevel.Level)
+            {
+                var savedPosition = playerProgress.WorldData.PositionOnLevel.Position;
+                if (savedPosition != null)
+                    Warp(to: savedPosition);
+            }
+        }
+        
+        public void StopMovement()
+        {
+            enabled = false;
+
+            if (_character)
+            {
+                _character.SetMovementMode(ECM2.Character.MovementMode.None);
+                _character.GetCharacterMovement().detectCollisions = false;
+            }
+        }
+
         private void HandleMovementInput()
         {
             Vector3 dir = new Vector3(_inputService.AxisMove.x, 0, _inputService.AxisMove.y);
@@ -106,19 +130,6 @@ namespace Core.Scripts.Character.Hero
             AddControlZoomInput(Input.GetAxisRaw("Mouse ScrollWheel"));
         }
 
-
-        public void UpdateProgress(PlayerProgress playerProgress) =>
-            playerProgress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
-
-        public void LoadProgress(PlayerProgress playerProgress)
-        {
-            if (CurrentLevel() == playerProgress.WorldData.PositionOnLevel.Level)
-            {
-                var savedPosition = playerProgress.WorldData.PositionOnLevel.Position;
-                if (savedPosition != null)
-                    Warp(to: savedPosition);
-            }
-        }
 
         private void AddControlYawInput(float value, float minValue = -180.0f, float maxValue = 180.0f)
         {
