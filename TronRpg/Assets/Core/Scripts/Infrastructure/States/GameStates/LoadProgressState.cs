@@ -38,6 +38,8 @@ namespace Core.Scripts.Infrastructure.States.GameStates
             var progress = new PlayerProgress(Scenes.Main);
             progress.HeroState.MaxHealth = 50;
             progress.HeroState.ResetHP();
+            progress.HeroStats.Damage = 1f;
+            progress.HeroStats.DamageRadius = 0.5f;
             return progress;
         }
     }

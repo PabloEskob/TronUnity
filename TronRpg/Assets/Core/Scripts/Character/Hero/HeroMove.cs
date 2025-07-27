@@ -44,7 +44,7 @@ namespace Core.Scripts.Character.Hero
         private float _followDistanceSmoothVelocity;
 
         [Inject]
-        public void Construct(IInputService inputService)
+        public void Construct(IInputService inputService) 
         {
             _inputService = inputService;
         }

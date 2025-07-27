@@ -15,6 +15,7 @@ namespace Core.Scripts.Character.Animator
         private SmoothedFloatParameter _speedParam;
         private AnimancerLayer _baseLayer;
         private AnimancerLayer _actionLayer;
+        public bool IsAttacking { get; private set; }
 
         private void Awake()
         {
@@ -34,7 +35,7 @@ namespace Core.Scripts.Character.Animator
 
         public void PlayHit(ClipTransition hit)
         {
-            Animancer.Animator.applyRootMotion = true;
+            _actionLayer.Stop();
             _actionLayer.Play(hit).Events(this).OnEnd = ReturnToPrevious;
         }
         
@@ -44,10 +45,18 @@ namespace Core.Scripts.Character.Animator
             _actionLayer.Play(deathTransition);
         }
 
+        public void PlayAttack(TransitionAsset attackTransition)
+        {
+            IsAttacking = true;
+            var state = _actionLayer.Play(attackTransition);
+            state.Time = 0;
+            state.Events(this).OnEnd = ReturnToPrevious;
+        }
+
         private void ReturnToPrevious()
         {
             _actionLayer.StartFade(0, _actionFadeOutDuration);
-            Animancer.Animator.applyRootMotion = false;
+            IsAttacking = false;
         }
     }
 }

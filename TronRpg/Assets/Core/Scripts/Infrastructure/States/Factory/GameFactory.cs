@@ -37,7 +37,7 @@ namespace Core.Scripts.Infrastructure.States.Factory
         public GameObject CreateHud()
         {
             var hud = InstantiateRegistered(AssetPath.HudPath);
-            _container.InjectGameObject(HeroGameObject);
+            _container.InjectGameObject(hud);
             return hud;
         }
 
