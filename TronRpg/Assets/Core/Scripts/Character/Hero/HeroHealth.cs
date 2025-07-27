@@ -1,4 +1,5 @@
 ﻿using System;
+using Animancer;
 using Core.Scripts.Character.Animator;
 using Core.Scripts.Character.Interface;
 using Core.Scripts.Data;
@@ -9,10 +10,12 @@ namespace Core.Scripts.Character.Hero
 {
     public class HeroHealth : MonoBehaviour, ISavedProgress, IDamageable
     {
+        [SerializeField] private ClipTransition Hit;
+        
         public HeroAnimator Animator;
-        private State _state;
-
         public Action HealthChanged;
+        
+        private State _state;
 
         public float Current
         {
@@ -50,7 +53,7 @@ namespace Core.Scripts.Character.Hero
             if (Current <= 0) return;
             Current -= damage;
             if (Current <= 0) return;
-            Animator.PlayHit();
+            Animator.PlayHit(Hit);
             
         }
     }

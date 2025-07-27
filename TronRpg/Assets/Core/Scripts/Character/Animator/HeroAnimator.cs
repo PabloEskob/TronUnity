@@ -6,18 +6,15 @@ namespace Core.Scripts.Character.Animator
     public class HeroAnimator : MonoBehaviour
     {
         [SerializeField] private TransitionAsset AnimationMixerIdleRun;
-
-        [SerializeField] private ClipTransition Hit;
-
         [SerializeField] private StringAsset ParameterNameMixerIdleRun;
-
-        [Header("External")] [SerializeField] private ECM2.Character Controller;
+        [Header("External")]
+        [SerializeField] private ECM2.Character Controller;
         [SerializeField] private AnimancerComponent Animancer;
 
+        private readonly float _actionFadeOutDuration = 0.25f;
         private SmoothedFloatParameter _speedParam;
         private AnimancerLayer _baseLayer;
         private AnimancerLayer _actionLayer;
-        private float _actionFadeOutDuration = 0.25f;
 
         private void Awake()
         {
@@ -35,15 +32,16 @@ namespace Core.Scripts.Character.Animator
             _speedParam.TargetValue = normalized;
         }
 
-        public void PlayHit()
+        public void PlayHit(ClipTransition hit)
         {
             Animancer.Animator.applyRootMotion = true;
-            _actionLayer.Play(Hit).Events(this).OnEnd = ReturnToPrevious;
+            _actionLayer.Play(hit).Events(this).OnEnd = ReturnToPrevious;
         }
-
-        public void PlayTransition(TransitionAsset transition, int layer = 0)
+        
+        public void PlayDead(TransitionAsset deathTransition)
         {
-            var state = Animancer.Layers[layer].Play(transition);
+            Animancer.Animator.applyRootMotion = true;
+            _actionLayer.Play(deathTransition);
         }
 
         private void ReturnToPrevious()

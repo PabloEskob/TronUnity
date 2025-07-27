@@ -12,7 +12,6 @@ namespace Core.Scripts.Character.Hero
         public HeroMove Move;
         public HeroAnimator Animancer;
         public GameObject DeathEffect;
-        public UnityEngine.Animator Animator;
 
         private bool _isDead;
 
@@ -34,8 +33,7 @@ namespace Core.Scripts.Character.Hero
         {
             _isDead = true;
             Move.StopMovement();
-            Animator.applyRootMotion = true;
-            Animancer.PlayTransition(DeathTransition);
+            Animancer.PlayDead(DeathTransition);
             Instantiate(DeathEffect, transform.position, Quaternion.identity);
         }
     }

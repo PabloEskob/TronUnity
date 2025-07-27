@@ -195,21 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimationMixerIdleRun: {fileID: 11400000, guid: 38e6a58f121677949a19043ce8c6a151, type: 2}
-  Hit:
-    _FadeDuration: 0.25
-    _Speed: 1
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: 7400000, guid: d7b91650dd71ed54d81d4fa8f189297f, type: 2}
-    _NormalizedStartTime: NaN
   ParameterNameMixerIdleRun: {fileID: 11400000, guid: e9b018d40feaa0741abd34b82e134ed9, type: 2}
   Controller: {fileID: 640456997345265506}
   Animancer: {fileID: 6646530063361755981}
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &640456997345265506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +265,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e641e5c926104eb6b14b743763f0f33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit:
+    _FadeDuration: 0.25
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: d7b91650dd71ed54d81d4fa8f189297f, type: 2}
+    _NormalizedStartTime: NaN
   Animator: {fileID: 2308668020506708259}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &5006243492539765919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +295,6 @@ MonoBehaviour:
   Move: {fileID: 2067794003596554750}
   Animancer: {fileID: 2308668020506708259}
   DeathEffect: {fileID: 6357701880087676553, guid: 1461249d864d39c4b89bb4b11ba7750a, type: 3}
-  Animator: {fileID: 6045455734852605809}
 --- !u!1 &8113148191973391403
 GameObject:
   m_ObjectHideFlags: 0
