@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e641e5c926104eb6b14b743763f0f33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animator: {fileID: 2308668020506708259}
   Hit:
     _FadeDuration: 0.25
     _Speed: 1
@@ -275,7 +276,6 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: d7b91650dd71ed54d81d4fa8f189297f, type: 2}
     _NormalizedStartTime: NaN
-  Animator: {fileID: 2308668020506708259}
   references:
     version: 2
     RefIds: []
@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackTransition: {fileID: 11400000, guid: d10bc2afa58be5e42b7cf7675debeac9, type: 2}
+  AttackHitName: {fileID: 11400000, guid: 836193129ac4ad34bb37dccc2b4b5e18, type: 2}
   Animator: {fileID: 2308668020506708259}
   Character: {fileID: 640456997345265506}
 --- !u!1 &8113148191973391403

@@ -1,4 +1,5 @@
-﻿using Core.Scripts.Character.Hero;
+﻿using System;
+using Core.Scripts.Character.Interface;
 using UnityEngine;
 
 namespace Core.Scripts.UI
@@ -6,16 +7,23 @@ namespace Core.Scripts.UI
     public class ActorUI : MonoBehaviour
     {
         public HpBar HpBar;
-        private HeroHealth _heroHealth;
+        private IHealth _heroHealth;
 
-        private void OnDestroy() => 
-            _heroHealth.HealthChanged -= UpdateHpBar;
-
-        public void Construct(HeroHealth heroHealth)
+        public void Construct(IHealth heroHealth)
         {
             _heroHealth = heroHealth;
             _heroHealth.HealthChanged += UpdateHpBar;
         }
+
+        private void Start()
+        {
+            var health = GetComponent<IHealth>();
+            if (health != null)
+                Construct(health);
+        }
+
+        private void OnDestroy() =>
+            _heroHealth.HealthChanged -= UpdateHpBar;
 
         private void UpdateHpBar()
         {

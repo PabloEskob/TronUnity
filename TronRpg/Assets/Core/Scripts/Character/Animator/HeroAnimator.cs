@@ -1,3 +1,4 @@
+using System;
 using Animancer;
 using UnityEngine;
 
@@ -10,8 +11,7 @@ namespace Core.Scripts.Character.Animator
         [Header("External")]
         [SerializeField] private ECM2.Character Controller;
         [SerializeField] private AnimancerComponent Animancer;
-
-        private readonly float _actionFadeOutDuration = 0.25f;
+        
         private SmoothedFloatParameter _speedParam;
         private AnimancerLayer _baseLayer;
         private AnimancerLayer _actionLayer;
@@ -35,7 +35,6 @@ namespace Core.Scripts.Character.Animator
 
         public void PlayHit(ClipTransition hit)
         {
-            _actionLayer.Stop();
             _actionLayer.Play(hit).Events(this).OnEnd = ReturnToPrevious;
         }
         
@@ -45,17 +44,18 @@ namespace Core.Scripts.Character.Animator
             _actionLayer.Play(deathTransition);
         }
 
-        public void PlayAttack(TransitionAsset attackTransition)
+        public void PlayAttack(TransitionAsset attackTransition,StringAsset nameAsset,Action callback)
         {
             IsAttacking = true;
             var state = _actionLayer.Play(attackTransition);
             state.Time = 0;
+            state.Events(this).SetCallbacks(nameAsset, callback);
             state.Events(this).OnEnd = ReturnToPrevious;
         }
 
         private void ReturnToPrevious()
         {
-            _actionLayer.StartFade(0, _actionFadeOutDuration);
+            _actionLayer.StartFade(0);
             IsAttacking = false;
         }
     }

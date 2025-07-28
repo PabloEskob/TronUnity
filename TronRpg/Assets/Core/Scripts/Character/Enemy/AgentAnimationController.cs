@@ -4,10 +4,7 @@ namespace Core.Scripts.Character.Enemy
 {
     public class AgentAnimationController : BaseMovementHandler
     {
-        [SerializeField] private float _moveThreshold = 0.1f; // Порог для начала движения
-        [SerializeField] private float _runThreshold = 0.5f; // Порог normalized speed для Run vs Walk
-
-        private float _cachedMaxSpeed; // Кэш для оптимизации
+        private float _cachedMaxSpeed;
 
         protected override void Awake()
         {
@@ -28,23 +25,9 @@ namespace Core.Scripts.Character.Enemy
 
         private void HandleVelocityChanged(Vector3 newVelocity)
         {
-            if (Animator.CurrentState == BaseEnemyAnimator.EnemyState.Death)
-                return;
-            
-            if (Animator.CurrentState == BaseEnemyAnimator.EnemyState.Attack)
-                return;
-
             var speed = newVelocity.magnitude;
             var normalizedSpeed = Mathf.InverseLerp(0f, _cachedMaxSpeed, speed);
-
-            var newState = speed > _moveThreshold
-                ? (normalizedSpeed >= _runThreshold ? BaseEnemyAnimator.EnemyState.Run : BaseEnemyAnimator.EnemyState.Walk)
-                : BaseEnemyAnimator.EnemyState.Idle;
-
-            if (newState != Animator.CurrentState)
-            {
-                Animator.UpdateAnimationState(newState);
-            }
+            Animator.SetSpeedParam(normalizedSpeed);
         }
     }
 }

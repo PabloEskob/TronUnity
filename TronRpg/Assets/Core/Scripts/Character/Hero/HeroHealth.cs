@@ -8,14 +8,14 @@ using UnityEngine;
 
 namespace Core.Scripts.Character.Hero
 {
-    public class HeroHealth : MonoBehaviour, ISavedProgress, IDamageable
+    public class HeroHealth : MonoBehaviour, ISavedProgress, IDamageable , IHealth
     {
+        public HeroAnimator Animator;
+        
         [SerializeField] private ClipTransition Hit;
         
-        public HeroAnimator Animator;
-        public Action HealthChanged;
-        
         private State _state;
+        public event Action HealthChanged;
 
         public float Current
         {

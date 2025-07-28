@@ -1,165 +1,79 @@
-﻿using Animancer;
-using Animancer.TransitionLibraries;
+﻿using System;
+using Animancer;
 using UnityEngine;
-using System.Collections.Generic;
-using Core.Scripts.Character.Enemy.Interface;
-using Core.Scripts.Infrastructure.States.AnimationStates;
 
 namespace Core.Scripts.Character.Enemy
 {
-    public abstract class BaseEnemyAnimator : MonoBehaviour, IEnemyAnimator
+    public abstract class BaseEnemyAnimator : MonoBehaviour
     {
-        public StringAsset AttackHitEventName;
-        
-        [SerializeField] protected TransitionLibraryAsset IdleTransitionLibrary;
-        [SerializeField] protected internal TransitionAsset WalkRunMixerTransition;
-        [SerializeField] protected internal TransitionAsset AttackTransition;
-        [SerializeField] protected internal TransitionAsset DeathTransition;
-        [SerializeField] protected StringAsset SpeedParameterName;
-        
-        [Header("External")] 
-        [SerializeField] protected MonoBehaviour Controller;
+        [SerializeField] protected TransitionAsset AnimationMixerIdleRun;
+        [SerializeField] protected StringAsset ParameterNameMixerIdleRun;
 
+        [Header("External")] [SerializeField] protected MonoBehaviour Controller;
         [SerializeField] protected AnimancerComponent Animancer;
+        
+        protected bool isDead;
 
-        public EnemyState CurrentState { get; set; } = EnemyState.Idle;
-        protected internal SmoothedFloatParameter SpeedParam { get; private set; }
-        protected internal IMovementProvider MovementProvider { get; private set; }
-
-        private TransitionLibrary _idleLibraryCache;
-
-        public event System.Action<EnemyState> OnAnimationStateEnded;
-        public event System.Action OnAttack;
-
-
-        private static readonly Dictionary<EnemyState, IAnimationState> StateMap = new()
-        {
-            { EnemyState.Idle, new IdleState() },
-            { EnemyState.Walk, new WalkRunState() },
-            { EnemyState.Run, new WalkRunState() },
-            { EnemyState.Attack, new AttackState() },
-            { EnemyState.Death, new DeathState() }
-        };
-
-        public enum EnemyState
-        {
-            Idle,
-            Walk,
-            Run,
-            Attack,
-            Death,
-        }
+        private SmoothedFloatParameter _speedParam;
+        private AnimancerLayer _baseLayer;
+        private AnimancerLayer _actionLayer;
 
         protected virtual void Awake()
         {
-            if (!ValidateDependencies()) return;
-
-            SpeedParam = new SmoothedFloatParameter(Animancer, SpeedParameterName, 0.05f);
-            if (IdleTransitionLibrary != null)
-            {
-                _idleLibraryCache = IdleTransitionLibrary.Library;
-            }
-
+            _baseLayer = Animancer.Layers[0];
+            _actionLayer = Animancer.Layers[1];
+            _speedParam = new SmoothedFloatParameter(Animancer, ParameterNameMixerIdleRun, 0.05f);
+            _baseLayer.Play(AnimationMixerIdleRun);
             InitializeSpecific();
-            UpdateAnimationState(EnemyState.Idle);
         }
 
         protected abstract void InitializeSpecific();
 
-        public virtual void UpdateAnimationState(EnemyState newState)
+        public void SetSpeedParam(float normalizedSpeed)
         {
-            if (CurrentState == newState) return;
-            if (CurrentState == EnemyState.Death && newState != EnemyState.Death) return;
-
-            if (newState != EnemyState.Idle && CurrentState == EnemyState.Idle)
-            {
-                var currentState = Animancer.Layers[0].CurrentState;
-                if (currentState != null)
-                {
-                    currentState.Events(this).OnEnd = null;
-                }
-            }
-
-            if (StateMap.TryGetValue(newState, out var state))
-            {
-                CurrentState = newState;
-                state.Enter(this);
-            }
-            else
-            {
-                Debug.LogWarning($"No IAnimationState found for {newState}!");
-            }
+            if (isDead) return;
+            _speedParam.TargetValue = normalizedSpeed;
         }
 
-        protected internal void RaiseStateEnded(EnemyState state)
+        public void PlayHit(ClipTransition hit)
         {
-            OnAnimationStateEnded?.Invoke(state);
-        }
-
-        protected internal void RaiseAttackPerformed()
-        {
-           OnAttack?.Invoke();
-        }
-
-        public AnimancerState PlayAnimation(ITransition transition)
-        {
-            if (transition == null)
+            if (isDead) return;
+            var currentState = _actionLayer.CurrentState;
+            if (currentState is { IsPlaying: true } && currentState.Events(this).OnEnd != null)
             {
-                Debug.LogWarning("Attempted to play null transition!");
-                return null;
+                currentState.Events(this).OnEnd.Invoke();
+                currentState.Events(this).OnEnd = null; 
             }
             
-            return Animancer.Play(transition);
+            _actionLayer.Play(hit).Events(this).OnEnd = ReturnToPrevious;
         }
 
-        protected internal void PlayRandomIdle()
+        public void PlayDead(ClipTransition deathTransition)
         {
-            if (_idleLibraryCache == null || _idleLibraryCache.Count <= 0)
-            {
-                Debug.LogWarning("IdleTransitionLibrary is empty or not initialized!");
-                return;
-            }
-
-            if (CurrentState != EnemyState.Idle) return;
-
-            int randomIndex = Random.Range(0, _idleLibraryCache.Count);
-            if (_idleLibraryCache.TryGetTransition(randomIndex, out TransitionModifierGroup group))
-            {
-                if (group.Transition != null)
-                {
-                    var state = Animancer.Play(group.Transition);
-                    state.Events(this).OnEnd = null;
-                    state.Events(this).OnEnd = PlayRandomIdle;
-                }
-                else
-                {
-                    Debug.LogWarning("Received null Transition from group!");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Failed to get TransitionModifierGroup by index!");
-            }
+            if (isDead) return;
+            isDead = true;
+            _baseLayer.Stop();
+            _baseLayer.SetWeight(0f);
+            Animancer.Animator.applyRootMotion = true;
+            _actionLayer.Play(deathTransition);
         }
 
-        private bool ValidateDependencies()
+        public void PlayAttack(TransitionAsset attackTransition, StringAsset nameAsset, Action callback, Action ended)
         {
-            if (Animancer == null || SpeedParameterName == null)
+            if (isDead) return;
+            var state = _actionLayer.Play(attackTransition);
+            state.Time = 0;
+            state.Events(this).SetCallbacks(nameAsset, callback);
+            state.Events(this).OnEnd = () => 
             {
-                Debug.LogError("Animancer or SpeedParameterName not set!");
-                enabled = false;
-                return false;
-            }
+                ended?.Invoke();
+                ReturnToPrevious();
+            };
+        }
 
-            MovementProvider = Controller as IMovementProvider;
-            if (MovementProvider == null)
-            {
-                Debug.LogError("Controller must implement IMovementProvider!");
-                enabled = false;
-                return false;
-            }
-
-            return true;
+        private void ReturnToPrevious()
+        {
+            _actionLayer.StartFade(0);
         }
     }
 }

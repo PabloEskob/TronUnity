@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Animancer;
 using Core.Scripts.Character.Hero;
 using Core.Scripts.Character.Interface;
 using Core.Scripts.Helpers.Phisics;
@@ -11,6 +12,8 @@ namespace Core.Scripts.Character.Enemy
     public class Attack : MonoBehaviour
     {
         [SerializeField] FollowerEntityAdapter _follower;
+        [SerializeField] private TransitionAsset AttackTransition;
+        [SerializeField] private StringAsset AttackHitName;
 
         public BaseEnemyAnimator Animator;
         public float AttackCooldown = 3f;
@@ -31,8 +34,6 @@ namespace Core.Scripts.Character.Enemy
         {
             _layerMask = 1 << LayerMask.NameToLayer("Player");
             _gameFactory.HeroCreated += OnHeroCreated;
-            Animator.OnAnimationStateEnded += HandleAnimationEnded;
-            Animator.OnAttack += OnAttack;
         }
 
         private void Update()
@@ -63,8 +64,7 @@ namespace Core.Scripts.Character.Enemy
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 3);
-                hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
+                hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
             }
         }
 
@@ -85,7 +85,6 @@ namespace Core.Scripts.Character.Enemy
         {
             _attackCooldown = AttackCooldown;
             _isAttacking = false;
-            Animator.UpdateAnimationState(BaseEnemyAnimator.EnemyState.Idle);
             _follower?.ResumeMovement();
         }
 
@@ -101,25 +100,11 @@ namespace Core.Scripts.Character.Enemy
         {
             transform.LookAt(_heroTransform);
             _follower?.StopMovement();
-            Animator.UpdateAnimationState(BaseEnemyAnimator.EnemyState.Attack);
+            Animator.PlayAttack(AttackTransition, AttackHitName, OnAttack, OnAttackEnded);
             _isAttacking = true;
         }
 
         private void OnHeroCreated() =>
             _heroTransform = _gameFactory.HeroGameObject.transform;
-
-        private void HandleAnimationEnded(BaseEnemyAnimator.EnemyState state)
-        {
-            if (state == BaseEnemyAnimator.EnemyState.Attack)
-            {
-                OnAttackEnded();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            Animator.OnAnimationStateEnded -= HandleAnimationEnded;
-            Animator.OnAttack -= OnAttack;
-        }
     }
 }

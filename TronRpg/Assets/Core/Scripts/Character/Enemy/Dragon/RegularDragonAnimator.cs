@@ -19,7 +19,6 @@ namespace Core.Scripts.Character.Enemy
                 return;
             }
             _dragonModel.SetActive(true);
-            CurrentState = EnemyState.Idle;
         }
     }
 }

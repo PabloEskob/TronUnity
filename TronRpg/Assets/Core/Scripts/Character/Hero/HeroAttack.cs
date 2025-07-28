@@ -1,6 +1,7 @@
 ﻿using System;
 using Animancer;
 using Core.Scripts.Character.Animator;
+using Core.Scripts.Character.Interface;
 using Core.Scripts.Data;
 using Core.Scripts.Services.Input;
 using Core.Scripts.Services.PersistentProgress;
@@ -12,6 +13,7 @@ namespace Core.Scripts.Character.Hero
     public class HeroAttack : MonoBehaviour, ISavedProgressReader
     {
         [SerializeField] private TransitionAsset AttackTransition;
+        [SerializeField] private StringAsset AttackHitName;
 
         public HeroAnimator Animator;
         public ECM2.Character Character;
@@ -37,15 +39,19 @@ namespace Core.Scripts.Character.Hero
         {
             if (_inputService.IsAttackButtonUp() && !Animator.IsAttacking)
             {
-                Animator.PlayAttack(AttackTransition);
+                Animator.PlayAttack(AttackTransition, AttackHitName, OnAttack);
             }
         }
 
-        public void OnAttack()
+        private void OnAttack()
         {
+            for (int i = 0; i < Hit(); i++)
+            {
+                _hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_heroStats.Damage);
+            }
         }
 
-        private void Hit() => 
+        private int Hit() =>
             Physics.OverlapSphereNonAlloc(StartPoint() + transform.forward, _heroStats.DamageRadius, _hits, _layerMask);
 
         public void LoadProgress(PlayerProgress playerProgress)
