@@ -1,7 +1,6 @@
 using Core.Scripts.Data;
 using Core.Scripts.Services.Input;
 using Core.Scripts.Services.PersistentProgress;
-using ECM2;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,7 +35,6 @@ namespace Core.Scripts.Character.Hero
 
         [Tooltip("Mouse look sensitivity")] public Vector2 LookSensitivity = new(1.5f, 1.25f);
 
-        private ECM2.Character _character;
         private float _cameraTargetYaw;
         private float _cameraTargetPitch;
         private CinemachineThirdPersonFollow _cmThirdPersonFollow;
@@ -44,15 +42,13 @@ namespace Core.Scripts.Character.Hero
         private float _followDistanceSmoothVelocity;
 
         [Inject]
-        public void Construct(IInputService inputService) 
+        public void Construct(IInputService inputService)
         {
             _inputService = inputService;
         }
 
         private void Awake()
         {
-            _character = GetComponent<ECM2.Character>();
-
             FollowCamera = GameObject.FindGameObjectWithTag("Cinemachine").GetComponent<CinemachineCamera>();
 
             FollowCamera.Follow = FollowTarget.transform;
@@ -69,7 +65,6 @@ namespace Core.Scripts.Character.Hero
         {
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
 
-            _character.camera = Camera.main;
             
         }
 
@@ -97,26 +92,26 @@ namespace Core.Scripts.Character.Hero
                     Warp(to: savedPosition);
             }
         }
-        
+
         public void StopMovement()
         {
             enabled = false;
 
-            if (_character)
+            /*if (_character)
             {
                 _character.SetMovementMode(ECM2.Character.MovementMode.None);
                 _character.GetCharacterMovement().detectCollisions = false;
-            }
+            }*/
         }
 
         private void HandleMovementInput()
         {
             Vector3 dir = new Vector3(_inputService.AxisMove.x, 0, _inputService.AxisMove.y);
 
-            if (_character.camera)
+            /*if (_character.camera)
                 dir = dir.relativeTo(_character.cameraTransform);
 
-            _character.SetMovementDirection(dir);
+            _character.SetMovementDirection(dir);*/
         }
 
         private void HandleLookInput()
@@ -133,7 +128,7 @@ namespace Core.Scripts.Character.Hero
 
         private void AddControlYawInput(float value, float minValue = -180.0f, float maxValue = 180.0f)
         {
-            if (value != 0.0f) _cameraTargetYaw = MathLib.ClampAngle(_cameraTargetYaw + value, minValue, maxValue);
+            /*if (value != 0.0f) _cameraTargetYaw = MathLib.ClampAngle(_cameraTargetYaw + value, minValue, maxValue);*/
         }
 
         private void AddControlPitchInput(float value, float minValue = -80.0f, float maxValue = 80.0f)
@@ -144,7 +139,7 @@ namespace Core.Scripts.Character.Hero
             if (InvertLook)
                 value = -value;
 
-            _cameraTargetPitch = MathLib.ClampAngle(_cameraTargetPitch + value, minValue, maxValue);
+            /*_cameraTargetPitch = MathLib.ClampAngle(_cameraTargetPitch + value, minValue, maxValue);*/
         }
 
         protected virtual void AddControlZoomInput(float value)
@@ -154,7 +149,7 @@ namespace Core.Scripts.Character.Hero
 
         private void Warp(Vector3Data to)
         {
-            _character.SetPosition(to.AsUnityVector().AddY(_character.height), updateGround: true);
+            /*_character.SetPosition(to.AsUnityVector().AddY(_character.height), updateGround: true);*/
         }
 
         private static string CurrentLevel() =>

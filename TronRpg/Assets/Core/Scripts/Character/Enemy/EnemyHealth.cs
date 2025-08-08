@@ -1,5 +1,5 @@
 ﻿using System;
-using Animancer;
+
 using Core.Scripts.Character.Interface;
 using UnityEngine;
 
@@ -7,9 +7,6 @@ namespace Core.Scripts.Character.Enemy
 {
     public class EnemyHealth : MonoBehaviour, IHealth
     {
-        public BaseEnemyAnimator Animator;
-        public ClipTransition Hit;
-
         [SerializeField] private float _current;
         [SerializeField] private float _max;
 
@@ -30,7 +27,6 @@ namespace Core.Scripts.Character.Enemy
         public void TakeDamage(float damage)
         {
             Current -= damage;
-            Animator.PlayHit(Hit);
             HealthChanged?.Invoke();
         }
     }

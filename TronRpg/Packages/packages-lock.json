@@ -14,7 +14,29 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "f789083c31250c83082da9b29be0c976152d699b"
+      "hash": "a7c6b49a0141a5bff9b1983e38137522ef61977d"
+    },
+    "com.opsive.shared": {
+      "version": "file:com.opsive.shared",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.opsive.ultimatecharactercontroller": {
+      "version": "file:com.opsive.ultimatecharactercontroller",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.opsive.shared": "2.0.0"
+      }
+    },
+    "com.opsive.ultimateinventorysystem": {
+      "version": "file:com.opsive.ultimateinventorysystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.opsive.shared": "2.0.0"
+      }
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
@@ -118,7 +140,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.14.1",
+      "version": "1.14.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -273,7 +295,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.8",
+      "version": "1.8.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {

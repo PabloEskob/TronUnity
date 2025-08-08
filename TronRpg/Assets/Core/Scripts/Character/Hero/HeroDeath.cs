@@ -1,4 +1,4 @@
-﻿using Animancer;
+﻿
 using Core.Scripts.Character.Animator;
 using UnityEngine;
 
@@ -6,11 +6,9 @@ namespace Core.Scripts.Character.Hero
 {
     public class HeroDeath : MonoBehaviour
     {
-        [SerializeField] private TransitionAsset DeathTransition;
-
+        
         public HeroHealth HeroHealth;
         public HeroMove Move;
-        public HeroAnimator Animancer;
         public GameObject DeathEffect;
 
         private bool _isDead;
@@ -33,7 +31,6 @@ namespace Core.Scripts.Character.Hero
         {
             _isDead = true;
             Move.StopMovement();
-            Animancer.PlayDead(DeathTransition);
             Instantiate(DeathEffect, transform.position, Quaternion.identity);
         }
     }

@@ -1,8 +1,5 @@
 ﻿using System.Linq;
-using Animancer;
-using Core.Scripts.Character.Hero;
 using Core.Scripts.Character.Interface;
-using Core.Scripts.Helpers.Phisics;
 using Core.Scripts.Infrastructure.States.Factory;
 using UnityEngine;
 using VContainer;
@@ -12,10 +9,8 @@ namespace Core.Scripts.Character.Enemy
     public class Attack : MonoBehaviour
     {
         [SerializeField] FollowerEntityAdapter _follower;
-        [SerializeField] private TransitionAsset AttackTransition;
-        [SerializeField] private StringAsset AttackHitName;
-
-        public BaseEnemyAnimator Animator;
+       
+        
         public float AttackCooldown = 3f;
         public float Cleavage = 0.5f;
         public float EffectiveDistance = 0.5f;
@@ -100,7 +95,6 @@ namespace Core.Scripts.Character.Enemy
         {
             transform.LookAt(_heroTransform);
             _follower?.StopMovement();
-            Animator.PlayAttack(AttackTransition, AttackHitName, OnAttack, OnAttackEnded);
             _isAttacking = true;
         }
 

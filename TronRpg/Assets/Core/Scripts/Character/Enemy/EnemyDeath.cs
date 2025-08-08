@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Animancer;
+
 using UnityEngine;
 
 namespace Core.Scripts.Character.Enemy
@@ -8,10 +8,10 @@ namespace Core.Scripts.Character.Enemy
     public class EnemyDeath : MonoBehaviour
     {
         public EnemyHealth Health;
-        public BaseEnemyAnimator Animator;
+
         public GameObject DeathFx;
 
-        [SerializeField] private ClipTransition DeathTransition;
+       
 
         public event Action Happened;
 
@@ -37,7 +37,7 @@ namespace Core.Scripts.Character.Enemy
         {
             Health.HealthChanged -= HealthChanged;
 
-            Animator.PlayDead(DeathTransition);
+           
 
             SpawnDeathFx();
             StartCoroutine(DestroyTimer());

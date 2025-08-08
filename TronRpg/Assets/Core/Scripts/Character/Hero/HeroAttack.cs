@@ -1,5 +1,4 @@
 ﻿using System;
-using Animancer;
 using Core.Scripts.Character.Animator;
 using Core.Scripts.Character.Interface;
 using Core.Scripts.Data;
@@ -12,12 +11,6 @@ namespace Core.Scripts.Character.Hero
 {
     public class HeroAttack : MonoBehaviour, ISavedProgressReader
     {
-        [SerializeField] private TransitionAsset AttackTransition;
-        [SerializeField] private StringAsset AttackHitName;
-
-        public HeroAnimator Animator;
-        public ECM2.Character Character;
-
         private IInputService _inputService;
         private Collider[] _hits = new Collider[3];
         private float _radius;
@@ -37,28 +30,32 @@ namespace Core.Scripts.Character.Hero
 
         private void Update()
         {
-            if (_inputService.IsAttackButtonUp() && !Animator.IsAttacking)
+            /*if (_inputService.IsAttackButtonUp() && !Animator.IsAttacking)
             {
-                Animator.PlayAttack(AttackTransition, AttackHitName, OnAttack);
-            }
+            }*/
         }
 
         private void OnAttack()
         {
-            for (int i = 0; i < Hit(); i++)
+            /*for (int i = 0; i < Hit(); i++)
             {
                 _hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_heroStats.Damage);
-            }
+            }*/
         }
 
-        private int Hit() =>
-            Physics.OverlapSphereNonAlloc(StartPoint() + transform.forward, _heroStats.DamageRadius, _hits, _layerMask);
+        /*private int Hit()
+        {
+            return Physics.OverlapSphereNonAlloc(StartPoint() + transform.forward, _heroStats.DamageRadius, _hits, _layerMask);
+        }*/
 
         public void LoadProgress(PlayerProgress playerProgress)
         {
             _heroStats = playerProgress.HeroStats;
         }
 
-        private Vector3 StartPoint() => new Vector3(transform.position.x, (Character.height / 2) / 2, transform.position.z);
+        /*private Vector3 StartPoint()
+        {
+            return new Vector3(transform.position.x, (Character.height / 2) / 2, transform.position.z);
+        }*/
     }
 }
