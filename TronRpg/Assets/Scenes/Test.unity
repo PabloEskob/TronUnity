@@ -864,6 +864,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629481193734252].m_EquipItemStateIndex
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629481193734252].m_UnequipItemStateIndex
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5011353297096413839, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: m_Name
       value: Hero
