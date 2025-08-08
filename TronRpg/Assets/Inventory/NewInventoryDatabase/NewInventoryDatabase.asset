@@ -21,7 +21,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 41e6879407fbfa84e972f79353ebe23b, type: 2}
   - {fileID: 11400000, guid: 3282d5d1ae79a594b8decb3c32747a82, type: 2}
   - {fileID: 11400000, guid: a52039af0ab85d74dbe1cc3ab6c0ee6b, type: 2}
-  m_ItemDefinitions: []
+  - {fileID: 11400000, guid: 8d2074ccd6a5bd840a64bfd650957ce2, type: 2}
+  - {fileID: 11400000, guid: 03d032fe259f2a94a9ef2f7d6d80bf27, type: 2}
+  m_ItemDefinitions:
+  - {fileID: 11400000, guid: f5df5aba3adc03440af6d683d5181ea8, type: 2}
   m_Currencies: []
   m_CraftingRecipes: []
   m_CraftingCategories:

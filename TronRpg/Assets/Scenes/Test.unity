@@ -540,7 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Database: {fileID: 11400000, guid: 2d09e2e67fb2aaf4ba29720d69576d88, type: 2}
   m_PreEvaluateAttributes: 1
-  m_DontDestroyOnLoad: 1
+  m_DontDestroyOnLoad: 0
 --- !u!1 &888340006 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5011353297096413839, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}

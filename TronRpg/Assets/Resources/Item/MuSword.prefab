@@ -224,10 +224,10 @@ MonoBehaviour:
     m_Preset: {fileID: 0}
     m_BlockList: []
     m_Default: 1
-  m_ItemDefinition: {fileID: 11400000, guid: 5780991a986a15242b5c57bd7bcf4a24, type: 2}
-  m_SlotID: 2
+  m_ItemDefinition: {fileID: 11400000, guid: f5df5aba3adc03440af6d683d5181ea8, type: 2}
+  m_SlotID: 0
   m_AnimatorItemID: 0
-  m_AnimatorMovementSetID: 0
+  m_AnimatorMovementSetID: 4
   m_DominantItem: 1
   m_AllowCameraZoom: 1
   m_DropPrefab: {fileID: 0}
@@ -340,12 +340,12 @@ MonoBehaviour:
     m_ID: -1
     m_Object: {fileID: 0}
   m_LocalSpawnPosition: {x: 0, y: 0, z: 0}
-  m_LocalSpawnRotation: {x: 90, y: 0, z: 0}
+  m_LocalSpawnRotation: {x: 0, y: 0, z: 0}
   m_LocalSpawnScale: {x: 1, y: 1, z: 1}
   m_NonDominantHandIKTarget: {fileID: 0}
   m_NonDominantHandIKTargetHint: {fileID: 0}
   m_HolsterTarget:
-    m_ID: -1
+    m_ID: 50022001
     m_Object: {fileID: 0}
 --- !u!114 &4155786624990125640
 MonoBehaviour:
