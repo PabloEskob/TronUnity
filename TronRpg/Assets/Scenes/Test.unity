@@ -864,13 +864,165 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1419085731572930007, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_LogEvents
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353279]'
+      value: Opsive.UltimateCharacterController Opsive.UltimateCharacterController.Character.Abilities.Starters.ComboTimeout
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353286]'
+      value: Assembly-CSharp Core.Scripts.Character.Attack.Combo.ComboTimeoutStarter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353287]'
+      value: Assembly-CSharp Core.Scripts.Character.Attack.Combo.ComboTimeoutStarter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353288]'
+      value: Opsive.UltimateCharacterController Opsive.UltimateCharacterController.Character.Abilities.Starters.ComboTimeout
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353289]'
+      value: Assembly-CSharp Core.Scripts.Character.Attack.Combo.ComboTimeoutStarter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353291]'
+      value: Opsive.UltimateCharacterController Opsive.UltimateCharacterController.Character.Abilities.Starters.ComboTimeout
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[4404629661652353292]'
+      value: Assembly-CSharp Core.Scripts.Character.Attack.Combo.ComboTimeoutStarter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629481193734253].m_StopType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629481193734253].m_StartType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353286]._chainWindow
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353287]._chainWindow
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353289]._chainWindow
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353286]._attackButton
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353287]._attackButton
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353289]._attackButton
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353292]._attackButton
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629481193734253].m_AbilityStarter
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: managedReferences[4404629481193734252].m_EquipItemStateIndex
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353289]._resetSubstateOnClose
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353292]._resetSubstateOnClose
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: managedReferences[4404629481193734252].m_UnequipItemStateIndex
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353288].m_ComboInputElements.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.data[0].m_Timeout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.data[1].m_Timeout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353288].m_ComboInputElements.Array.data[0].m_Timeout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.data[0].m_Timeout
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.data[1].m_Timeout
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.data[0].m_AxisInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.data[0].m_InputName
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.data[1].m_AxisInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353279].m_ComboInputElements.Array.data[1].m_InputName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353288].m_ComboInputElements.Array.data[0].m_AxisInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353288].m_ComboInputElements.Array.data[0].m_InputName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.data[0].m_AxisInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.data[0].m_InputName
+      value: Fire1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.data[1].m_AxisInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[4404629661652353291].m_ComboInputElements.Array.data[1].m_InputName
+      value: Fire1
       objectReference: {fileID: 0}
     - target: {fileID: 5011353297096413839, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: m_Name
