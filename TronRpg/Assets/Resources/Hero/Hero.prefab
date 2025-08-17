@@ -1514,8 +1514,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ForceInput: 0
-  m_DisableCursor: 1
-  m_EnableCursorWithEscape: 1
+  m_DisableCursor: 0
+  m_EnableCursorWithEscape: 0
   m_PreventLookVectorChanges: 1
   m_JoystickUpThreshold: 1
 --- !u!1 &1679981005433294852
@@ -3075,6 +3075,7 @@ GameObject:
   - component: {fileID: 1419085731572930007}
   - component: {fileID: 8294798948824717832}
   - component: {fileID: 2630737398292069523}
+  - component: {fileID: 6305361975684517894}
   m_Layer: 30
   m_Name: Hero
   m_TagString: Untagged
@@ -3278,6 +3279,19 @@ MonoBehaviour:
   m_RequireAlternatingFeet: 1
   m_FixedInterval: 0.3
   m_MinBobInterval: 0.2
+--- !u!114 &6305361975684517894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923072988310997025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ebcf42a9d8f9145a73c60c46c60bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: 50099999
 --- !u!1 &3984605481937256792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4879,8 +4893,8 @@ MonoBehaviour:
         m_ItemCategory: {fileID: 11400000, guid: 795b112a64bde4144b0bde7c5280803a, type: 2}
         m_PreventStartUseReloadActive: 1
         m_AutoEquip: 30
-        m_EquipItemStateIndex: 4
-        m_UnequipItemStateIndex: 5
+        m_EquipItemStateIndex: 10
+        m_UnequipItemStateIndex: 11
         m_AimItemSubstateIndexAddition: 100
     - rid: 4404629481193734253
       type: {class: Use, ns: Opsive.UltimateCharacterController.Character.Abilities.Items, asm: Opsive.UltimateCharacterController}
