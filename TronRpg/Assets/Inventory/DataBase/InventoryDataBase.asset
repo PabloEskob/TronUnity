@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InventoryDataBase
   m_EditorClassIdentifier: 
   m_ItemSlots:
-  - m_Name: Equippable
+  - m_Name: Main Slot
     m_Category:
-      m_Name: Equippable
-      m_ItemCategory: {fileID: 11400000, guid: 795b112a64bde4144b0bde7c5280803a, type: 2}
+      m_Name: Main Slot
+      m_ItemCategory: {fileID: 11400000, guid: 992e781b9bdd83f469c6eaf12611543d, type: 2}

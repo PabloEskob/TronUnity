@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   m_ID: 2513503884
-  m_Category: {fileID: 11400000, guid: 03d032fe259f2a94a9ef2f7d6d80bf27, type: 2}
+  m_Category: {fileID: 11400000, guid: 0a1d2fdef58445243ade4595a7fdd466, type: 2}
   m_Parent: {fileID: 0}
   m_ChildrenData:
     m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemDefinition,

@@ -20,9 +20,10 @@ MonoBehaviour:
   m_ItemActionCollection:
     m_ItemActionsData:
     - m_ObjectType: Opsive.UltimateCharacterController.Integrations.UltimateInventorySystem.CharacterQuantityDropItemAction
-      m_ValueHashes: 0d00eb2593d7e7b3
+      m_ValueHashes: 
+      m_LongValueHashes: 0d00eb254f8d1b2993d7e7b30c71b13b
       m_ValuePositions: 0000000004000000
       m_Values: 44726f7000000000
       m_UnityObjects:
       - {fileID: 2550816899427163073, guid: 0408cd1eb17fb4042b3ec247e592c1a3, type: 3}
-      m_Version: 3.1
+      m_Version: 3.4
