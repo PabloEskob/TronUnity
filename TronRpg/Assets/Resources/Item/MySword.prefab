@@ -230,7 +230,7 @@ MonoBehaviour:
   m_AnimatorMovementSetID: 4
   m_DominantItem: 1
   m_AllowCameraZoom: 1
-  m_DropPrefab: {fileID: 0}
+  m_DropPrefab: {fileID: 3023483500321954986}
   m_FullInventoryDrop: 0
   m_EquipEvent:
     m_WaitForAnimationEvent: 0

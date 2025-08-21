@@ -29,6 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412353358838875975}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -37,7 +38,6 @@ Transform:
   - {fileID: 8747536610784978288}
   - {fileID: 7425398413433824535}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1299194310319029279
 MonoBehaviour:
@@ -72,15 +72,13 @@ MonoBehaviour:
     m_Preset: {fileID: 0}
     m_BlockList: []
     m_Default: 1
-  m_ItemDefinition: {fileID: 114074367643677680, guid: 5481010ef14c32f4cb7b6661b0c59fb4,
-    type: 2}
+  m_ItemDefinition: {fileID: 114074367643677680, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
   m_SlotID: 0
   m_AnimatorItemID: 41
   m_AnimatorMovementSetID: 0
   m_DominantItem: 1
   m_AllowCameraZoom: 1
-  m_DropPrefab: {fileID: 1315042273151818, guid: 814583161d9cd4c41a51f1dbeaf0db37,
-    type: 3}
+  m_DropPrefab: {fileID: 1315042273151818, guid: 814583161d9cd4c41a51f1dbeaf0db37, type: 3}
   m_FullInventoryDrop: 1
   m_EquipEvent:
     m_WaitForAnimationEvent: 1
@@ -163,13 +161,11 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 707337137804804147
-      type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates, asm: Opsive.UltimateCharacterController}
       data:
         m_ResetDelay: -1
     - rid: 707337137804804148
-      type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates, asm: Opsive.UltimateCharacterController}
       data:
         m_ResetDelay: -1
 --- !u!114 &1299881999300383903
@@ -212,6 +208,7 @@ MonoBehaviour:
     m_MaxVelocity: 10000
     m_MinValue: {x: -10000, y: -10000, z: -10000}
     m_MaxValue: {x: 10000, y: 10000, z: 10000}
+  m_BasePositionOffset: {x: 0, y: 0, z: 0}
   m_PositionOffset: {x: 0, y: 0, z: 0}
   m_PositionExitOffset: {x: 0, y: -0.2, z: 0}
   m_PositionFallImpact: 0.2
@@ -375,8 +372,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 707337137804804105
-      type: {class: ItemAmmo, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: ItemAmmo, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: Default
@@ -389,8 +385,7 @@ MonoBehaviour:
         m_ID: 0
         m_Name: 
     - rid: 707337137804804106
-      type: {class: SpawnProjectile, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: SpawnProjectile, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: RightHandSecondaryFragGrenade
@@ -406,16 +401,14 @@ MonoBehaviour:
         m_Enabled: 1
         m_ID: -1
         m_Name: 
-        m_ThrownObject: {fileID: 1315042273151818, guid: 47daba230e0228c499c8fcbe81ced468,
-          type: 3}
+        m_ThrownObject: {fileID: 1315042273151818, guid: 47daba230e0228c499c8fcbe81ced468, type: 3}
         m_DisableVisibleObject: 0
         m_StartLayer: 2
         m_ActivateThrowableObjectEvent:
           m_WaitForAnimationEvent: 0
           m_Duration: 0
     - rid: 707337137804804154
-      type: {class: ProjectileThrower, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: ProjectileThrower, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: Default
@@ -450,8 +443,7 @@ MonoBehaviour:
         m_TrajectoryOffset: {x: 0, y: 0, z: 0}
         m_Velocity: {x: 0, y: 5, z: 10}
     - rid: 707337137804804155
-      type: {class: SimpleReequipper, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: SimpleReequipper, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: Default
@@ -473,8 +465,7 @@ MonoBehaviour:
           m_Duration: 0.5
           m_WaitForSlotEvent: 0
     - rid: 2350000553578463238
-      type: {class: ThrowableVisualizeTrajectory, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: ThrowableVisualizeTrajectory, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: RightHandSecondaryFragGrenade
@@ -492,8 +483,7 @@ MonoBehaviour:
         m_Name: 
         m_ShowTrajectoryOnAim: 1
     - rid: 2350000553578463239
-      type: {class: ThrowableGrenade, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: ThrowableGrenade, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: RightHandSecondaryFragGrenade
@@ -521,8 +511,7 @@ MonoBehaviour:
             m_ID: 50041003
             m_Object: {fileID: 0}
     - rid: 2350000553578463240
-      type: {class: SlotItemMonitorModule, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: SlotItemMonitorModule, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Throwable, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: Default
@@ -537,8 +526,7 @@ MonoBehaviour:
         m_Priority: 0
         m_Show: 1
     - rid: 6628036941416235023
-      type: {class: Simple, ns: Opsive.UltimateCharacterController.Items.Actions.Modules,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: Simple, ns: Opsive.UltimateCharacterController.Items.Actions.Modules, asm: Opsive.UltimateCharacterController}
       data:
         m_States:
         - m_Name: Default
@@ -575,8 +563,7 @@ MonoBehaviour:
         m_CanStopIfInputStop: 0
         m_CanStopSubstateIndexAddition: 10
     - rid: 6628036941416235024
-      type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates,
-        asm: Opsive.UltimateCharacterController}
+      type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates, asm: Opsive.UltimateCharacterController}
       data:
         m_ResetDelay: -1
 --- !u!114 &1299265902313367645
@@ -600,7 +587,8 @@ MonoBehaviour:
   m_Damping: 0.1
   m_RotationDamping: 0.1
   m_RotateInMoveDirection: 0
-  m_SettleThreshold: 0.1
+  m_SettlePositionThreshold: 0.01
+  m_SettleRotationThreshold: 0.01
   m_SidewaysSettleThreshold: 0.75
   m_StartSidewaysVelocityMagnitude: 3
   m_ImpactLayers:
@@ -615,8 +603,12 @@ MonoBehaviour:
   m_ActiveAudioClipSet:
     m_AudioConfig: {fileID: 0}
     m_AudioClips: []
+  m_OnCollisionEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!120 &1311994476397834755
 LineRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -632,6 +624,9 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -702,16 +697,20 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
     textureMode: 0
+    textureScale: {x: 1, y: 1}
     shadowBias: 0
     generateLightingData: 0
+  m_MaskInteraction: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &7425398413434255665
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,13 +736,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7425398413434255665}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -1.4552e-11, z: -0.00022554304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7425398413433824535}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7425398413430924595
 MeshFilter:
@@ -770,6 +769,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -820,13 +822,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7425398413434255667}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.06699859, z: 0.000039227307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7425398413433824535}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7425398413430924597
 MeshFilter:
@@ -853,6 +855,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -903,6 +908,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7425398413434255671}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -911,7 +917,6 @@ Transform:
   - {fileID: 7425398413433824529}
   - {fileID: 7425398413433824531}
   m_Father: {fileID: 1409196961547371605}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &9151364366002876935
 AudioSource:
@@ -924,6 +929,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1052,6 +1058,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8747536610785474896}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1060,7 +1067,6 @@ Transform:
   - {fileID: 8747536610784978294}
   - {fileID: 8747536610784978292}
   m_Father: {fileID: 1409196961547371605}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &7352304504490597214
 AudioSource:
@@ -1073,6 +1079,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1183,13 +1190,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8747536610785474900}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.06699859, z: 0.000039227307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8747536610784978288}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8747536610786305362
 MeshFilter:
@@ -1216,6 +1223,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1266,13 +1276,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8747536610785474902}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -1.4552e-11, z: -0.00022554304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8747536610784978288}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8747536610786305364
 MeshFilter:
@@ -1299,6 +1309,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
