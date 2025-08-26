@@ -88,7 +88,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 m_MoveWithObject = value;
                 if (!IsActive || m_DetectedObject == null) { return; }
                 if (m_MoveWithObject && m_CharacterLocomotion.MovingPlatform == null) {
-                    m_CharacterLocomotion.SetMovingPlatform(m_DetectedObject.transform);
+                    m_CharacterLocomotion.SetMovingPlatform(m_DetectedObject.transform, true);
                 } else if (!m_MoveWithObject && m_CharacterLocomotion.MovingPlatform == m_DetectedObject.transform) {
                     m_CharacterLocomotion.SetMovingPlatform(null);
                 }
@@ -285,7 +285,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // The character can move with the ground.
             if (m_MoveWithObject && m_DetectedObject != null && m_CharacterLocomotion.MovingPlatform == null) {
-                m_CharacterLocomotion.SetMovingPlatform(m_DetectedObject.transform);
+                m_CharacterLocomotion.SetMovingPlatform(m_DetectedObject.transform, true);
             }
         }
 

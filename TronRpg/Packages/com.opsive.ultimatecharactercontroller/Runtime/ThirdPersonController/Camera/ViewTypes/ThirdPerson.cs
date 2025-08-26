@@ -64,7 +64,6 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Camera.ViewTy
         public Vector3 ForwardAxis { get { return m_ForwardAxis; } set { m_ForwardAxis = value; } }
         public Vector3 LookOffset { get { return m_LookOffset; } set { m_LookOffset = value; } }
         public float LookOffsetSmoothing { get { return m_LookOffsetSmoothing; } set { m_LookOffsetSmoothing = value; } }
-        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { m_FieldOfViewDamping = value; } }
         public float CollisionRadius { get { return m_CollisionRadius; } set { m_CollisionRadius = value; } }
         public Vector3 CollisionAnchorOffset { get { return m_CollisionAnchorOffset; } set { m_CollisionAnchorOffset = value; } }
         public float RotationSpeed { get { return m_RotationSpeed; } set { m_RotationSpeed = value; } }
@@ -602,7 +601,7 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Camera.ViewTy
                     // The field of view and location should get a head start if the damping was previously 0. This will allow the field of view and location
                     // to move back to the original value when the state is no longer active.
                     if (m_PrevFieldOfViewDamping == 0) {
-                        m_Camera.fieldOfView = (m_Camera.fieldOfView + m_FieldOfView) * 0.5f;
+                        SimulationManager.SetCameraFieldOfView(m_CameraController.SimulationIndex, (m_Camera.fieldOfView + m_FieldOfView) * 0.5f);
                     }
 
                     m_Transform.position = (m_Transform.position + Move(true)) * 0.5f;

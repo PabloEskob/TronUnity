@@ -10,6 +10,6 @@ namespace Opsive.Shared.Editor
     /// </summary>
     public static class PackageInfo
     {
-        public static string Version { get => "2.0.3"; }
+        public static string Version { get => "2.1.0"; }
     }
 }

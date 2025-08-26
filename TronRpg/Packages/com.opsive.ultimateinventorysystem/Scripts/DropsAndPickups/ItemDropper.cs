@@ -29,7 +29,9 @@ namespace Opsive.UltimateInventorySystem.DropsAndPickups
         [SerializeField] protected bool m_DropCopies = true;
         [Tooltip("If the item dropped are unique, should they be split in multiple item infos, instead of one with higher amount.")]
         [SerializeField] protected bool m_SplitUniqueItems = true;
-
+        [Tooltip("Allows dropping an empty pickup if the amount of item to drop is 0.")]
+        [SerializeField] protected bool m_AllowEmptyDrops = true;
+        
         // Item pickup or Inventory pickup
         protected bool m_IsItemPickup;
         protected ItemInfo[] m_CachedItemInfos;
@@ -79,6 +81,19 @@ namespace Opsive.UltimateInventorySystem.DropsAndPickups
         public override void Drop()
         {
             var itemsToDrop = GetItemsToDrop();
+            
+            if( m_AllowEmptyDrops == false) {
+                if( itemsToDrop.Count == 0) {
+                    return;
+                }
+                int count = 0;
+                for (var i = 0; i < itemsToDrop.Count; i++) {
+                    count += itemsToDrop[i].Amount;
+                }
+                if( count == 0) {
+                    return;
+                }
+            }
 
             DropItemsInternal(itemsToDrop);
         }

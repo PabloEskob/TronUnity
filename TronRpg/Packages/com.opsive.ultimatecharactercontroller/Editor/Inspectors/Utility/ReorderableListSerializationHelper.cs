@@ -160,8 +160,8 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                     continue;
                 }
 
-                var group = Shared.Utility.TypeUtility.GetAttribute(typeList[i], typeof(Shared.Utility.Group)) as Shared.Utility.Group;
-                addMenu.AddItem(new GUIContent((group != null ? (group.Name + "/") : string.Empty) + InspectorUtility.DisplayTypeName(typeList[i], friendlyNamespacePrefix)), false, addCallback, typeList[i]);
+                var category = Shared.Utility.TypeUtility.GetAttribute(typeList[i], typeof(Shared.Utility.Category)) as Shared.Utility.Category;
+                addMenu.AddItem(new GUIContent((category != null ? (category.Name + "/") : string.Empty) + InspectorUtility.DisplayTypeName(typeList[i], friendlyNamespacePrefix)), false, addCallback, typeList[i]);
             }
 
             addMenu.ShowAsContext();

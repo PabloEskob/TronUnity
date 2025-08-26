@@ -38,11 +38,11 @@ namespace Opsive.UltimateInventorySystem.Demo.ItemActions
         protected override bool CanInvokeInternal(ItemInfo itemInfo, ItemUser itemUser)
         {
             var item = itemInfo.Item;
-            var inventory = itemInfo.Inventory;
+            var itemCollection = itemInfo.ItemCollection;
             var character = itemUser.GetComponent<Character>();
             return item.GetAttribute<Attribute<int>>("HealAmount") != null
                    && character != null
-                   && inventory.MainItemCollection.HasItem((1, item))
+                   && itemCollection.HasItem((1, item))
                    && character.CharacterDamageable.CurrentHp != character.CharacterDamageable.MaxHp;
         }
 
@@ -54,9 +54,9 @@ namespace Opsive.UltimateInventorySystem.Demo.ItemActions
         protected override void InvokeActionInternal(ItemInfo itemInfo, ItemUser itemUser)
         {
             var item = itemInfo.Item;
-            var inventory = itemInfo.Inventory;
+            var itemCollection = itemInfo.ItemCollection;
             var character = itemUser.GetComponent<Character>();
-            inventory.MainItemCollection.RemoveItem(item);
+            itemCollection.RemoveItem(item);
             m_HealAmount = item.GetAttribute<Attribute<int>>("HealAmount").GetValue();
             character.CharacterDamageable.Heal(m_HealAmount);
         }

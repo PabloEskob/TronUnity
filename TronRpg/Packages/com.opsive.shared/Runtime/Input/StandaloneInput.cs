@@ -4,7 +4,7 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-namespace Opsive.Shared.Input
+namespace Opsive.Shared.Input.InputManager
 {
     using UnityEngine;
 

@@ -15,13 +15,13 @@ MonoBehaviour:
   m_ItemSlots:
   - m_Name: Slot 0
     m_Category:
-      m_Name: 
-      m_ItemCategory: {fileID: 0}
+      m_Name: Bag Item
+      m_ItemCategory: {fileID: 11400000, guid: 02f803bc8df1bfd4fa2e7513e57289ef, type: 2}
   - m_Name: Slot 1
     m_Category:
-      m_Name: 
-      m_ItemCategory: {fileID: 0}
+      m_Name: Bag Item
+      m_ItemCategory: {fileID: 11400000, guid: 02f803bc8df1bfd4fa2e7513e57289ef, type: 2}
   - m_Name: Slot 2
     m_Category:
-      m_Name: 
-      m_ItemCategory: {fileID: 0}
+      m_Name: Bag Item
+      m_ItemCategory: {fileID: 11400000, guid: 02f803bc8df1bfd4fa2e7513e57289ef, type: 2}

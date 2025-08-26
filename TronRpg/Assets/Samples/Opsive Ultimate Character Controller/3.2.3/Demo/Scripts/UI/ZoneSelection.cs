@@ -8,11 +8,13 @@ namespace Opsive.UltimateCharacterController.Demo.UI
 {
     using Opsive.Shared.Events;
     using Opsive.Shared.Game;
-    using Opsive.Shared.Input;
     using UnityEngine;
     using UnityEngine.EventSystems;
-    using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+    using UnityEngine.InputSystem;
+#endif
     using UnityEngine.Rendering;
+    using UnityEngine.UI;
 
     /// <summary>
     /// The ZoneSelection component will manage the ZoneElements within the ScrollRect.
@@ -48,7 +50,6 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         public ScrollRect ZoneScrollRect { get => m_ZoneScrollRect; }
 
         private DemoManager m_DemoManager;
-        private UnityInput m_UnityInput;
 
         private float m_ScrollRectHeight;
         private float m_ZoneElementHeight;
@@ -95,14 +96,6 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         }
 
         /// <summary>
-        /// Sets the character input.
-        /// </summary>
-        private void Start()
-        {
-            m_UnityInput = m_DemoManager.Character.GetComponent<PlayerInputProxy>().PlayerInput as UnityInput;
-        }
-
-        /// <summary>
         /// Shows or hides the menu.
         /// </summary>
         /// <param name="show">Should the menu be shown?</param>
@@ -137,7 +130,7 @@ namespace Opsive.UltimateCharacterController.Demo.UI
             m_NextZoneSelectionText.gameObject.SetActive(show && nextZone && m_NextZoneSelectionTimeout >= 0);
             m_DemoManager.enabled = !show;
             EventHandler.ExecuteEvent(m_DemoManager.Character, "OnEnableGameplayInput", !show);
-            Cursor.visible = show || !m_UnityInput.DisableCursor;
+            Cursor.visible = show;
             Cursor.lockState = Cursor.visible ? CursorLockMode.None : CursorLockMode.Locked;
 #if ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
             m_PostProcessingVolume.profile = show ? m_MenuPostProcessingProfile : null;
@@ -178,20 +171,38 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         /// </summary>
         public void Update()
         {
-            if ((m_DemoManager.LastZoneIndex != -1 || m_DemoManager.FreeRoam) && Input.GetKeyDown(KeyCode.Escape)) {
+            if ((m_DemoManager.LastZoneIndex != -1 || m_DemoManager.FreeRoam) &&
+#if ENABLE_INPUT_SYSTEM
+                (Keyboard.current?.escapeKey.wasPressedThisFrame ?? false)
+#else
+                Input.GetKeyDown(KeyCode.Escape)
+#endif
+                ) {
                 ShowMenu(false, false);
                 return;
             }
 
             // After the menu is loaded again the vertical buttons may still be pressed and change the selection.
             // Enable the navigation after the input is clear.
-            if (!EventSystem.current.sendNavigationEvents && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && 
-                    !Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKeyDown(KeyCode.DownArrow)) {
+            if (!EventSystem.current.sendNavigationEvents &&
+#if ENABLE_INPUT_SYSTEM
+                    !(Keyboard.current?.wKey.isPressed ?? false) && !(Keyboard.current?.sKey.isPressed ?? false) &&
+                    !(Keyboard.current?.upArrowKey.isPressed ?? false) && !(Keyboard.current?.downArrowKey.isPressed ?? false)
+
+#else
+                    !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && 
+                    !Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKeyDown(KeyCode.DownArrow)
+#endif
+                    ) {
                 EventSystem.current.sendNavigationEvents = true;
             }
 
             // Load the zone with the return and spacebar inputs.
+#if ENABLE_INPUT_SYSTEM
+            if ((Keyboard.current?.enterKey.wasPressedThisFrame ?? false) || (Keyboard.current?.numpadEnterKey.wasPressedThisFrame ?? false) || (Keyboard.current?.spaceKey.wasPressedThisFrame ?? false)) {
+#else
             if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
+#endif
                 LoadZone(m_SelectedZoneIndex);
             }
 

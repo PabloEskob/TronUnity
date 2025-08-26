@@ -117,7 +117,7 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         /// <param name="ctx">The impact call back context, which caused the shield from being damaged.</param>
         /// <param name="amount">The amount of damage to apply/</param>
         /// <returns>The amount of damage remaining which should be applied to the character.</returns>
-        public float Damage(ImpactCallbackContext ctx, float amount)
+        public virtual float Damage(ImpactCallbackContext ctx, float amount)
         {
             // The shield can't absorb damage if it requires the character to be aiming and the character isn't aiming.
             if (!m_Aiming && m_RequireAim) {

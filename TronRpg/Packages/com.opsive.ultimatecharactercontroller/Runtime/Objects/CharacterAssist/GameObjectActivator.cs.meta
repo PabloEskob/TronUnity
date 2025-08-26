@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 0d4a5d2b0b6d55040a0d42fde8ef5d40
+timeCreated: 1512934167
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 233710
+  packageName: Ultimate Character Controller
+  packageVersion: 3.3p1
+  assetPath: Packages/com.opsive.ultimatecharactercontroller/Runtime/Objects/CharacterAssist/GameObjectActivator.cs
+  uploadId: 782208

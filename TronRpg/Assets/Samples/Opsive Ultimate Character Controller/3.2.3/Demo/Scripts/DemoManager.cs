@@ -17,7 +17,9 @@ namespace Opsive.UltimateCharacterController.Demo
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityEngine.SceneManagement;
+#if ENABLE_INPUT_SYSTEM
+    using UnityEngine.InputSystem;
+#endif
     using UnityEngine.UI;
 
     /// <summary>
@@ -105,6 +107,8 @@ namespace Opsive.UltimateCharacterController.Demo
         [SerializeField] protected GameObject m_InGameZoneContent;
         [Tooltip("A reference to the panel which shows the demo text.")]
         [SerializeField] protected GameObject m_InGameZoneDescription;
+        [Tooltip("A reference to the parent of the on-screen controls.")]
+        [SerializeField] protected GameObject m_OnScreenControlsParent;
         [Tooltip("Is this manager part of an add-on?")]
         [SerializeField] protected bool m_AddAllItemsToCharacter;
         [Tooltip("Is this manager part of an add-on?")]
@@ -188,6 +192,9 @@ namespace Opsive.UltimateCharacterController.Demo
                 m_InGameZoneContent?.SetActive(false);
                 m_ControlsParent?.SetActive(false);
             }
+            if (m_OnScreenControlsParent != null) {
+                m_OnScreenControlsParent.SetActive(false);
+            }
 #if FIRST_PERSON_CONTROLLER && THIRD_PERSON_CONTROLLER
             if (m_PerspectiveToggle != null) {
                 m_PerspectiveToggle.isOn = m_DefaultFirstPersonStart;
@@ -256,6 +263,9 @@ namespace Opsive.UltimateCharacterController.Demo
             }
 
             m_InGameZoneContent?.SetActive(true);
+            if (m_OnScreenControlsParent != null) {
+                Shared.StateSystem.StateManager.LinkGameObjects(m_Character, m_OnScreenControlsParent, true);
+            }
 
             // Wait at least a frame for the character to initialize properly.
             Scheduler.Schedule(0.1f, () => m_OnCharacterInitialized?.Invoke());
@@ -388,7 +398,13 @@ namespace Opsive.UltimateCharacterController.Demo
                     // Keep the mouse visible when the selection screen is active.
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
-                } else if (Input.GetKeyDown(KeyCode.Escape) && !m_ZoneSelection.isActiveAndEnabled) {
+                } else if (!m_ZoneSelection.isActiveAndEnabled &&
+#if ENABLE_INPUT_SYSTEM
+                    (Keyboard.current?.escapeKey.wasPressedThisFrame ?? false)
+#else
+                    Input.GetKeyDown(KeyCode.Escape)
+#endif
+                    ) {
                     m_ZoneSelection.ShowMenu(true, false);
                     return;
                 }
@@ -651,52 +667,5 @@ namespace Opsive.UltimateCharacterController.Demo
         {
             EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>(m_Character, "OnDeath", OnDeath);
         }
-
-#if UNITY_EDITOR && UNITY_6000_0_OR_NEWER
-        /// <summary>
-        /// Callback after the object has been loaded.
-        /// </summary>
-        [UnityEditor.InitializeOnLoadMethod]
-        static void OnAfterSceneLoad()
-        {
-            UnityEditor.SceneManagement.EditorSceneManager.activeSceneChangedInEditMode += CheckActiveInput;
-        }
-
-        /// <summary>
-        /// Ensures the active input is set to Both or Input Manager.
-        /// </summary>
-        /// <param name="arg0">The previous scene.</param>
-        /// <param name="arg1">The current scene.</param>
-        private static void CheckActiveInput(Scene previous, Scene current)
-        {
-            if (FindAnyObjectByType<DemoManager>() == null) {
-                return;
-            }
-
-            var projectSettings = UnityEditor.AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/ProjectSettings.asset")[0];
-            if (projectSettings == null) {
-                return;
-            }
-
-            var serializedObject = new UnityEditor.SerializedObject(projectSettings);
-            var inputHandlerProperty = serializedObject.FindProperty("activeInputHandler");
-            if (inputHandlerProperty == null) {
-                return;
-            }
-
-            // The dialog should only show if the value is exclusively set to the input system.
-            if (inputHandlerProperty.intValue != 1) {
-                return;
-            }
-
-            if (UnityEditor.EditorUtility.DisplayDialog("Input Type", "The demo scene uses the Input Manager for backwards compatibility reasons. Press Ok to change your project settings to a Both Active Input Handler type. A restart is required.", "Ok", "Cancel")) {
-                inputHandlerProperty.intValue = 2; // 2 represents "Both" in the Active Input Handler enum.
-                serializedObject.ApplyModifiedProperties();
-
-                // Force restart the editor.
-                UnityEditor.EditorApplication.OpenProject(System.IO.Directory.GetCurrentDirectory());
-            }
-        }
-#endif
     }
 }

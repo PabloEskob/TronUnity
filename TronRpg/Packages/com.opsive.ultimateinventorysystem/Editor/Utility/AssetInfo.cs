@@ -11,7 +11,7 @@ namespace Opsive.UltimateInventorySystem.Editor.Utility
     /// </summary>
     public static class AssetInfo
     {
-        public static string Version => "1.3.3";
+        public static string Version => "1.3.4";
 
         public static string Name => "Ultimate Inventory System";
 

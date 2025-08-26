@@ -320,14 +320,14 @@ namespace Opsive.UltimateCharacterController.Integrations.UltimateInventorySyste
             // Add the additional Inventory System components for characters
             Shared.Editor.Inspectors.Utility.InspectorUtility.AddComponent<InventoryIdentifier>(characterObject);
             Shared.Editor.Inspectors.Utility.InspectorUtility.AddComponent<ItemUser>(characterObject);
-            var input = characterObject.GetComponentInChildren<Shared.Input.UnityInput>();
+            /*var input = characterObject.GetComponentInChildren<Shared.Input.UnityInput>();
             if (input == null) {
                 input = Shared.Editor.Inspectors.Utility.InspectorUtility.AddComponent<Shared.Input.UnityInput>(characterObject);
             }
 
             input.DisableCursor = false;
             input.EnableCursorWithEscape = false;
-            characterObject.GetComponent<ItemUser>().InventoryInput = input;
+            characterObject.GetComponent<ItemUser>().InventoryInput = input;*/
             Shared.Editor.Inspectors.Utility.InspectorUtility.AddComponent<CurrencyOwner>(characterObject);
             Shared.Editor.Inspectors.Utility.InspectorUtility.AddComponent<InventoryInteractor>(characterObject);
             

@@ -65,6 +65,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         [SerializeField] private bool m_StandardAbilities = true;
         [SerializeField] private bool m_AIAgent = false;
         [SerializeField] private bool m_NavMeshAgent = false;
+        [SerializeField] private bool m_InputSystem = true;
         [SerializeField] private bool m_Items = true;
         [SerializeField] private Inventory.ItemCollection m_ItemCollection;
         [SerializeField] private Inventory.ItemSetRuleBase m_ItemSetRule;
@@ -84,6 +85,9 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         private List<string> m_ThirdPersonMovementTypeStrings = new List<string>();
         private List<string> m_PerspectiveNames = new List<string>() { "First", "Third", "Both" };
         private Material m_InvisibleShadowCaster;
+#if ENABLE_INPUT_SYSTEM
+        private UnityEngine.InputSystem.InputActionAsset m_InputActions;
+#endif
 
         private VisualElement m_CharacterContainer;
         private ScrollView m_ScrollView;
@@ -119,7 +123,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                         continue;
                     }
 
-                    var fullName = assemblyTypes[j].FullName;
+                    var fullName = assemblyTypes[j].AssemblyQualifiedName;
                     if (fullName != null && fullName.Contains("FirstPersonController")) {
                         m_FirstPersonMovementTypes.Add(assemblyTypes[j]);
                     } else if (assemblyTypes[j].FullName.Contains("ThirdPersonController")) {
@@ -164,6 +168,9 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             m_ItemCollection = ManagerUtility.FindItemCollection(m_MainManagerWindow);
             m_ItemSetRule = ManagerUtility.FindItemSetRule(m_MainManagerWindow);
             m_InvisibleShadowCaster = ManagerUtility.FindInvisibleShadowCaster();
+#if ENABLE_INPUT_SYSTEM
+            m_InputActions = ManagerUtility.FindInputSystemActions();
+#endif
 
             if (m_CharacterContainer != null && Event.current == null || Event.current.type != EventType.MouseUp) {
                 ShowCharacter(m_CharacterContainer);
@@ -418,6 +425,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             } else {
                 m_AIAgent = IsAIAgent(m_Character);
                 m_NavMeshAgent = HasNavMeshAgent(m_Character);
+                m_InputSystem = HasInputSystem(m_Character);
                 m_Perspective = CurrentPerspective();
                 m_Animator = HasAnimator(m_Character);
                 var animatorMonitors = m_Character.GetComponentsInChildren<AnimatorMonitor>();
@@ -1178,6 +1186,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             aiAgentToggle.RegisterValueChangedCallback(c =>
             {
                 m_AIAgent = c.newValue;
+                ShowCharacter(baseContainer);
             });
             container.Add(aiAgentToggle);
 
@@ -1189,6 +1198,20 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 m_NavMeshAgent = c.newValue;
             });
             container.Add(navMeshAgentToggle);
+
+            // Input.
+#if ENABLE_INPUT_SYSTEM
+            if (!m_AIAgent) {
+                var inputSystemToggle = new Toggle("Input System");
+                inputSystemToggle.value = m_InputSystem;
+                inputSystemToggle.RegisterValueChangedCallback(c =>
+                {
+                    m_InputSystem = c.newValue;
+                    ShowCharacter(baseContainer);
+                });
+                container.Add(inputSystemToggle);
+            }
+#endif
 
             // Items.
             var itemsToggle = new Toggle("Items");
@@ -1298,7 +1321,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 }
             }
 
-            // Foot Effects
+            // Foot Effects.
             var footEffectsToggle = new Toggle("Foot Effects");
             footEffectsToggle.value = m_FootEffects;
             footEffectsToggle.RegisterValueChangedCallback(c =>
@@ -1439,9 +1462,13 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
 
             CharacterBuilder.BuildCharacter(m_Character, m_CharacterModels, m_Animator, m_AnimatorControllers,
-                                                m_Perspective != Perspective.Third ? m_FirstPersonMovementTypes[m_FirstPersonMovementTypeIndex].FullName : string.Empty,
-                                                m_Perspective != Perspective.First ? m_ThirdPersonMovementTypes[m_ThirdPersonMovementTypeIndex].FullName : string.Empty,
-                                                m_StartFirstPersonPerspective, m_ThirdPersonObjects, m_InvisibleShadowCaster, m_AIAgent);
+                                                m_Perspective != Perspective.Third ? m_FirstPersonMovementTypes[m_FirstPersonMovementTypeIndex].AssemblyQualifiedName : string.Empty,
+                                                m_Perspective != Perspective.First ? m_ThirdPersonMovementTypes[m_ThirdPersonMovementTypeIndex].AssemblyQualifiedName : string.Empty,
+                                                m_StartFirstPersonPerspective, m_ThirdPersonObjects, m_InvisibleShadowCaster, m_AIAgent, m_InputSystem
+#if ENABLE_INPUT_SYSTEM
+                                                , m_InputActions
+#endif
+                                                );
             if (m_TemplateCharacter == null) {
                 CharacterBuilder.BuildCharacterComponents(m_Character, m_AIAgent, m_Items, m_ItemCollection, m_ItemSetRule, (m_Perspective == Perspective.First || m_Perspective == Perspective.Both) && (m_FirstPersonArms != null && m_FirstPersonArms.Length > 1),
                     m_Health, m_UnityIK, m_FootEffects, m_StandardAbilities, m_NavMeshAgent);
@@ -1617,10 +1644,10 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 }
             }
             if (!hasFirstPersonMovementType && (m_Perspective == Perspective.First || m_Perspective == Perspective.Both)) {
-                CharacterBuilder.AddMovementType(m_Character, m_FirstPersonMovementTypes[m_FirstPersonMovementTypeIndex].FullName);
+                CharacterBuilder.AddMovementType(m_Character, m_FirstPersonMovementTypes[m_FirstPersonMovementTypeIndex].AssemblyQualifiedName);
             }
             if (!hasThirdPersonMovementType && (m_Perspective == Perspective.Third || m_Perspective == Perspective.Both)) {
-                CharacterBuilder.AddMovementType(m_Character, m_ThirdPersonMovementTypes[m_ThirdPersonMovementTypeIndex].FullName);
+                CharacterBuilder.AddMovementType(m_Character, m_ThirdPersonMovementTypes[m_ThirdPersonMovementTypeIndex].AssemblyQualifiedName);
             }
 
             if (m_Animator != HasAnimator(m_Character)) {
@@ -1970,7 +1997,11 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                     if (m_AIAgent) {
                         CharacterBuilder.AddAIAgent(m_Character);
                     } else {
-                        CharacterBuilder.RemoveAIAgent(m_Character);
+                        CharacterBuilder.RemoveAIAgent(m_Character, m_InputSystem
+#if ENABLE_INPUT_SYSTEM
+                                                , m_InputActions
+#endif
+                                                );
                     }
                 }
                 if (m_NavMeshAgent != HasNavMeshAgent(m_Character)) {
@@ -1999,6 +2030,12 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                         }
                     }
                 }
+#if ENABLE_INPUT_SYSTEM
+                if (!m_AIAgent && m_InputSystem != HasInputSystem(m_Character)) {
+                    CharacterBuilder.RemoveUnityInput(m_Character);
+                    CharacterBuilder.AddUnityInput(m_Character, m_InputSystem, m_InputActions);
+                }
+#endif
                 if (m_Items != HasItems(m_Character, m_AIAgent, m_Perspective != Perspective.Third)) {
                     if (m_Items) {
                         CharacterBuilder.AddItemSupport(m_Character, m_ItemCollection, m_ItemSetRule, m_AIAgent, m_Perspective != Perspective.Third);
@@ -2121,6 +2158,20 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         private bool HasNavMeshAgent(GameObject character)
         {
             return character.GetComponent<UnityEngine.AI.NavMeshAgent>() != null && character.GetComponent<UltimateCharacterLocomotion>().GetAbility<Character.Abilities.AI.NavMeshAgentMovement>() != null;
+        }
+
+        /// <summary>
+        /// Does the character have the Unity Input System component?
+        /// </summary>
+        /// <param name="character">The GameObject of the character to determine if it has the required components.</param>
+        /// <returns>True if the character has the Unity Input System component.</returns>
+        private bool HasInputSystem(GameObject character)
+        {
+#if ENABLE_INPUT_SYSTEM
+            return character.GetComponentInChildren<Shared.Input.InputSystem.UnityInputSystem>() != null;
+#else
+            return false;
+#endif
         }
 
         /// <summary>

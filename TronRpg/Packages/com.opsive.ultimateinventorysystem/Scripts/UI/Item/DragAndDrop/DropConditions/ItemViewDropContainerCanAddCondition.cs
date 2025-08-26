@@ -123,7 +123,7 @@ namespace Opsive.UltimateInventorySystem.UI.Item.DragAndDrop.DropConditions
         /// <returns>The string.</returns>
         public override string ToString()
         {
-            return $"Container Can Add [{m_Source},{m_Destination}]";
+            return $"Container Can Give [{m_Source},{m_Destination}]";
         }
     }
 }

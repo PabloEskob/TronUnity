@@ -202,7 +202,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 #endif
 
             m_OriginalParent = m_Transform.parent;
-            m_CharacterLocomotion.SetMovingPlatform(m_DriveSource.Transform);
+            m_CharacterLocomotion.SetMovingPlatform(m_DriveSource.Transform, true);
             m_Transform.parent = m_DriveSource.Transform;
             m_DriveState = DriveState.Enter;
             m_DriveSource.EnterVehicle(this);

@@ -450,8 +450,13 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
             path = EditorUtility.OpenFilePanelWithFilters("Select Preset", path, new[] { "Preset", "asset" });
             if (path.Length != 0 && Application.dataPath.Length < path.Length) {
                 EditorPrefs.SetString(c_EditorPrefsLastPresetPathKey, System.IO.Path.GetDirectoryName(path));
-                // The path is relative to the project.
-                path = string.Format("Assets/{0}", path.Substring(Application.dataPath.Length + 1));
+                // Handle both Assets and Packages directories.
+                var packagesPath = System.IO.Path.GetFullPath("Packages").Replace('\\', '/');
+                if (path.StartsWith(packagesPath)) {
+                    path = string.Format("Packages/{0}", path.Substring(packagesPath.Length + 1));
+                } else {
+                    path = string.Format("Assets/{0}", path.Substring(Application.dataPath.Length + 1));
+                }
                 var preset = AssetDatabase.LoadAssetAtPath<PersistablePreset>(path);
                 if (preset == null) {
                     Debug.LogError($"Error: Unable to add preset. {System.IO.Path.GetFileName(path)} isn't located within the same project directory.");
@@ -489,8 +494,13 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
                 path = EditorUtility.SaveFilePanel("Save Preset", path, startName, "asset");
                 if (path.Length != 0 && Application.dataPath.Length < path.Length) {
                     EditorPrefs.SetString(c_EditorPrefsLastPresetPathKey, System.IO.Path.GetDirectoryName(path));
-                    // The path is relative to the project.
-                    path = string.Format("Assets/{0}", path.Substring(Application.dataPath.Length + 1));
+                    // Handle both Assets and Packages directories.
+                    var packagesPath = System.IO.Path.GetFullPath("Packages").Replace('\\', '/');
+                    if (path.StartsWith(packagesPath)) {
+                        path = string.Format("Packages/{0}", path.Substring(packagesPath.Length + 1));
+                    } else {
+                        path = string.Format("Assets/{0}", path.Substring(Application.dataPath.Length + 1));
+                    }
                     // Do not delete/add if an existing preset already exists to prevent the references from being destroyed.
                     var existingPreset = AssetDatabase.LoadAssetAtPath<Preset>(path);
                     if (existingPreset != null) {

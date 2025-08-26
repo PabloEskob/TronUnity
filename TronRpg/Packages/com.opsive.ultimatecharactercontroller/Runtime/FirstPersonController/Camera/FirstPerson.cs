@@ -136,7 +136,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
                     }
                 }
             } }
-        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { m_FieldOfViewDamping = value; } }
         public Vector3 FirstPersonPositionOffset { get { return m_FirstPersonPositionOffset; }
             set
             {
@@ -1121,7 +1120,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
                 // The field of view should get a head start if the damping was previously 0. This will allow the field of view to move back to the original value even
                 // when the state is no longer active.
                 if (m_CameraController.ActiveViewType == this && m_PrevFieldOfViewDamping == 0) {
-                    m_Camera.fieldOfView = (m_Camera.fieldOfView + m_FieldOfView) * 0.5f;
+                    SimulationManager.SetCameraFieldOfView(m_CameraController.SimulationIndex, (m_Camera.fieldOfView + m_FieldOfView) * 0.5f);
                     if (m_FirstPersonCamera != null && m_SynchronizeFieldOfView) {
                         m_FirstPersonCamera.fieldOfView = m_Camera.fieldOfView;
                     }

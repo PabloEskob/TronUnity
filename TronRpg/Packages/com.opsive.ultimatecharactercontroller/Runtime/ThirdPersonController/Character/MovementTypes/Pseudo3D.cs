@@ -128,8 +128,8 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Character.Mov
                 } else {
                     // If the mouse hasn't moved then get the axis to determine a look rotation. This will be used for controllers and virtual input.
                     var direction = Vector3.zero;
-                    direction.x = m_PlayerInput.GetAxis(m_PlayerInput.ActiveHorizontalLookInputName);
-                    direction.z = m_PlayerInput.GetAxis(m_PlayerInput.ActiveVerticalLookInputName);
+                    direction.x = m_PlayerInput.GetAxis(m_PlayerInput.HorizontalLookInputName);
+                    direction.z = m_PlayerInput.GetAxis(m_PlayerInput.VerticalLookInputName);
                     if (direction.sqrMagnitude > 0.1f) {
                         var rotation = Quaternion.LookRotation(direction.normalized, m_CharacterLocomotion.Up);
                         return MathUtility.ClampInnerAngle(MathUtility.InverseTransformQuaternion(m_CharacterLocomotion.Rotation, rotation).eulerAngles.y);

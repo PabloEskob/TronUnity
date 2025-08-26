@@ -4,7 +4,7 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-namespace Opsive.Shared.Input.VirtualControls
+namespace Opsive.Shared.Input.InputManager.VirtualControls
 {
     using Opsive.Shared.Game;
     using UnityEngine;

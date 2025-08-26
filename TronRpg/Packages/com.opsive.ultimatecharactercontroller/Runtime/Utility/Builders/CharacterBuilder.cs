@@ -39,8 +39,14 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         /// <param name="thirdPersonObjects">The objects that should be hidden in first person view.</param>
         /// <param name="invisibleShadowCasterMaterial">The shadow caster material applied to the invisible first person objects.</param>
         /// <param name="aiAgent">Is the character an AI agent?</param>
+        /// <param name="addUnityInputSystem">Should the Unity Input System be used?</param>
+        /// <param name="inputActions">A reference to the Input System actions.</param>
         public static void BuildCharacter(GameObject character, GameObject[] characterModels, bool addAnimator, RuntimeAnimatorController[] animatorControllers, string firstPersonMovementType, string thirdPersonMovementType, bool startFirstPersonPerspective,
-            GameObject[][] thirdPersonObjects, Material invisibleShadowCasterMaterial, bool aiAgent)
+            GameObject[][] thirdPersonObjects, Material invisibleShadowCasterMaterial, bool aiAgent, bool addUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+            , UnityEngine.InputSystem.InputActionAsset inputActions
+#endif
+            )
         {
             // Determine if the ThirdPersonObject component should be added or the invisible object renderer should be directly set to the invisible shadow caster.
             if (thirdPersonObjects != null) {
@@ -69,7 +75,11 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                 }
             }
 
-            AddEssentials(character, characterModels, addAnimator, animatorControllers, !string.IsNullOrEmpty(firstPersonMovementType) && !string.IsNullOrEmpty(thirdPersonMovementType), invisibleShadowCasterMaterial, aiAgent);
+            AddEssentials(character, characterModels, addAnimator, animatorControllers, !string.IsNullOrEmpty(firstPersonMovementType) && !string.IsNullOrEmpty(thirdPersonMovementType), invisibleShadowCasterMaterial, aiAgent, addUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+                    , inputActions
+#endif
+                );
 
             // The last added MovementType is starting movement type.
             if (startFirstPersonPerspective) {
@@ -99,7 +109,13 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         /// <param name="addPerspectiveMonitor">Should the perspective monitor be added?</param>
         /// <param name="invisibleShadowCasterMaterial">The shadow caster material applied to the invisible first person objects.</param>
         /// <param name="aiAgent">Is the character an AI agent?</param>
-        public static void AddEssentials(GameObject character, GameObject[] characterModels, bool addAnimator, RuntimeAnimatorController[] animatorControllers, bool addPerspectiveMonitor, Material invisibleShadowCasterMaterial, bool aiAgent)
+        /// <param name="addUnityInputSystem">Should the Unity Input System be used?</param>
+        /// <param name="inputActions">A reference to the Input System actions.</param>
+        public static void AddEssentials(GameObject character, GameObject[] characterModels, bool addAnimator, RuntimeAnimatorController[] animatorControllers, bool addPerspectiveMonitor, Material invisibleShadowCasterMaterial, bool aiAgent, bool addUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+            , UnityEngine.InputSystem.InputActionAsset inputActions
+#endif
+            )
         {
             if (!aiAgent) {
                 character.tag = "Player";
@@ -180,7 +196,11 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
             if (aiAgent) {
                 AddAIAgent(character);
             } else {
-                AddUnityInput(character);
+                AddUnityInput(character, addUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+                    , inputActions
+#endif
+                    );
 
                 if (character.GetComponent<UltimateCharacterLocomotionHandler>() == null) {
                     character.AddComponent<UltimateCharacterLocomotionHandler>();
@@ -551,7 +571,13 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         /// Removes the ai agent components from the character.
         /// </summary>
         /// <param name="character">The character to remove the ai agent components to.</param>
-        public static void RemoveAIAgent(GameObject character)
+        /// <param name="useUnityInputSystem">Should the Unity Input System component be added?</param>
+        /// <param name="inputActions">A reference to the Input System actions.</param>
+        public static void RemoveAIAgent(GameObject character, bool useUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+            , UnityEngine.InputSystem.InputActionAsset inputActions
+#endif
+            )
         {
             var localLookSource = character.GetComponent<LocalLookSource>();
             if (localLookSource != null) {
@@ -566,19 +592,48 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                 character.AddComponent<ItemHandler>();
             }
 
-            AddUnityInput(character);
+            AddUnityInput(character, useUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+                    , inputActions
+#endif
+                );
         }
 
         /// <summary>
         /// Adds the UnityInput component to the character.
         /// </summary>
         /// <param name="character">The character to add the UnityInput component to.</param>
-        public static void AddUnityInput(GameObject character)
+        /// <param name="useUnityInputSystem">Should the Unity Input System component be added?</param>
+        /// <param name="inputActions">A reference to the Input System actions.</param>
+        public static void AddUnityInput(GameObject character, bool useUnityInputSystem
+#if ENABLE_INPUT_SYSTEM
+            , UnityEngine.InputSystem.InputActionAsset inputActions
+#endif
+            )
         {
-            if (character.GetComponentInChildren<Shared.Input.UnityInput>() == null) {
+#if ENABLE_INPUT_SYSTEM
+            if (useUnityInputSystem) {
+                if (character.GetComponentInChildren<Shared.Input.InputSystem.UnityInputSystem>() == null) {
+                    var inputGameObject = new GameObject(character.name + "Input");
+                    inputGameObject.transform.parent = character.transform;
+                    var unityInput = inputGameObject.AddComponent<Shared.Input.InputSystem.UnityInputSystem>();
+                    var inputProxy = character.AddComponent<Shared.Input.PlayerInputProxy>();
+                    inputProxy.PlayerInput = unityInput;
+
+                    // The Input Action asset must be set on the PlayerInput.
+                    var playerInput = inputGameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>();
+                    if (playerInput == null) {
+                        playerInput = inputGameObject.AddComponent<UnityEngine.InputSystem.PlayerInput>();
+                    }
+                    playerInput.actions = inputActions;
+                }
+                return;
+            }
+#endif
+            if (character.GetComponentInChildren<Shared.Input.InputManager.UnityInput>() == null) {
                 var inputGameObject = new GameObject(character.name + "Input");
                 inputGameObject.transform.parent = character.transform;
-                var unityInput = inputGameObject.AddComponent<Shared.Input.UnityInput>();
+                var unityInput = inputGameObject.AddComponent<Shared.Input.InputManager.UnityInput>();
                 var inputProxy = character.AddComponent<Shared.Input.PlayerInputProxy>();
                 inputProxy.PlayerInput = unityInput;
             }
@@ -595,10 +650,17 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                 Object.DestroyImmediate(inputProxy, true);
             }
 
-            var unityInput = character.GetComponentInChildren<Shared.Input.UnityInput>();
+            var unityInput = character.GetComponentInChildren<Shared.Input.InputManager.UnityInput>();
             if (unityInput != null) {
                 Object.DestroyImmediate(unityInput.gameObject, true);
             }
+
+#if ENABLE_INPUT_SYSTEM
+            var unityInputSystem = character.GetComponentInChildren<Shared.Input.InputSystem.UnityInputSystem>();
+            if (unityInputSystem != null) {
+                Object.DestroyImmediate(unityInputSystem.gameObject, true);
+            }
+#endif
         }
 
 #if FIRST_PERSON_CONTROLLER

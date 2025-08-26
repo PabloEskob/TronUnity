@@ -131,7 +131,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
                 // The URP data will exists when the URP is imported. This assembly definition must be added to the Opsive.UltimateCaracterController.Editor assembly definition.
-                var universalrpExists = TypeUtility.GetType("UnityEngine.Rendering.Universal.ForwardRendererData") != null;
+                var universalrpExists = TypeUtility.GetType("UnityEngine.Rendering.Universal.ForwardRendererData") != null || TypeUtility.GetType("UnityEngine.Rendering.Universal.UniversalRenderer") != null;
 #if ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
                 if (!universalrpExists) {
                     RemoveSymbol(s_UniversalRPSymbol, buildTargetGroup);

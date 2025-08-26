@@ -4,15 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-namespace Opsive.Shared.Input
+namespace Opsive.Shared.Input.InputManager
 {
-    using Opsive.Shared.Input.VirtualControls;
+    using Opsive.Shared.Input.InputManager.VirtualControls;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Scripting.APIUpdating;
 
     /// <summary>
     /// Acts as a common base class for input using the Unity Input Manager. Works with keyboard/mouse, controller, and mobile input.
     /// </summary>
+    [MovedFrom("Opsive.Shared.Input")]
     public class UnityInput : PlayerInput
     {
         /// <summary>
@@ -30,6 +32,14 @@ namespace Opsive.Shared.Input
         [SerializeField] protected bool m_PreventLookVectorChanges = true;
         [Tooltip("The joystick is considered up when the raw value is less than the specified threshold.")]
         [Range(0, 1)] [SerializeField] protected float m_JoystickUpThreshold = 1;
+        [Tooltip("The name of the controller horizontal camera input mapping.")]
+        [SerializeField] protected string m_ControllerHorizontalLookInputName = "Controller X";
+        [Tooltip("The name of the vertical camera input mapping.")]
+        [SerializeField] protected string m_ControllerVerticalLookInputName = "Controller Y";
+        [Tooltip("Specifies a multiplier to apply to the controller input value.")]
+        [SerializeField] protected float m_ControllerInputMultiplier = 50;
+        [Tooltip("If a controller is connected should the controller and mouse input be checked?")]
+        [SerializeField] protected bool m_MouseControllerUpdate;
 
         public bool DisableCursor { get { return m_DisableCursor; }
             set
@@ -77,6 +87,21 @@ namespace Opsive.Shared.Input
         public bool EnableCursorWithEscape { get { return m_EnableCursorWithEscape; } set { m_EnableCursorWithEscape = value; } }
         public bool PreventLookMovementWithEscape { get { return m_PreventLookVectorChanges; } set { m_PreventLookVectorChanges = value; } }
         public float JoystickUpThreshold { get { return m_JoystickUpThreshold; } set { m_JoystickUpThreshold = value; } }
+        public override string HorizontalLookInputName { get {
+                if (IsControllerConnected() && !m_MouseControllerUpdate) {
+                    return m_ControllerHorizontalLookInputName;
+                }
+                return m_HorizontalLookInputName;
+            } set { m_HorizontalLookInputName = value; } }
+        public override string VerticalLookInputName { get {
+                if (IsControllerConnected() && !m_MouseControllerUpdate) {
+                    return m_ControllerVerticalLookInputName;
+                }
+                return m_VerticalLookInputName;
+            } set { m_VerticalLookInputName = value; } }
+        public string ControllerHorizontalLookInputName { get { return m_ControllerHorizontalLookInputName; } set { m_ControllerHorizontalLookInputName = value; } }
+        public string ControllerVerticalLookInputName { get { return m_ControllerVerticalLookInputName; } set { m_ControllerVerticalLookInputName = value; } }
+        public float ControllerInputMultiplier { get { return m_ControllerInputMultiplier; } set { m_ControllerInputMultiplier = value; } }
 
         private InputBase m_Input;
         private bool m_UseVirtualInput;
@@ -152,6 +177,26 @@ namespace Opsive.Shared.Input
                 return false;
             }
             return base.IsCursorVisible();
+        }
+
+        /// <summary>
+        /// Update the mouse input.
+        /// </summary>
+        protected override void Update()
+        {
+            if (!m_Focus) {
+                return;
+            }
+
+            var updatedInput = false;
+            if (IsControllerConnected()) {
+                UpdateInput(m_ControllerHorizontalLookInputName, m_ControllerVerticalLookInputName, m_ControllerInputMultiplier * Time.deltaTime);
+                updatedInput = !m_MouseControllerUpdate;
+            }
+
+            if (!updatedInput) {
+                UpdateInput(m_HorizontalLookInputName, m_VerticalLookInputName, 1);
+            }
         }
 
         /// <summary>

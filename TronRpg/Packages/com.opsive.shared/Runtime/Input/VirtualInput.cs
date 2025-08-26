@@ -4,9 +4,9 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-namespace Opsive.Shared.Input
+namespace Opsive.Shared.Input.InputManager
 {
-    using Opsive.Shared.Input.VirtualControls;
+    using Opsive.Shared.Input.InputManager.VirtualControls;
 
     /// <summary>
     /// Uses virtual buttons to detect input related actions.

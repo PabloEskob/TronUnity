@@ -3,10 +3,9 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
-
 namespace Opsive.Shared.Editor.Inspectors.Input
 {
-    using Opsive.Shared.Input;
+    using Opsive.Shared.Input.InputManager;
     using UnityEditor;
 
     /// <summary>

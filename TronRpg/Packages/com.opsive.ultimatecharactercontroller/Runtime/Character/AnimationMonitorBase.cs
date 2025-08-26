@@ -12,8 +12,6 @@ namespace Opsive.UltimateCharacterController.Character
     using Opsive.Shared.Utility;
     using Opsive.UltimateCharacterController.Inventory;
     using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
     using UnityEngine;
 
     /// <summary>

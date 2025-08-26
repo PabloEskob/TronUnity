@@ -21,6 +21,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         private const string c_InvisibleShadowCasterGUID = "0a580a5ea04fdab47941095489aa23b7";
         private const string c_InvisibleShadowCasterURPGUID = "fef4c166c9d37ea45b2be4c290c45485";
         private const string c_InvisibleShadowCasterHDRPGUID = "47281b1f9a3ef4a4091359afb3d63d7a";
+        private const string c_InputSystemInputActionsGUID = "720db810842ff08459f23d2def207297";
 
         private const string c_LastItemCollectionGUIDString = "LastItemCollectionGUID";
         public static string LastItemCollectionGUIDString { get { return c_LastItemCollectionGUIDString; } }
@@ -262,5 +263,24 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
 
             return null;
         }
+
+#if ENABLE_INPUT_SYSTEM
+        /// <summary>
+        /// Searches for the Input System actions.
+        /// </summary>
+        public static UnityEngine.InputSystem.InputActionAsset FindInputSystemActions()
+        {
+            // The GUID should remain consistant. 
+            var inputActionsPath = AssetDatabase.GUIDToAssetPath(c_InputSystemInputActionsGUID);
+            if (!string.IsNullOrEmpty(inputActionsPath)) {
+                var inputActions = AssetDatabase.LoadAssetAtPath(inputActionsPath, typeof(UnityEngine.InputSystem.InputActionAsset)) as UnityEngine.InputSystem.InputActionAsset;
+                if (inputActions != null) {
+                    return inputActions;
+                }
+            }
+
+            return null;
+        }
+#endif
     }
 }

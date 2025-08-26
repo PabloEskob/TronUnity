@@ -32,6 +32,7 @@ namespace Opsive.UltimateCharacterController.Camera.ViewTypes
         public abstract float LookDirectionDistance { get; }
 
         public float FieldOfView { get => m_FieldOfView; set { m_FieldOfView = Mathf.Clamp(value, 1, 179); UpdateFieldOfView(false); } }
+        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { Debug.Log("Set " + value); m_FieldOfViewDamping = value; } }
 
         protected CameraController m_CameraController;
         protected Transform m_Transform;
@@ -141,6 +142,10 @@ namespace Opsive.UltimateCharacterController.Camera.ViewTypes
                 return;
             }
 #endif
+
+            if (m_CameraController.ActiveViewType != this) {
+                return;
+            }
 
             if (m_Camera.fieldOfView != m_FieldOfView) {
                 var time = (immediateUpdate || m_FieldOfViewDamping == 0) ? 1 : ((Time.time - m_FieldOfViewChangeTime) / (m_FieldOfViewDamping / m_CharacterLocomotion.TimeScale));

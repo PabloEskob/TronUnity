@@ -42,14 +42,6 @@ namespace Opsive.Shared.Input
         [SerializeField] protected string m_HorizontalLookInputName = "Mouse X";
         [Tooltip("The name of the vertical camera input mapping.")]
         [SerializeField] protected string m_VerticalLookInputName = "Mouse Y";
-        [Tooltip("The name of the controller horizontal camera input mapping.")]
-        [SerializeField] protected string m_ControllerHorizontalLookInputName = "Controller X";
-        [Tooltip("The name of the vertical camera input mapping.")]
-        [SerializeField] protected string m_ControllerVerticalLookInputName = "Controller Y";
-        [Tooltip("Specifies a multiplier to apply to the controller input value.")]
-        [SerializeField] protected float m_ControllerInputMultiplier = 50;
-        [Tooltip("If a controller is connected should the controller and mouse input be checked?")]
-        [SerializeField] protected bool m_MouseControllerUpdate;
         [Tooltip("Specifies how the look vector is assigned.")]
         [SerializeField] protected LookVectorMode m_LookVectorMode = LookVectorMode.Smoothed;
         [Tooltip("If using look smoothing, specifies how sensitive the mouse is. The higher the value the more sensitive.")]
@@ -79,29 +71,8 @@ namespace Opsive.Shared.Input
         [Tooltip("Unity event invoked when the gameplay input is enabled or disabled.")]
         [SerializeField] protected UnityBoolEvent m_EnableGamplayInputEvent;
 
-        public string HorizontalLookInputName { get { return m_HorizontalLookInputName; } set { m_HorizontalLookInputName = value; } }
-        public string VerticalLookInputName { get { return m_VerticalLookInputName; } set { m_VerticalLookInputName = value; } }
-        public string ControllerHorizontalLookInputName { get { return m_ControllerHorizontalLookInputName; } set { m_ControllerHorizontalLookInputName = value; } }
-        public string ControllerVerticalLookInputName { get { return m_ControllerVerticalLookInputName; } set { m_ControllerVerticalLookInputName = value; } }
-        public string ActiveHorizontalLookInputName
-        {
-            get {
-                if (IsControllerConnected() && !m_MouseControllerUpdate) {
-                    return m_ControllerHorizontalLookInputName;
-                }
-                return m_HorizontalLookInputName;
-            }
-        }
-        public string ActiveVerticalLookInputName
-        {
-            get {
-                if (IsControllerConnected() && !m_MouseControllerUpdate) {
-                    return m_ControllerVerticalLookInputName;
-                }
-                return m_VerticalLookInputName;
-            }
-        }
-        public float ControllerInputMultiplier { get { return m_ControllerInputMultiplier; } set { m_ControllerInputMultiplier = value; } }
+        public virtual string HorizontalLookInputName { get { return m_HorizontalLookInputName; } set { m_HorizontalLookInputName = value; } }
+        public virtual string VerticalLookInputName { get { return m_VerticalLookInputName; } set { m_VerticalLookInputName = value; } }
         public LookVectorMode LookMode
         {
             get { return m_LookVectorMode; }
@@ -459,20 +430,13 @@ namespace Opsive.Shared.Input
         /// <summary>
         /// Update the mouse input.
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
-            if (!m_Focus)
+            if (!m_Focus) {
                 return;
-
-            var updatedInput = false;
-            if (IsControllerConnected()) {
-                UpdateInput(m_ControllerHorizontalLookInputName, m_ControllerVerticalLookInputName, m_ControllerInputMultiplier * Time.deltaTime);
-                updatedInput = !m_MouseControllerUpdate;
             }
 
-            if (!updatedInput) {
-                UpdateInput(m_HorizontalLookInputName, m_VerticalLookInputName, 1);
-            }
+            UpdateInput(m_HorizontalLookInputName, m_VerticalLookInputName, 1);
         }
 
         /// <summary>

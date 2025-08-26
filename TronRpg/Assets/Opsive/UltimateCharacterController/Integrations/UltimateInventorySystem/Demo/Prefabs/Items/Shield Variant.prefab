@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Preset: {fileID: 0}
     m_BlockList: []
     m_Default: 1
-  m_ItemDefinition: {fileID: 0}
+  m_ItemDefinition: {fileID: 114046018007686742, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
   m_SlotID: 1
   m_AnimatorItemID: 25
   m_AnimatorMovementSetID: 1

@@ -28,7 +28,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 }
 
                 if (IsActive && prevTarget != null && m_Target != prevTarget) {
-                    m_CharacterLocomotion.SetMovingPlatform(m_Target);
+                    m_CharacterLocomotion.SetMovingPlatform(m_Target, true);
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         {
             base.AbilityStarted();
 
-            m_CharacterLocomotion.SetMovingPlatform(m_Target);
+            m_CharacterLocomotion.SetMovingPlatform(m_Target, true);
         }
 
         /// <summary>

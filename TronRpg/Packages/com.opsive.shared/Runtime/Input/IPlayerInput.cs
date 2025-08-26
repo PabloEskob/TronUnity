@@ -17,10 +17,6 @@ namespace Opsive.Shared.Input
         GameObject gameObject { get; }
         string HorizontalLookInputName { get; set; }
         string VerticalLookInputName { get; set; }
-        string ControllerHorizontalLookInputName { get; set; }
-        string ControllerVerticalLookInputName { get; set; }
-        string ActiveHorizontalLookInputName { get; }
-        string ActiveVerticalLookInputName { get; }
         PlayerInput.LookVectorMode LookMode { get; set; }
         Vector2 LookSensitivity { get; set; }
         float LookSensitivityMultiplier { get; set; }

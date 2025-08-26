@@ -112,12 +112,16 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 }
             } else {
                 m_Items[0] = m_Inventory.GetActiveCharacterItem(m_SlotID);
-                // Certain ItemIdentifiers cannot be dropped.
-                if (m_NoDropItemDefinitions != null && m_Items[0] != null) {
-                    for (int j = 0; j < m_NoDropItemDefinitions.Length; ++j) {
-                        if (ReferenceEquals(m_Items[0].ItemIdentifier.GetItemDefinition(), m_NoDropItemDefinitions[j])) {
-                            canDrop = true;
-                            break;
+                if (m_Items[0] != null) {
+                    canDrop = true;
+                    // Certain ItemIdentifiers cannot be dropped.
+                    if (m_NoDropItemDefinitions != null) {
+                        var itemDefinition = m_Items[0].ItemIdentifier.GetItemDefinition();
+                        for (int i = 0; i < m_NoDropItemDefinitions.Length; ++i) {
+                            if (ReferenceEquals(itemDefinition, m_NoDropItemDefinitions[i])) {
+                                canDrop = false;
+                                break;
+                            }
                         }
                     }
                 }

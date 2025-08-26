@@ -271,8 +271,8 @@ namespace Opsive.UltimateInventorySystem.Editor.Managers
             if (character.GetComponent<Inventory>() == null) { character.AddComponent<Inventory>(); }
             if (character.GetComponent<ItemUser>() == null) { character.AddComponent<ItemUser>(); }
 
-            if (character.GetComponent<UnityInput>() == null) {
-                var input = character.AddComponent<UnityInput>();
+            if (character.GetComponent<Shared.Input.InputManager.UnityInput>() == null) {
+                var input = character.AddComponent<Shared.Input.InputManager.UnityInput>();
                 input.EnableCursorWithEscape = false;
                 input.DisableCursor = false;
                 character.GetComponent<ItemUser>().InventoryInput = input;

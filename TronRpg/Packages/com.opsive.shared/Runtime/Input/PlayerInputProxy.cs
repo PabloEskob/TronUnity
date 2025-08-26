@@ -21,10 +21,6 @@ namespace Opsive.Shared.Input
 
         public string HorizontalLookInputName { get => m_PlayerInput.HorizontalLookInputName; set => m_PlayerInput.HorizontalLookInputName = value; }
         public string VerticalLookInputName { get => m_PlayerInput.VerticalLookInputName; set => m_PlayerInput.VerticalLookInputName = value; }
-        public string ControllerHorizontalLookInputName { get => m_PlayerInput.ControllerHorizontalLookInputName; set => m_PlayerInput.ControllerHorizontalLookInputName = value; }
-        public string ControllerVerticalLookInputName { get => m_PlayerInput.ControllerVerticalLookInputName; set => m_PlayerInput.ControllerVerticalLookInputName = value; }
-        public string ActiveHorizontalLookInputName { get => m_PlayerInput.ActiveHorizontalLookInputName; }
-        public string ActiveVerticalLookInputName { get => m_PlayerInput.ActiveVerticalLookInputName; }
         public PlayerInput.LookVectorMode LookMode { get => m_PlayerInput.LookMode; set => m_PlayerInput.LookMode = value; }
         public Vector2 LookSensitivity { get => m_PlayerInput.LookSensitivity; set => m_PlayerInput.LookSensitivity = value; }
         public float LookSensitivityMultiplier { get => m_PlayerInput.LookSensitivityMultiplier; set => m_PlayerInput.LookSensitivityMultiplier = value; }

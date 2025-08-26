@@ -179,7 +179,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             m_LeftMount = m_Rideable.CharacterLocomotion.InverseTransformPoint(m_Transform.position).x < 0;
             m_Rideable.Mount(this);
-            m_CharacterLocomotion.SetMovingPlatform(m_Rideable.GameObject.transform);
+            m_CharacterLocomotion.SetMovingPlatform(m_Rideable.GameObject.transform, true);
             m_CharacterLocomotion.AlignToUpDirection = true;
 
             // The character will look independently of the rotation.

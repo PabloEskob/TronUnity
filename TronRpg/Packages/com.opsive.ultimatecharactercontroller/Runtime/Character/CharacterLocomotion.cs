@@ -1607,6 +1607,10 @@ namespace Opsive.UltimateCharacterController.Character
         /// <returns>True if the platform changed.</returns>
         private bool UpdateMovingPlatformTransform(Transform hitTransform)
         {
+            if (m_MovingPlatformOverride) {
+                return false;
+            }
+
             // Update the moving platform if on the ground and the ground transform is a moving platform.
             if (hitTransform != null) {
                 // The character may not be on the ground if the character is teleported to a location that overlaps the moving platform.
@@ -1633,9 +1637,9 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="movingPlatform">The platform transform that should be set. Can be null.</param>
         /// <param name="platformOverride">Is the default moving platform logic being overridden?</param>
         /// <returns>True if the platform was changed.</returns>
-        public virtual bool SetMovingPlatform(Transform movingPlatform, bool platformOverride = true)
+        public virtual bool SetMovingPlatform(Transform movingPlatform, bool platformOverride = false)
         {
-            if (m_MovingPlatform == movingPlatform) {
+            if (m_MovingPlatform == movingPlatform && !platformOverride) {
                 return false;
             }
 

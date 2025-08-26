@@ -29,6 +29,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
     public class SetupManager : Manager
     {
         private const string c_MonitorsPrefabGUID = "b5bf2e4077598914b83fc5e4ca20f2f4";
+        private const string c_OnScreenControlsPrefabGUID = "4a06fe682d511f14ea708ae61a985b92";
         private const string c_VirtualControlsPrefabGUID = "33d3d57ba5fc7484c8d09150e45066a4";
         private const string c_3DAudioManagerModuleGUID = "7c2f6e9d4d7571042964493904b06c50";
         private const string c_ObjectFaderAimStateGUID = "5c1fe60fde7c54e48ad118439bf49b9b";
@@ -56,6 +57,15 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             Project // Project setup.
         }
 
+        /// <summary>
+        /// Specifies which type of virtual controls should be shown.
+        /// </summary>
+        private enum InputType
+        {
+            InputSystem,    // On-Screen controls.
+            InputManager    // Legacy virtual controls.
+        }
+
         private string[] m_ToolbarStrings = { "Scene", "Sample", "Project" };
         [SerializeField] private TabSelection m_Selection = TabSelection.Scene;
 
@@ -64,6 +74,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         [SerializeField] private string m_ThirdPersonViewType;
         [SerializeField] private bool m_StartFirstPersonPerspective;
         [SerializeField] private bool m_CanSetupCamera;
+        [SerializeField] private InputType m_VirtualControlsInputType;
 
         private TabToolbar m_TabToolbar;
         private List<Type> m_FirstPersonViewTypes = new List<Type>();
@@ -178,7 +189,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             ManagerUtility.ShowControlBox("Camera Setup", "Sets up the camera within the scene to use the Ultimate Character Controller Camera Controller component.", ShowCameraSetup,
                                     "Setup Camera", SetupCamera, m_Container, true);
             ManagerUtility.ShowControlBox("UI Setup", "Adds the UI monitors to the scene.", null, "Add UI", AddUI, m_Container, true);
-            ManagerUtility.ShowControlBox("Virtual Controls Setup", "Adds the virtual controls to the scene.", null, "Add Virtual Controls", AddVirtualControls, m_Container, true);
+            ManagerUtility.ShowControlBox("Virtual Controls Setup", "Adds the virtual controls to the scene.", ShowOnScreenControlsSetup, "Add Virtual Controls", AddVirtualControls, m_Container, true);
         }
 
         /// <summary>
@@ -186,7 +197,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         /// </summary>
         private void ShowSampleSetup()
         {
-            ManagerUtility.ShowControlBox("Import Sample", "Imports the sample scene. This scene requires URP 14.0.11+.", null, "Import Sample", () =>
+            ManagerUtility.ShowControlBox("Import Sample", "Imports the sample scene. This scene requires URP 14.0.11+ and the Input System.", null, "Import Sample", () =>
             {
                 if (Shared.Editor.Managers.ManagerUtility.ImportSample(AssetInfo.PackageName)) {
                     ImportRenderPipeline(true);
@@ -243,14 +254,14 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
 
             Shared.Editor.Managers.ManagerUtility.ShowSamplesHelpBox(samplesParent, AssetInfo.PackageName, () => { ImportRenderPipeline(true); });
 
-            ManagerUtility.ShowControlBox("Button Mappings", "Add the default button mappings to the Unity Input Manager. If you are using a custom button mapping or " +
-                            "an input integration then you do not need to update the Unity button mappings.", null, "Update Buttons",
-                            Utility.CharacterInputBuilder.UpdateInputManager, m_Container, true);
-
             ManagerUtility.ShowControlBox("Layers", "Update the project layers to the default character controller layers. The layers do not need to be updated " +
                             "if you have already setup a custom set of layers.", null, "Update Layers", UpdateLayers, m_Container, true);
 
             ManagerUtility.ShowControlBox("Render Pipeline", "Import support packages for the universal or high definition render pipeline.", ShowRenderPipelines, "Import", ImportRenderPipeline, m_Container, true);
+
+            ManagerUtility.ShowControlBox("Input Manager Button Mappings", "Add the default button mappings to the Unity Input Manager. If you are using the input system, custom button mappings, or " +
+                            "another input integration then you do not need to update the Unity button mappings.", null, "Update Buttons",
+                            Utility.CharacterInputBuilder.UpdateInputManager, m_Container, true);
         }
 
         /// <summary>
@@ -579,6 +590,21 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         }
 
         /// <summary>
+        /// Shows the on screen controls fields.
+        /// </summary>
+        /// <param name="container">The VisualElement that contains the setup fields.</param>
+        private void ShowOnScreenControlsSetup(VisualElement container)
+        {
+            // Draw the perspective.
+            var selectedInput = new PopupField<string>("Input Type", new List<string>(Enum.GetNames(typeof(InputType))), (int)m_VirtualControlsInputType);
+            selectedInput.RegisterValueChangedCallback(c =>
+            {
+                m_VirtualControlsInputType = (InputType)selectedInput.index;
+            });
+            container.Add(selectedInput);
+        }
+
+        /// <summary>
         /// Adds the UI to the scene.
         /// </summary>
         private void AddVirtualControls()
@@ -599,7 +625,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
 
             // Look up based on guid.
             GameObject virtualControlsPrefab = null;
-            var virtualControlsPath = AssetDatabase.GUIDToAssetPath(c_VirtualControlsPrefabGUID);
+            var virtualControlsPath = AssetDatabase.GUIDToAssetPath(m_VirtualControlsInputType == InputType.InputSystem ? c_OnScreenControlsPrefabGUID : c_VirtualControlsPrefabGUID);
             if (!string.IsNullOrEmpty(virtualControlsPath)) {
                 virtualControlsPrefab = AssetDatabase.LoadAssetAtPath(virtualControlsPath, typeof(GameObject)) as GameObject;
             }
@@ -607,11 +633,11 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             // If the guid wasn't found try the path.
             if (virtualControlsPrefab == null) {
                 var baseDirectory = System.IO.Path.GetDirectoryName(AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(m_MainManagerWindow))).Replace("\\", "/").Replace("Editor/Managers", "");
-                virtualControlsPrefab = AssetDatabase.LoadAssetAtPath(baseDirectory + "Demo/Prefabs/UI/VirtualControls.prefab", typeof(GameObject)) as GameObject;
+                virtualControlsPrefab = AssetDatabase.LoadAssetAtPath(string.Format("{0}Demo/Prefabs/UI/{2}.prefab", baseDirectory, m_VirtualControlsInputType == InputType.InputSystem ? "InputSystemOnScreenControls" : "InputManagerVirtualControls"), typeof(GameObject)) as GameObject;
             }
 
             if (virtualControlsPrefab == null) {
-                Debug.LogError("Error: Unable to find the UI Virtual Controls prefab.");
+                Debug.LogError("Error: Unable to find the UI Virtual Controls prefab. Ensure the sample assets have been imported.");
                 return;
             }
 

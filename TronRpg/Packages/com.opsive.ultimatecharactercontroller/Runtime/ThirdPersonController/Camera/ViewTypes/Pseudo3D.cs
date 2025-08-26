@@ -45,7 +45,6 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Camera.ViewTy
         [SerializeField] protected Spring m_SecondaryRotationSpring = new Spring(0, 0, 0);
 
         public Vector3 ForwardAxis { get { return m_ForwardAxis; } set { m_ForwardAxis = value; } }
-        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { m_FieldOfViewDamping = value; } }
         public float ViewDistance { get { return m_ViewDistance; } set { m_ViewDistance = value; } }
         public float MoveSmoothing { get { return m_MoveSmoothing; } set { m_MoveSmoothing = value; } }
         public float RotationSmoothing { get { return m_RotationSmoothing; } set { m_RotationSmoothing = value; } }
@@ -273,8 +272,8 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Camera.ViewTy
             } else {
                 // If the cursor isn't visible then get the axis to determine a look rotation. This will be used for controllers and virtual input.
                 var direction = Vector3.zero; 
-                direction.x = m_PlayerInput.GetAxis(m_PlayerInput.ActiveHorizontalLookInputName);
-                direction.y = m_PlayerInput.GetAxis(m_PlayerInput.ActiveVerticalLookInputName);
+                direction.x = m_PlayerInput.GetAxis(m_PlayerInput.HorizontalLookInputName);
+                direction.y = m_PlayerInput.GetAxis(m_PlayerInput.VerticalLookInputName);
                 if (direction.sqrMagnitude > 0.1f) {
                     m_LookDirection = Quaternion.LookRotation(direction.normalized, m_Transform.up) * Vector3.forward;
                 }
@@ -339,7 +338,7 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Camera.ViewTy
                     // The field of view and location should get a head start if the damping was previously 0. This will allow the field of view and location
                     // to move back to the original value when the state is no longer active.
                     if (m_PrevFieldOfViewDamping == 0) {
-                        m_Camera.fieldOfView = (m_Camera.fieldOfView + m_FieldOfView) * 0.5f;
+                        SimulationManager.SetCameraFieldOfView(m_CameraController.SimulationIndex, (m_Camera.fieldOfView + m_FieldOfView) * 0.5f);
                     }
                 }
             }

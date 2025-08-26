@@ -851,6 +851,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 166053
   packageName: Ultimate Inventory System
-  packageVersion: 1.3.2
-  assetPath: Packages/com.opsive.ultimateinventorysystem/Samples~/Demo/Animations/Character/Movement/Run.fbx
-  uploadId: 768216
+  packageVersion: 1.3.4
+  assetPath: Assets/Samples/Opsive Ultimate Inventory System/1.3.3/Demo/Animations/Character/Movement/Run.fbx
+  uploadId: 781861
