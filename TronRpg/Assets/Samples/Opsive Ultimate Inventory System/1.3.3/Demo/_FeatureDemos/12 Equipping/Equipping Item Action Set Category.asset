@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Equipping Item Action Set Category
   m_EditorClassIdentifier: 
   m_CategoriesItemActions:
-  - {fileID: 11400000, guid: fecb39b5c08cb344d9fcf87116520ef4, type: 2}
+  - {fileID: 11400000, guid: 9df91c12537ad724ba271e0e9867342c, type: 2}
