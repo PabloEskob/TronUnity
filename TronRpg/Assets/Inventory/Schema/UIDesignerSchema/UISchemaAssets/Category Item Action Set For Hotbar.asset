@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Category Item Action Set For Hotbar
   m_EditorClassIdentifier: 
   m_CategoriesItemActions:
-  - {fileID: 11400000, guid: 759f7ad78e104434eae59f2021962487, type: 2}
+  - {fileID: 11400000, guid: 9df91c12537ad724ba271e0e9867342c, type: 2}
