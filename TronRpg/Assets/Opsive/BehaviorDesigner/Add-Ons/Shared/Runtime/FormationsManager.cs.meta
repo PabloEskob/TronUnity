@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c42a8d395ec2aa54a948f4de5fa7a68e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: -50
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310243
+  packageName: Movement Pack for Behavior Designer Pro
+  packageVersion: 2.0.8
+  assetPath: Assets/Opsive/BehaviorDesigner/Add-Ons/Shared/Runtime/FormationsManager.cs
+  uploadId: 782078
