@@ -187,6 +187,6 @@ AssetOrigin:
   productId: 298743
   packageName: Behavior Designer Pro - DOTS Powered Behavior Trees
   packageVersion: 2.1
-  assetPath: Assets/Samples/Opsive Behavior Designer/2.1.0/Sample/Textures/Scene/Sprites/Angie/Seed_Launch
+  assetPath: Packages/com.opsive.behaviordesigner/Samples~/Textures/Scene/Sprites/Angie/Seed_Launch
     (8 x 8).png
   uploadId: 782116

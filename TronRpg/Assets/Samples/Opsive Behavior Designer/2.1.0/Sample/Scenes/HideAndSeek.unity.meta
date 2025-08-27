@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 298743
   packageName: Behavior Designer Pro - DOTS Powered Behavior Trees
   packageVersion: 2.1
-  assetPath: Assets/Samples/Opsive Behavior Designer/2.1.0/Sample/Scenes/HideAndSeek.unity
+  assetPath: Packages/com.opsive.behaviordesigner/Samples~/Scenes/HideAndSeek.unity
   uploadId: 782116

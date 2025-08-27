@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 298743
   packageName: Behavior Designer Pro - DOTS Powered Behavior Trees
   packageVersion: 2.1
-  assetPath: Assets/Samples/Opsive Behavior Designer/2.1.0/Sample/Scenes/TurnBased/tilemap_36.asset
+  assetPath: Packages/com.opsive.behaviordesigner/Samples~/Scenes/TurnBased/tilemap_36.asset
   uploadId: 782116
