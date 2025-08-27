@@ -315,6 +315,8 @@ MonoBehaviour:
   - {fileID: 11382905}
   - {fileID: 11382904}
   - {fileID: 11382903}
+  - {fileID: 11382901}
+  - {fileID: 11382900}
 --- !u!114 &11382907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +749,8 @@ GameObject:
   - component: {fileID: 95822743}
   - component: {fileID: 95822742}
   - component: {fileID: 95822741}
+  - component: {fileID: 95822748}
+  - component: {fileID: 95822749}
   m_Layer: 5
   m_Name: My Inventory Grid
   m_TagString: Untagged
@@ -905,6 +909,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95822739}
   m_CullTransparentMesh: 0
+--- !u!114 &95822748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95822739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b118dcbe58b4b93a089576d0498f26e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.UI.Item.ItemViewSlotDragHandler
+  m_ItemViewSlotCursorManager: {fileID: 809688544}
+  m_DisableDragOnEmptySlot: 1
+  m_KeepOffset: 1
+  m_MouseInput: -1
+  m_OnDragStartedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDragEndedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &95822749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95822739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd3ab65f95847a0b0c491d5ca77be5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.UI.Item.DragAndDrop.ItemViewDropHandler
+  m_DebugPassedConditionIndex: 0
+  m_CursorManagerID: 1
+  m_ItemViewSlotCursorManager: {fileID: 0}
+  m_DropOnLastSelectedView: 0
+  m_OnSelectCanDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCannotDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDropSuccessEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDropFailEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ItemViewSlotDropActionSet: {fileID: 11400000, guid: 660c5f6d9273b7d49858851dd9b4d410, type: 2}
 --- !u!1 &107146356
 GameObject:
   m_ObjectHideFlags: 0
@@ -9865,7 +9920,7 @@ MonoBehaviour:
   m_OnDropFailEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ItemViewSlotDropActionSet: {fileID: 11400000, guid: 6c61352f11e35b24ba710ec4301ede28, type: 2}
+  m_ItemViewSlotDropActionSet: {fileID: 11400000, guid: 8264a3364d6112846a60757e34d2f8e5, type: 2}
 --- !u!114 &1367429050
 MonoBehaviour:
   m_ObjectHideFlags: 0

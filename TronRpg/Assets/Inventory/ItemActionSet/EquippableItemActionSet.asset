@@ -22,15 +22,7 @@ MonoBehaviour:
     - m_ObjectType: Opsive.UltimateCharacterController.Integrations.UltimateInventorySystem.CharacterEquipUnequipItemAction
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b2901d9727a0b33b5a788cb9c078949408a154baa98137ec435
-      m_ValuePositions: 00000000070000000c00000013000000
-      m_Values: 556e65717569704571756970556e657175697000
+      m_ValuePositions: 00000000050000000a00000011000000
+      m_Values: 45717569704571756970556e657175697000
       m_UnityObjects: []
-      m_Version: 3.4
-    - m_ObjectType: Opsive.UltimateInventorySystem.ItemActions.QuantityDropItemAction
-      m_ValueHashes: 
-      m_LongValueHashes: 0d00eb254f8d1b2993d7e7b30c71b13b5bd71d437ac58be1db7c171a4fe50f375a775145a114104c93f007348c670bcd
-      m_ValuePositions: 0000000004000000080000000c0000000d00000011000000
-      m_Values: 44726f70ffffffff000000000100000040000000000000000000000000
-      m_UnityObjects:
-      - {fileID: 6362288584643107232, guid: 99f2ccf6e56f42146ad63b866481f569, type: 3}
       m_Version: 3.4
