@@ -84830,7 +84830,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107473916157174868}
-    m_Position: {x: 390, y: -80, z: 0}
+    m_Position: {x: 380, y: -50, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107565975750371924}
     m_Position: {x: 390, y: -140, z: 0}
