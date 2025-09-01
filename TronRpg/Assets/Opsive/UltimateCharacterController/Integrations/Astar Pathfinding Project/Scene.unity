@@ -321,7 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1073741824
   data:
-    dataString: UEsDBBQAAAgIAAAAIewyQF3+3QEAAMIDAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGVU01z2jAQ/Ssen5sOdiCBHkuY9FCgg3PIpNPDRlrbmsgSlSUgMPz37voDnGkvPcl6u++t9u36FIsSHAiPbgNShTr+EiWfJ5+iWFjjbXBLOCycs47wlFHUOlNHpOuoSduDfoNXjd9QFaXvsnpwrlX1ekmt4JBpu2Xu7ai9L2SB39EUvmRmAyqzwUJZ01W5JQyl8tY9KY0dmKRTgn0HPP+FvFyQUCPzuC3vAhLiUOMOjH90sC2z4HIQuLSSZeMHu7J+g7+DchhzLtRkDAnOrdZKomOdHHSNw+AS6/JDhT7whM6BMv+KOBwyRCe/6eMP6EFp7qI1qn6j71MU70AHfulNEp25XyiWbeznL7629TKother2D9nPXiytNU48EAIfe/OI5+NXG6dQPnVBiPrORqS+x9GV7DLT0Y9Y9xTCGpIdWn37Nk6eK0MXm3gwIpGMbfGoOAXD/3uad3MrjSD4LD2GR2iXBv9/vwyoKHhTVzBriLuPHivTHHlFkHJj9bG4l6md3k6S1DeiVkibyCdTqeT2Xh8LyYjHIu46UIZ5RXoH6Svfe8Mbfdg3AaqRnGDggYbNRvHayUd7B/VsbKDFVAmt5mgtTDrVuPSNi0EaPJWLprfIMOmBabGp3N8/gNQSwMEFAAACAgAAAAh7Jg/ushvAAAAegAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKyeYqRWZqRpWFqilmypWGKbqKRhYWFqaWJiXmyqUGqSbJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66XlBqcmJxiTvIcKXYWgBQSwECLQAUAAAICAAAACHsMkBd/t0BAADCAwAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAACHsmD+6yG8AAAB6AAAACQAkAAAAAAAAAAAAAAAqAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAOQCAAAAAA==
+    dataString: AgAAAAtncmFwaDAuanNvbrsEAAB7ImNoYXJhY3RlclJhZGl1cyI6IDAuNSwgImNvbnRvdXJNYXhFcnJvciI6IDIsICJjZWxsU2l6ZSI6IDAuMjUsICJ3YWxrYWJsZUhlaWdodCI6IDIsICJ3YWxrYWJsZUNsaW1iIjogMC41LCAibWF4U2xvcGUiOiAzMCwgIm1heEVkZ2VMZW5ndGgiOiAyMCwgIm1pblJlZ2lvblNpemUiOiAzLCAiZWRpdG9yVGlsZVNpemUiOiAxMjgsICJ0aWxlU2l6ZVgiOiAxMjgsICJ0aWxlU2l6ZVoiOiAxMjgsICJ1c2VUaWxlcyI6IHRydWUsICJwZXJMYXllck1vZGlmaWNhdGlvbnMiOiBbXSwgImRpbWVuc2lvbk1vZGUiOiAiRGltZW5zaW9uM0QiLCAiYmFja2dyb3VuZFRyYXZlcnNhYmlsaXR5IjogIldhbGthYmxlIiwgInJlbGV2YW50R3JhcGhTdXJmYWNlTW9kZSI6ICJEb05vdFJlcXVpcmUiLCAiY29sbGVjdGlvblNldHRpbmdzIjogeyJjb2xsZWN0aW9uTW9kZSI6ICJMYXllcnMiLCAicGh5c2ljc1NjZW5lIjoge30sICJwaHlzaWNzU2NlbmUyRCI6IHt9LCAibGF5ZXJNYXNrIjogeyAidmFsdWUiOiAtMSB9LCAidGFnTWFzayI6IFtdLCAicmFzdGVyaXplQ29sbGlkZXJzIjogdHJ1ZSwgInJhc3Rlcml6ZU1lc2hlcyI6IGZhbHNlLCAicmFzdGVyaXplVGVycmFpbiI6IHRydWUsICJyYXN0ZXJpemVUcmVlcyI6IHRydWUsICJ0ZXJyYWluSGVpZ2h0bWFwRG93bnNhbXBsaW5nRmFjdG9yIjogMywgImNvbGxpZGVyUmFzdGVyaXplRGV0YWlsIjogMSwgIm9uQ29sbGVjdE1lc2hlcyI6IG51bGx9LCAicm90YXRpb24iOiB7ICJ4IjogMCwgInkiOiAwLCAieiI6IDAgfSwgImZvcmNlZEJvdW5kc0NlbnRlciI6IHsgIngiOiAwLCAieSI6IDIuMDI2LCAieiI6IDAgfSwgImZvcmNlZEJvdW5kc1NpemUiOiB7ICJ4IjogMTAwLCAieSI6IDQuMzQ4LCAieiI6IDEwMCB9LCAic2hvd01lc2hPdXRsaW5lIjogdHJ1ZSwgInNob3dOb2RlQ29ubmVjdGlvbnMiOiBmYWxzZSwgInNob3dNZXNoU3VyZmFjZSI6IHRydWUsICJuZWFyZXN0U2VhcmNoT25seVhaIjogZmFsc2UsICJlbmFibGVOYXZtZXNoQ3V0dGluZyI6IHRydWUsICJndWlkIjogeyAidmFsdWUiOiAiODkxZTk5MTk5YTE4OGFjOS1lYWIwNmRjNzk0NjIwNmNhIiB9LCAiaW5pdGlhbFBlbmFsdHkiOiAwLCAib3BlbiI6IHRydWUsICJuYW1lIjogIlJlY2FzdCBHcmFwaCIsICJkcmF3R2l6bW9zIjogdHJ1ZSwgImluZm9TY3JlZW5PcGVuIjogZmFsc2UsICJzZXJpYWxpemVkRWRpdG9yU2V0dGluZ3MiOiAie30ifQltZXRhLmpzb255AAAAeyJ2ZXJzaW9uIjogNS4zLjgsICJncmFwaHMiOiAxLCAiZ3VpZHMiOiBbIjg5MWU5OTE5OWExODhhYzktZWFiMDZkYzc5NDYyMDZjYSJdLCAidHlwZU5hbWVzIjogWyJQYXRoZmluZGluZy5SZWNhc3RHcmFwaCJdfQ==
     file_cachedStartup: {fileID: 0}
     cacheStartup: 0
   showNavGraphs: 1
@@ -1664,6 +1664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1042057640}
   - component: {fileID: 1042057639}
+  - component: {fileID: 1042057641}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1751,6 +1752,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.000004, y: -179.481, z: 0}
+--- !u!114 &1042057641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042057638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1001 &1089291805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2660,6 +2690,7 @@ GameObject:
   - component: {fileID: 1250520729}
   - component: {fileID: 1250520727}
   - component: {fileID: 1250520726}
+  - component: {fileID: 1250520731}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2749,6 +2780,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250520731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250520725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1316086552
 GameObject:
   m_ObjectHideFlags: 0
@@ -2871,6 +2946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1398595126}
   - component: {fileID: 1398595125}
+  - component: {fileID: 1398595127}
   m_Layer: 0
   m_Name: Directional Light (1)
   m_TagString: Untagged
@@ -2958,6 +3034,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.000004, y: -158.43901, z: 0}
+--- !u!114 &1398595127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398595124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!144 &1499482382
 CharacterJoint:
   m_ObjectHideFlags: 0

@@ -2466,7 +2466,7 @@ MonoBehaviour:
   version: 1073741824
   radius: 0.5
   height: 2
-  canMove: 1
+  canMove: 0
   maxSpeed: 1
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
@@ -2483,7 +2483,7 @@ MonoBehaviour:
   repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 0
-  enableRotation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     period: 0.5
@@ -2767,7 +2767,7 @@ MonoBehaviour:
         m_AbilityMessageIcon: {fileID: 0}
         m_InspectorDescription: 
         m_AllowMovementInAir: 1
-        m_StoppingDistance: 0.2
+        m_StoppingDistance: 200
 --- !u!54 &1571592771
 Rigidbody:
   m_ObjectHideFlags: 0
