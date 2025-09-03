@@ -10,42 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37a44df922c40df4fa80e23de1480e3f, type: 3}
-  m_Name: Melle Weapon
-  m_EditorClassIdentifier: 
-  m_ID: 871996415
+  m_Name: Melle Body
+  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Core.ItemCategory
+  m_ID: 4153218210
   m_ParentsData:
     m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemCategory,
       Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
     m_ValueHashes: 
-    m_LongValueHashes: 4c1e4f8e62aa191aedcfa32778e3fda65d5b81463bc45586e85a81463bc45586
-    m_ValuePositions: 0000000004000000080000000c000000
-    m_Values: 02000000020000000000000001000000
+    m_LongValueHashes: 4c1e4f8e62aa191aedcfa32778e3fda65d5b81463bc45586
+    m_ValuePositions: 000000000400000008000000
+    m_Values: 010000000100000000000000
     m_UnityObjects:
-    - {fileID: 11400000, guid: 8d2074ccd6a5bd840a64bfd650957ce2, type: 2}
-    - {fileID: 11400000, guid: 795b112a64bde4144b0bde7c5280803a, type: 2}
+    - {fileID: 11400000, guid: 03d032fe259f2a94a9ef2f7d6d80bf27, type: 2}
     m_Version: 3.4
   m_ChildrenData:
     m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemCategory,
       Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
     m_ValueHashes: 
-    m_LongValueHashes: 4c1e4f8e62aa191aedcfa32778e3fda65d5b81463bc45586e85a81463bc45586
-    m_ValuePositions: 0000000004000000080000000c000000
-    m_Values: 02000000020000000000000001000000
-    m_UnityObjects:
-    - {fileID: 11400000, guid: 0a1d2fdef58445243ade4595a7fdd466, type: 2}
-    - {fileID: 11400000, guid: fbaf78af90162c645b54b28956f93ca3, type: 2}
+    m_LongValueHashes: 4c1e4f8e62aa191aedcfa32778e3fda6
+    m_ValuePositions: 0000000004000000
+    m_Values: 0000000000000000
+    m_UnityObjects: []
     m_Version: 3.4
   m_ElementsData:
     m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemDefinition,
       Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
     m_ValueHashes: 
-    m_LongValueHashes: 4c1e4f8e62aa191ac2330064f10375df
-    m_ValuePositions: 0000000004000000
-    m_Values: 0000000000000000
-    m_UnityObjects: []
+    m_LongValueHashes: 4c1e4f8e62aa191ac2330064f10375df07c1b5891de38a2e
+    m_ValuePositions: 000000000400000008000000
+    m_Values: 010000000100000000000000
+    m_UnityObjects:
+    - {fileID: 11400000, guid: c459c4469d5a78d419e458379d6318c3, type: 2}
     m_Version: 3.4
   m_IsAbstract: 0
-  m_Color: {r: 0.7867867, g: 0.34267, b: 0.7686584, a: 1}
+  m_Color: {r: 0.47617704, g: 0.20429567, b: 0.68417066, a: 1}
   m_EditorIcon: {fileID: 0}
   m_ItemCategoryAttributeCollection:
     m_AttributeCollectionData: []
