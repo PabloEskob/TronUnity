@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ce8d9d94913f72f48aa3b38d8c6e2a09
+guid: 14990ce18bef71b4e870e68ef592c094
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -33,8 +33,8 @@ PluginImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 166053
-  packageName: Ultimate Inventory System
-  packageVersion: 1.3.4p1
+  productId: 298743
+  packageName: Behavior Designer Pro - DOTS Powered Behavior Trees
+  packageVersion: 2.1.1p1
   assetPath: Packages/com.opsive.shared/Runtime/Events/Opsive.Shared.Events.dll
-  uploadId: 782755
+  uploadId: 786868

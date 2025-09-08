@@ -27,9 +27,11 @@ namespace Opsive.BehaviorDesigner.Runtime.Tasks.Events
         /// <summary>
         /// Adds the IBufferElementData to the entity.
         /// </summary>
-        /// <param name="world">The world that the entity exists.</param>
+        /// <param name="world">The world that the entity exists in.</param>
         /// <param name="entity">The entity that the IBufferElementData should be assigned to.</param>
-        public void AddBufferElement(World world, Entity entity)
+        /// <param name="gameObject">The GameObject that the entity is attached to.</param>
+        /// <param name="taskOffset">The offset between the connected index and the runtime index.</param>
+        public void AddBufferElement(World world, Entity entity, GameObject gameObject, ushort taskOffset)
         {
             if (m_InterruptionSource == null || m_InterruptionSource.Index < 0) {
                 Debug.LogError("Error: An Interruption Source task must be specified within the OnInterrupt node.");
@@ -43,8 +45,8 @@ namespace Opsive.BehaviorDesigner.Runtime.Tasks.Events
                 buffer = world.EntityManager.AddBuffer<OnInterruptEventComponent>(entity);
             }
             buffer.Add(new OnInterruptEventComponent() {
-                ConnectedIndex = m_ConnectedIndex,
-                InterruptionSourceIndex = m_InterruptionSource.Index,
+                ConnectedIndex = (ushort)(m_ConnectedIndex - taskOffset),
+                InterruptionSourceIndex = m_InterruptionSource.RuntimeIndex,
             });
 
             var interruptSystemGroup = world.GetOrCreateSystemManaged<InterruptTaskSystemGroup>();
@@ -54,7 +56,7 @@ namespace Opsive.BehaviorDesigner.Runtime.Tasks.Events
         /// <summary>
         /// Clears the IBufferElementData from the entity.
         /// </summary>
-        /// <param name="world">The world that the entity exists.</param>
+        /// <param name="world">The world that the entity exists in.</param>
         /// <param name="entity">The entity that the IBufferElementData should be cleared from.</param>
         public void ClearBufferElement(World world, Entity entity)
         {

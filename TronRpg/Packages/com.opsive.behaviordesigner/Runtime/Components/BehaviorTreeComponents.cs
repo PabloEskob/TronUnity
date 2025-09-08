@@ -58,13 +58,6 @@ namespace Opsive.BehaviorDesigner.Runtime.Components
     }
 
     /// <summary>
-    /// Specifies if the behavior tree is enabled.
-    /// </summary>
-    public struct EnabledFlag : IComponentData, IEnableableComponent
-    {
-    }
-
-    /// <summary>
     /// Specifies when the behavior tree should be updated.
     /// </summary>
     public enum UpdateMode
@@ -147,8 +140,6 @@ namespace Opsive.BehaviorDesigner.Runtime.Components
         public FixedList4096Bytes<ulong> EvaluatedTasks;
     }
 
-    public struct EvaluateFlag : IComponentData, IEnableableComponent { }
-
     /// <summary>
     /// Specifies how the branch was interrupted.
     /// </summary>
@@ -186,6 +177,16 @@ namespace Opsive.BehaviorDesigner.Runtime.Components
         [Tooltip("The index of the task that caused an interruption. A value of 0 indicates no interruption.")]
         public ushort InterruptIndex;
     }
+
+    /// <summary>
+    /// Specifies if the tree can be evaluated.
+    /// </summary>
+    public struct EvaluateFlag : IComponentData, IEnableableComponent { }
+
+    /// <summary>
+    /// Specifies if the tree is enabled.
+    /// </summary>
+    public struct EnabledFlag : IComponentData, IEnableableComponent { }
 
     /// <summary>
     /// Flag used to indicate when the branch should be interrupted.
@@ -238,14 +239,16 @@ namespace Opsive.BehaviorDesigner.Runtime.Components
         /// <summary>
         /// Adds the IBufferElementData to the entity.
         /// </summary>
-        /// <param name="world">The world that the entity exists.</param>
+        /// <param name="world">The world that the entity exists in.</param>
         /// <param name="entity">The entity that the IBufferElementData should be assigned to.</param>
-        void AddBufferElement(World world, Entity entity);
+        /// <param name="gameObject">The GameObject that the entity is attached to.</param>
+        /// <param name="taskOffset">The offset between the connected index and the runtime index.</param>
+        void AddBufferElement(World world, Entity entity, GameObject gameObject, ushort taskOffset);
 
         /// <summary>
         /// Clears the IBufferElementData from the entity.
         /// </summary>
-        /// <param name="world">The world that the entity exists.</param>
+        /// <param name="world">The world that the entity exists in.</param>
         /// <param name="entity">The entity that the IBufferElementData should be cleared from.</param>
         void ClearBufferElement(World world, Entity entity);
     }
