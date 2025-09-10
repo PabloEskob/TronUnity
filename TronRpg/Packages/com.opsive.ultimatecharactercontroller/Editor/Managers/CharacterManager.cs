@@ -4,6 +4,8 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.Shared.Integrations.InputSystem;
+
 namespace Opsive.UltimateCharacterController.Editor.Managers
 {
     using Opsive.Shared.Editor.Managers;
@@ -2168,7 +2170,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         private bool HasInputSystem(GameObject character)
         {
 #if ENABLE_INPUT_SYSTEM
-            return character.GetComponentInChildren<Shared.Input.InputSystem.UnityInputSystem>() != null;
+            return character.GetComponentInChildren<UnityInputSystem>() != null;
 #else
             return false;
 #endif

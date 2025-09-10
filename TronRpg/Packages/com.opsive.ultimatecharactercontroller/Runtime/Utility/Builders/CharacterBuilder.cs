@@ -4,6 +4,8 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.Shared.Integrations.InputSystem;
+
 namespace Opsive.UltimateCharacterController.Utility.Builders
 {
     using Opsive.Shared.StateSystem;
@@ -613,10 +615,10 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         {
 #if ENABLE_INPUT_SYSTEM
             if (useUnityInputSystem) {
-                if (character.GetComponentInChildren<Shared.Input.InputSystem.UnityInputSystem>() == null) {
+                if (character.GetComponentInChildren<UnityInputSystem>() == null) {
                     var inputGameObject = new GameObject(character.name + "Input");
                     inputGameObject.transform.parent = character.transform;
-                    var unityInput = inputGameObject.AddComponent<Shared.Input.InputSystem.UnityInputSystem>();
+                    var unityInput = inputGameObject.AddComponent<UnityInputSystem>();
                     var inputProxy = character.AddComponent<Shared.Input.PlayerInputProxy>();
                     inputProxy.PlayerInput = unityInput;
 
@@ -656,7 +658,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
             }
 
 #if ENABLE_INPUT_SYSTEM
-            var unityInputSystem = character.GetComponentInChildren<Shared.Input.InputSystem.UnityInputSystem>();
+            var unityInputSystem = character.GetComponentInChildren<UnityInputSystem>();
             if (unityInputSystem != null) {
                 Object.DestroyImmediate(unityInputSystem.gameObject, true);
             }
