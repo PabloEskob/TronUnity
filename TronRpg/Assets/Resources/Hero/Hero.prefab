@@ -4550,6 +4550,7 @@ GameObject:
   - component: {fileID: 5002499307551315016}
   - component: {fileID: 8302844857379701598}
   - component: {fileID: 7716259287771985998}
+  - component: {fileID: 4727174065593038786}
   m_Layer: 31
   m_Name: Hero
   m_TagString: Player
@@ -5656,6 +5657,19 @@ MonoBehaviour:
   m_SaveOnDestroy: 0
   m_LoadOnStart: 0
   m_Additive: 0
+--- !u!114 &4727174065593038786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011353297096413839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2512225c4d47fb243965cf46b02a93c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Scripts.UI.BlockCameraUIPanels
+  cmInput: {fileID: 0}
 --- !u!1 &5025010389019576057
 GameObject:
   m_ObjectHideFlags: 0

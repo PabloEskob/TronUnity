@@ -1072,16 +1072,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrenciesWithViews:
   - m_Currency:
-      m_Name: Gold
-      m_Currency: {fileID: 11400000, guid: 8a36b085376104041907aebbb9cf542b, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 357639750}
   - m_Currency:
-      m_Name: Silver
-      m_Currency: {fileID: 11400000, guid: 2ba90964d00e500428100eaa4809e67d, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 1758406357}
   - m_Currency:
-      m_Name: Bronze
-      m_Currency: {fileID: 11400000, guid: 48404f8843544c44cbdae0504f985eeb, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 1091454586}
 --- !u!114 &79258502
 MonoBehaviour:
@@ -6458,11 +6458,11 @@ GameObject:
   - component: {fileID: 559414852}
   - component: {fileID: 559414851}
   - component: {fileID: 559414850}
-  - component: {fileID: 559414861}
   - component: {fileID: 559414860}
   - component: {fileID: 559414863}
   - component: {fileID: 559414862}
   - component: {fileID: 559414864}
+  - component: {fileID: 559414865}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -6621,21 +6621,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ID: 1
   m_ItemObjectPrefab: {fileID: 6362288584643107238, guid: 99f2ccf6e56f42146ad63b866481f569, type: 3}
---- !u!114 &559414861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559414849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70740502a5323254798d58837afd31c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Database: {fileID: 11400000, guid: 2d09e2e67fb2aaf4ba29720d69576d88, type: 2}
-  m_PreEvaluateAttributes: 1
-  m_DontDestroyOnLoad: 0
 --- !u!114 &559414862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6689,6 +6674,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06bbb6b2ac266514a9a7d767769f1ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &559414865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559414849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70740502a5323254798d58837afd31c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Core.InventorySystemManager
+  m_Database: {fileID: 11400000, guid: 2d09e2e67fb2aaf4ba29720d69576d88, type: 2}
+  m_PreEvaluateAttributes: 1
+  m_DontDestroyOnLoad: 1
 --- !u!1 &567884681
 GameObject:
   m_ObjectHideFlags: 0
@@ -7148,16 +7148,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrenciesWithViews:
   - m_Currency:
-      m_Name: Gold
-      m_Currency: {fileID: 11400000, guid: 8a36b085376104041907aebbb9cf542b, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 220319328}
   - m_Currency:
-      m_Name: Silver
-      m_Currency: {fileID: 11400000, guid: 2ba90964d00e500428100eaa4809e67d, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 1715072052}
   - m_Currency:
-      m_Name: Bronze
-      m_Currency: {fileID: 11400000, guid: 48404f8843544c44cbdae0504f985eeb, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 295997547}
 --- !u!114 &617675706
 MonoBehaviour:
@@ -16415,16 +16415,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrenciesWithViews:
   - m_Currency:
-      m_Name: Gold
-      m_Currency: {fileID: 11400000, guid: 8a36b085376104041907aebbb9cf542b, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 1780190013}
   - m_Currency:
-      m_Name: Silver
-      m_Currency: {fileID: 11400000, guid: 2ba90964d00e500428100eaa4809e67d, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 1359100}
   - m_Currency:
-      m_Name: Bronze
-      m_Currency: {fileID: 11400000, guid: 48404f8843544c44cbdae0504f985eeb, type: 2}
+      m_Name: 
+      m_Currency: {fileID: 0}
     m_View: {fileID: 910371489}
 --- !u!114 &1338837489
 MonoBehaviour:
@@ -20136,6 +20136,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 720db810842ff08459f23d2def207297, type: 3}
   m_ActionId: b0bb90bd-d645-43ac-8a82-5c101aba8cfc
+--- !u!1 &1642546429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1642546430}
+  - component: {fileID: 1642546431}
+  m_Layer: 26
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1642546430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642546429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.215, z: 3.242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1840291568}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1642546431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642546429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ebcf42a9d8f9145a73c60c46c60bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Opsive.UltimateCharacterController::Opsive.UltimateCharacterController.Objects.ObjectIdentifier
+  m_ID: 50002013
 --- !u!114 &1651452894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21808,11 +21853,7 @@ GameObject:
   - component: {fileID: 1840291582}
   - component: {fileID: 1840291581}
   - component: {fileID: 1840291580}
-  - component: {fileID: 1840291579}
   - component: {fileID: 1840291578}
-  - component: {fileID: 1840291577}
-  - component: {fileID: 1840291576}
-  - component: {fileID: 1840291575}
   - component: {fileID: 1840291584}
   - component: {fileID: 1840291583}
   m_Layer: 26
@@ -21880,12 +21921,41 @@ MonoBehaviour:
       m_Values: 05000100ffff
       m_UnityObjects: []
       m_Version: 3.4
+    - m_ObjectType: Opsive.BehaviorDesigner.Runtime.Tasks.Decorators.Repeater
+      m_ValueHashes: 
+      m_LongValueHashes: 30b77c28f48d1b2966cb3cf98c4bd96480f6501333363a6623155850663bdd54523d9e1b127ddf64d9f1914a7ea99332
+      m_ValuePositions: 000000000200000004000000060000000700000009000000
+      m_Values: 0600ffffffff01000000
+      m_UnityObjects: []
+      m_Version: 3.4
+    - m_ObjectType: Opsive.BehaviorDesigner.Runtime.Tasks.Composites.Sequence
+      m_ValueHashes: 
+      m_LongValueHashes: 30b77c28f48d1b2966cb3cf98c4bd96480f6501333363a665b2ed1940de3c60b8ea6435e604d1251
+      m_ValuePositions: 0000000002000000040000000600000006000000
+      m_Values: 07000600ffff00
+      m_UnityObjects: []
+      m_Version: 3.4
+    - m_ObjectType: Opsive.BehaviorDesigner.Runtime.Tasks.Actions.Wait
+      m_ValueHashes: 
+      m_LongValueHashes: 30b77c28f48d1b2966cb3cf98c4bd96480f6501333363a66cd0a949b290f69290007e2f6b86743c4fb62f7264f8d1b29f4600b8daa7462418fcaef1f3561b54c99d5ef1f3561b54c
+      m_ValuePositions: 000000000200000004000000060000000a0000000b0000000f0000000f00000013000000
+      m_Values: 0800070009000000a04000000000000000803f0000803f
+      m_UnityObjects: []
+      m_Version: 3.4
+    - m_ObjectType: Opsive.BehaviorDesigner.Runtime.Tasks.Actions.StackedAction
+      m_ValueHashes: 
+      m_LongValueHashes: 30b77c28f48d1b2966cb3cf98c4bd96480f6501333363a66622a4da7e5588b5847627e5c3afba34af5411aa1986fa8f1fc4853f0fe822eeb4bee9875c696e08b94921c660d4b50e2d692467963813ec220fae736c9a85a0dade35500454d8c9c1a459e857d5942fc8931440e615dfd3b0ebdeaaa686a8eaf28a2caceea072f0d0578d6956dcaf458b2de1d1055de3a38d14267c62053533aa626693f40edf66be3cff25ab830be8d0a63672faa00eae6bdc5acaa92142486c2bedb95bb7dea0c4fe566017791a735ef616be83c1c44d2aedf6d4b3b47843a1979a6ce03534a5a1ed31c402e265b0ceb596c65e6d6c9e9218a1f3f2276e74d203502c654bee9e69793c9436caa2786f0f9ac272cd39a0265b303e8892fa435ebc2ef731af3947262463aef4a8de699d5e0f16a729928f98ab22ce1a66cec6a489c2f66d78ef6b0e4a06bb554569d8946fff10c773614c9
+      m_ValuePositions: 000000000200000004000000060000000a00000057000000570000005700000057000000580000005c0000005c0000005c0000005c0000005d0000006100000061000000610000006100000062000000660000006600000066000000660000006700000068000000680000006800000068000000690000006a0000006a0000006a0000006a0000006b0000006c0000006c0000006c0000006c0000006d0000007100000071000000
+      m_Values: 09000700ffff010000004f70736976652e4265686176696f7244657369676e65722e496e746567726174696f6e732e556c74696d617465436861726163746572436f6e74726f6c6c65722e537461727453746f7055736500ffffffff00010000000000000000000100010000000000000000000000
+      m_UnityObjects:
+      - {fileID: 888340006}
+      m_Version: 3.4
     m_EventTaskData:
     - m_ObjectType: Opsive.BehaviorDesigner.Runtime.Tasks.Events.Start
       m_ValueHashes: 
       m_LongValueHashes: 59405171878141b1
       m_ValuePositions: 00000000
-      m_Values: 0000
+      m_Values: 0600
       m_UnityObjects: []
       m_Version: 3.4
     m_SharedVariableData:
@@ -21907,7 +21977,7 @@ MonoBehaviour:
       m_Version: 3.4
     m_DisabledEventNodesData: []
     m_DisabledLogicNodesData: []
-    m_UniqueID: -1594072818
+    m_UniqueID: 1148601505
     m_LogicNodePropertiesData:
     - m_ObjectType: Opsive.GraphDesigner.Runtime.LogicNodeProperties
       m_ValueHashes: 
@@ -21951,12 +22021,40 @@ MonoBehaviour:
       m_Values: 31376464363931322d376662612d346233362d386139632d64326663663832306565663300628844a4703e440000dc420000000000000000000000000000000000000000000100ffff00
       m_UnityObjects: []
       m_Version: 3.4
+    - m_ObjectType: Opsive.GraphDesigner.Runtime.LogicNodeProperties
+      m_ValueHashes: 
+      m_LongValueHashes: bc124df8ef5e104cf36ca30dee0de9958dd19827f48d1b29bd8814239a1bb7642f6406e2580d1e294f869cc9196b0c27aea3bc2e18d5b803a034c7c2b541f015557e981535906112a98ff48b9e8a66b37f542abda0a249c23a7f01b1f88d1a7b
+      m_ValuePositions: 00000000240000002c000000300000003000000030000000400000004100000045000000450000004700000049000000
+      m_Values: 39666631373764312d333537662d346238302d383739362d383136666464316662346338ac0269445020d7430000dc42000000000000000000000000000000000000000000ffffffff01
+      m_UnityObjects: []
+      m_Version: 3.4
+    - m_ObjectType: Opsive.GraphDesigner.Runtime.LogicNodeProperties
+      m_ValueHashes: 
+      m_LongValueHashes: bc124df8ef5e104cf36ca30dee0de9958dd19827f48d1b29bd8814239a1bb7642f6406e2580d1e294f869cc9196b0c27aea3bc2e18d5b803a034c7c2b541f015557e981535906112a98ff48b9e8a66b37f542abda0a249c23a7f01b1f88d1a7b
+      m_ValuePositions: 00000000240000002c000000300000003000000030000000400000004100000045000000450000004700000049000000
+      m_Values: 36366230653365342d646237362d343130652d623364632d33386166346637373863323700e0a24400800a440000dc420000000000000000000000000000000000000000000600ffff01
+      m_UnityObjects: []
+      m_Version: 3.4
+    - m_ObjectType: Opsive.GraphDesigner.Runtime.LogicNodeProperties
+      m_ValueHashes: 
+      m_LongValueHashes: bc124df8ef5e104cf36ca30dee0de9958dd19827f48d1b29bd8814239a1bb7642f6406e2580d1e294f869cc9196b0c27aea3bc2e18d5b803a034c7c2b541f015557e981535906112a98ff48b9e8a66b37f542abda0a249c23a7f01b1f88d1a7b
+      m_ValuePositions: 00000000240000002c000000300000003000000030000000400000004100000045000000450000004700000049000000
+      m_Values: 30306438613330362d616439362d343231612d613637352d66386639616530323633623700c09944000028440000dc420000000000000000000000000000000000000000000700090000
+      m_UnityObjects: []
+      m_Version: 3.4
+    - m_ObjectType: Opsive.GraphDesigner.Runtime.LogicNodeProperties
+      m_ValueHashes: 
+      m_LongValueHashes: bc124df8ef5e104cf36ca30dee0de9958dd19827f48d1b29bd8814239a1bb7642f6406e2580d1e294f869cc9196b0c27aea3bc2e18d5b803a034c7c2b541f015557e981535906112a98ff48b9e8a66b37f542abda0a249c23a7f01b1f88d1a7b
+      m_ValuePositions: 00000000240000002c000000300000003000000030000000400000004100000045000000450000004700000049000000
+      m_Values: 30613530666635622d646432352d346166652d616465632d3562666635376631393739360020b54400c025440000dc420000000000000000000000000000000000000000000700ffff00
+      m_UnityObjects: []
+      m_Version: 3.4
     m_EventNodePropertiesData:
     - m_ObjectType: Opsive.GraphDesigner.Runtime.NodeProperties
       m_ValueHashes: 
       m_LongValueHashes: bc124df8ef5e104cf36ca30dee0de9958dd19827f48d1b29bd8814239a1bb7642f6406e2580d1e294f869cc9196b0c27aea3bc2e18d5b803
       m_ValuePositions: 00000000240000002c00000030000000300000003000000040000000
-      m_Values: 31366263303066302d323838662d343530612d383938352d6530653236663035336533643ec5344440d2ba430000dc420000000000000000000000000000000000
+      m_Values: 31366263303066302d323838662d343530612d383938352d653065323666303533653364acd642442092a8430000dc420000000000000000000000000000000000
       m_UnityObjects: []
       m_Version: 3.4
     m_GroupPropertiesData: []
@@ -22234,8 +22332,8 @@ MonoBehaviour:
   m_Abilities:
   - rid: 4789568341372305494
   m_ItemAbilities:
-  - rid: 4789568384885063784
   - rid: 4789568384885063785
+  - rid: 4789568658907857043
   m_Effects: []
   m_OnMovementTypeActiveEvent:
     m_PersistentCalls:
@@ -22326,76 +22424,6 @@ MonoBehaviour:
         m_InspectorDescription: 
         m_AllowMovementInAir: 1
         m_StoppingDistance: 0.2
-    - rid: 4789568384885063784
-      type: {class: EquipUnequip, ns: Opsive.UltimateCharacterController.Character.Abilities.Items, asm: Opsive.UltimateCharacterController}
-      data:
-        m_States:
-        - m_Name: Default
-          m_Preset: {fileID: 0}
-          m_BlockList: []
-          m_Default: 1
-        m_Enabled: 1
-        m_StartType: 1
-        m_StopType: 1
-        m_InputNames:
-        - Equip First Item
-        - Equip Second Item
-        - Equip Third Item
-        - Equip Fourth Item
-        - Equip Fifth Item
-        - Equip Sixth Item
-        - Equip Seventh Item
-        - Equip Eighth Item
-        - Equip Ninth Item
-        - Equip Tenth Item
-        m_WaitForDoublePressTapTimeout: 0
-        m_LongPressDuration: 0.5
-        m_WaitForLongPressRelease: 0
-        m_AbilityStarter:
-          rid: -2
-        m_AbilityStopper:
-          rid: -2
-        m_AttributeModifier:
-          m_AttributeName: 
-          m_Amount: 0
-          m_AutoUpdate: 0
-          m_AutoUpdateStartDelay: 1
-          m_AutoUpdateInterval: 0.1
-          m_AutoUpdateDuration: -1
-        m_State: 
-        m_StateAppendItemIdentifierName: 0
-        m_AbilityIndexParameter: -1
-        m_StartAudioClipSet:
-          m_AudioConfig: {fileID: 0}
-          m_AudioClips: []
-        m_StopAudioClipSet:
-          m_AudioConfig: {fileID: 0}
-          m_AudioClips: []
-        m_AllowPositionalInput: 1
-        m_AllowRotationalInput: 1
-        m_UseGravity: 0
-        m_UseRootMotionPosition: 0
-        m_UseRootMotionRotation: 0
-        m_DetectHorizontalCollisions: 0
-        m_DetectVerticalCollisions: 0
-        m_DetectGroundCollisions: 0
-        m_AnimatorMotion: {fileID: 0}
-        m_StartEffectName: 
-        m_StartEffectIndex: -1
-        m_AllowEquippedSlotsMask: -1
-        m_AllowItemDefinitions: []
-        m_ImmediateUnequip: 0
-        m_ReequipSlots: 1
-        m_AbilityMessageText: 
-        m_AbilityMessageIcon: {fileID: 0}
-        m_InspectorDescription: 
-        m_ItemStateIndex: -1
-        m_ItemCategory: {fileID: 0}
-        m_PreventStartUseReloadActive: 1
-        m_AutoEquip: 30
-        m_EquipItemStateIndex: 4
-        m_UnequipItemStateIndex: 5
-        m_AimItemSubstateIndexAddition: 100
     - rid: 4789568384885063785
       type: {class: Use, ns: Opsive.UltimateCharacterController.Character.Abilities.Items, asm: Opsive.UltimateCharacterController}
       data:
@@ -22455,6 +22483,67 @@ MonoBehaviour:
         m_ActionID: 0
         m_RotateTowardsLookSourceTarget: 1
         m_BlockOverUI: 1
+    - rid: 4789568658907857043
+      type: {class: EquipUnequip, ns: Opsive.UltimateCharacterController.Character.Abilities.Items, asm: Opsive.UltimateCharacterController}
+      data:
+        m_States:
+        - m_Name: Default
+          m_Preset: {fileID: 0}
+          m_BlockList: []
+          m_Default: 1
+        m_Enabled: 1
+        m_StartType: 2
+        m_StopType: 1
+        m_InputNames:
+        - Equip Tenth Item
+        m_WaitForDoublePressTapTimeout: 0
+        m_LongPressDuration: 0.5
+        m_WaitForLongPressRelease: 0
+        m_AbilityStarter:
+          rid: -2
+        m_AbilityStopper:
+          rid: -2
+        m_AttributeModifier:
+          m_AttributeName: 
+          m_Amount: 0
+          m_AutoUpdate: 0
+          m_AutoUpdateStartDelay: 1
+          m_AutoUpdateInterval: 0.1
+          m_AutoUpdateDuration: -1
+        m_State: 
+        m_StateAppendItemIdentifierName: 0
+        m_AbilityIndexParameter: -1
+        m_StartAudioClipSet:
+          m_AudioConfig: {fileID: 0}
+          m_AudioClips: []
+        m_StopAudioClipSet:
+          m_AudioConfig: {fileID: 0}
+          m_AudioClips: []
+        m_AllowPositionalInput: 1
+        m_AllowRotationalInput: 1
+        m_UseGravity: 0
+        m_UseRootMotionPosition: 0
+        m_UseRootMotionRotation: 0
+        m_DetectHorizontalCollisions: 0
+        m_DetectVerticalCollisions: 0
+        m_DetectGroundCollisions: 0
+        m_AnimatorMotion: {fileID: 0}
+        m_StartEffectName: 
+        m_StartEffectIndex: -1
+        m_AllowEquippedSlotsMask: -1
+        m_AllowItemDefinitions: []
+        m_ImmediateUnequip: 0
+        m_ReequipSlots: 1
+        m_AbilityMessageText: 
+        m_AbilityMessageIcon: {fileID: 0}
+        m_InspectorDescription: 
+        m_ItemStateIndex: -1
+        m_ItemCategory: {fileID: 0}
+        m_PreventStartUseReloadActive: 1
+        m_AutoEquip: 30
+        m_EquipItemStateIndex: 4
+        m_UnequipItemStateIndex: 5
+        m_AimItemSubstateIndexAddition: 100
 --- !u!54 &1840291566
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22523,66 +22612,9 @@ Transform:
   m_Children:
   - {fileID: 6216532116001610000}
   - {fileID: 1352957804}
+  - {fileID: 1642546430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1840291575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840291558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 471ef94c15c5413fba48191b56bf53d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Opsive.UltimateCharacterController.Integrations.UltimateInventorySystem::Opsive.UltimateCharacterController.Integrations.UltimateInventorySystem.InventoryBridgeSaver
-  m_Key: 
-  m_SaveOnApplicationQuit: 0
-  m_SaveOnDestroy: 0
-  m_LoadOnStart: 0
-  m_Additive: 0
---- !u!114 &1840291576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840291558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26ca2b4fcf8a4993b85339717e172c22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Interactions.InventoryInteractor
-  m_Inventory: {fileID: 0}
-  m_InteractableIndicator: {fileID: 0}
-  m_AutoInteract: 0
-  m_Input:
-    m_InputType: 2
-    m_InputName: Action
-    m_LongPressDuration: 0.5
-    m_WaitForLongPressRelease: 0
---- !u!114 &1840291577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840291558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dc8f34ad158de14aa7ec08654f6e04b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Exchange.CurrencyOwner
-  m_CurrencyAmount:
-    m_CurrencyAmountData:
-      m_ObjectType: 
-      m_ValueHashes: 
-      m_LongValueHashes: 
-      m_ValuePositions: 
-      m_Values: 
-      m_UnityObjects: []
-      m_Version: 
 --- !u!114 &1840291578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22595,19 +22627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f05d9b00a10345299e7d28cf4896ce37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.ItemActions.ItemUser
---- !u!114 &1840291579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840291558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd5036dbda0a419a9cce2a63da507b63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Core.InventoryCollections.InventoryIdentifier
-  m_ID: 2
 --- !u!114 &1840291580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22623,7 +22642,7 @@ MonoBehaviour:
   m_ItemSetGroups:
   - m_SerializedItemCategory: {fileID: 11400000, guid: 795b112a64bde4144b0bde7c5280803a, type: 2}
     m_StartingItemSetRules:
-    - {fileID: 11400000, guid: a26ce96f0eca43d4fbf76b9d2203da18, type: 2}
+    - {fileID: 11400000, guid: 4191c3545c555f643af0b9921bfec704, type: 2}
   m_OnAddItemUpdateItemSetsOption: 0
 --- !u!114 &1840291581
 MonoBehaviour:
@@ -22673,7 +22692,6 @@ MonoBehaviour:
   m_DefaultItemCollectionName: Default
   m_BridgeItemCollectionNames:
   - Equippable Slots
-  - Equippable
   m_LoadoutItemCollectionNames:
   - Loadout
   m_DropUsingCharacterItemWhenPossible: 0
@@ -22722,18 +22740,12 @@ MonoBehaviour:
     m_Version: 3.4
   - m_ObjectType: Opsive.UltimateCharacterController.Integrations.UltimateInventorySystem.CharacterLoadoutItemCollection
     m_ValueHashes: 
-    m_LongValueHashes: 0d00eb254f8d1b29b769d11dc3e477ff5030ac3e5febf136f1f5543f3d512d18666e77ffb2d00a8c063d5314a435cf41aacf0d9965f975d03edd133125d4485e719c8809cfab0a4bffab97cf7a3470d434df945e2edc1868aa135182f676c90c6791e7bf01f176fdaf7e503207f176fdc9f13d9193da0d6add6f4cf489f9a9877a52e37d7f6acb20619c5106fa41607a8bb69e26af999b5d54fcaab507445c666375964c061a681c60e89838dfc5e5e8a0817f2a3ac43fce37807f2a3ac43fce4abe7f2a3ac43fced9bc7f2a3ac43fce6cbb7f2a3ac43fcee3b97f2a3ac43fce76b87f2a3ac43fce85b67f2a3ac43fce458adb8238d87c25668bd497d7556e0cf395d497d7556e0c4094d497d7556e0cdd96d497d7556e0c2a91d497d7556e0ca793d497d7556e0c3492d497d7556e0c819cd497d7556e0c325bc0ab71f556034cd19b25830fc324ffd09b25830fc3246ace9b25830fc324e5cd9b25830fc32410cb9b25830fc32483ca9b25830fc3243ec89b25830fc324a9c79b25830fc32424c59b25830fc32457c39b25830fc324c2c29b25830fc3247dc09b25830fc324e83f9b25830fc3241b3d9b25830fc324963c9b25830fc324013a9b25830fc324bc399b25830fc3242f379b25830fc3245a359b25830fc324d5349b25830fc32440329b25830fc324f3319b25830fc3246e2f9b25830fc324992e9b25830fc324142c9b25830fc324872b9b25830fc32432299b25830fc324ad289b25830fc324d8269b25830fc32498830181b309f5712787745ac25953031fb2263e88d80d4e5e17fd1d10d2feb6
-    m_ValuePositions: 0000000007000000070000000b0000000b0000000c0000000d0000001100000011000000150000001500000019000000190000001d000000210000002500000029000000290000002d0000002d000000ca000000ce000000d2000000da000000e2000000ea000000f2000000fa000000020100000a01000012010000160100001a0100001e01000022010000260100002a0100002e01000032010000360100003a0100003b0100003c0100003d0100003e0100003f010000400100004101000042010000430100004401000045010000460100004701000048010000490100004a0100004b0100004c0100004d0100004e0100004f01000050010000510100005201000053010000540100005501000056010000570100005b0100005e01000068010000
-    m_Values: 4c6f61646f7574040000000001ffffffff010000000100000053d83743426f64794b95dc0800000000010000004f70736976652e556c74696d617465496e76656e746f727953797374656d2e436f72652e41747472696275746553797374656d2e41747472696275746560315b5b53797374656d2e53696e676c652c206d73636f726c69622c2056657273696f6e3d342e302e302e302c2043756c747572653d6e65757472616c2c205075626c69634b6579546f6b656e3d623737613563353631393334653038395d5d00000000080000000d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651cc215ba7e477b76810f4f41386f57b1d08000000000000000c0000000d0000000d000000110000001100000015000000190000001d00000044616d616765416d6f756e74000000000019fc1179000000000000a04000000000332e3445717569707061626c6501
+    m_LongValueHashes: 0d00eb254f8d1b29b769d11dc3e477ff5030ac3e5febf136f1f5543f3d512d18666e77ffb2d00a8c063d5314a435cf41aacf0d9965f975d03edd133125d4485e719c8809cfab0a4bffab97cf7a3470d434df945e2edc1868aa135182f676c90c6791e7bf01f176fdaf7e503207f176fdc9f13d9193da0d6add6f4cf489f9a9877a52e37d7f6acb20619c5106fa41607a8bb69e26af999b5d54fcaab507445c666375964c061a681c60e89838dfc5e5e8a0817f2a3ac43fce37807f2a3ac43fce4abe7f2a3ac43fced9bc7f2a3ac43fce6cbb7f2a3ac43fcee3b97f2a3ac43fce76b87f2a3ac43fce85b67f2a3ac43fce458adb8238d87c25668bd497d7556e0cf395d497d7556e0c4094d497d7556e0cdd96d497d7556e0c2a91d497d7556e0ca793d497d7556e0c3492d497d7556e0c819cd497d7556e0c325bc0ab71f556034cd19b25830fc324ffd09b25830fc3246ace9b25830fc324e5cd9b25830fc32410cb9b25830fc32483ca9b25830fc3243ec89b25830fc324a9c79b25830fc32424c59b25830fc32457c39b25830fc324c2c29b25830fc3247dc09b25830fc324e83f9b25830fc3241b3d9b25830fc324963c9b25830fc324013a9b25830fc324bc399b25830fc3242f379b25830fc3245a359b25830fc324d5349b25830fc32440329b25830fc324f3319b25830fc3246e2f9b25830fc324992e9b25830fc324142c9b25830fc324872b9b25830fc32432299b25830fc324ad289b25830fc324d8269b25830fc32498830181b309f5712787745ac259530362a997cf7a3470d4bdc9905e2edc186823055582f676c90c821884b501f176fd4af7333807f176fd2c785e9b93da0d6a38e62ffe89f9a9879fdb80777f6acb20c0ee036de041607a3c7408e51de09b5dd7a8977fc59eab66e021ab86c4c09f1ce3bca5f21d1f12e859325aa4615e7606ec305aa4615e7606632f5aa4615e7606f62d5aa4615e7606052c5aa4615e7606982a5aa4615e76062f295aa4615e7606a2275aa4615e7606c6dee648fa028b25739fa67756846616c099a677568466165d98a67756846616aa9aa677568466162765a67756846616b467a677568466160166a677568466169e60a67756846616b10ffd61b32fa10351e8a789ea57efa9cce7a789ea57efa97fe5a789ea57efa9eae4a789ea57efa965e2a789ea57efa990e1a789ea57efa903dfa789ea57efa9bedea789ea57efa929dca789ea57efa9a4dba789ea57efa9d7d9a789ea57efa942d7a789ea57efa9fdd6a789ea57efa968d4a789ea57efa99bd3a789ea57efa916d1a789ea57efa981d0a789ea57efa93ccea789ea57efa9afcda789ea57efa9dacba789ea57efa955c9a789ea57efa9c0c8a789ea57efa973c6a789ea57efa9eec5a789ea57efa919c3a789ea57efa994c2a789ea57efa907c0a789ea57efa9b23fa789ea57efa92d3da789ea57efa91bd73c4b71d30271a4d349900083a403ab7708e51de09b5df47daa7fc59eab66c3f49686c4c09f1cc06998f21d1f12e880df03d9615e760617de03d9615e7606aadc03d9615e760639db03d9615e76064cd903d9615e7606c3d703d9615e760656d603d9615e7606e5d403d9615e7606e50bdb48fa028b254696108257846616d3901082578466162093108257846616bd9d1082578466160a9c108257846616879e1082578466161499108257846616619b10825784661692dac061b32fa103ac4ac4e4ea57efa9df48c4e4ea57efa94a46c4e4ea57efa9c545c4e4ea57efa97043c4e4ea57efa9e342c4e4ea57efa91e40c4e4ea57efa989bfc5e4ea57efa904bdc5e4ea57efa9b7bcc5e4ea57efa922bac5e4ea57efa95db8c5e4ea57efa9c8b7c5e4ea57efa97bb5c5e4ea57efa9f6b4c5e4ea57efa961b2c5e4ea57efa99cb1c5e4ea57efa90fafc5e4ea57efa9baaec5e4ea57efa935acc5e4ea57efa9a0abc5e4ea57efa9d3a9c5e4ea57efa94ea7c5e4ea57efa9f9a6c5e4ea57efa974a4c5e4ea57efa93802014b71d30271870674900083a4031fb2263e88d80d4e5e17fd1d10d2feb6
+    m_ValuePositions: 0000000007000000070000000b0000000b0000000c0000000d0000001100000011000000150000001500000019000000190000001d00000025000000290000002d0000002d0000003100000031000000ce000000d2000000d6000000de000000e6000000ee000000f6000000fe000000060100000e010000160100001a0100001e01000022010000260100002a0100002e01000032010000360100003a0100003e0100003f010000400100004101000042010000430100004401000045010000460100004701000048010000490100004a0100004b0100004c0100004d0100004e0100004f010000500100005101000052010000530100005401000055010000560100005701000058010000590100005a0100005b0100005f010000620100006201000066010000660100006a010000770100007b0100007f0100007f010000830100008301000020020000240200002802000030020000380200004002000048020000500200005802000060020000680200006c0200007002000074020000780200007c0200008002000084020000880200008c020000900200009102000092020000930200009402000095020000960200009702000098020000990200009a0200009b0200009c0200009d0200009e0200009f020000a0020000a1020000a2020000a3020000a4020000a5020000a6020000a7020000a8020000a9020000aa020000ab020000ac020000ad020000b1020000b4020000b402000050030000540300005803000060030000680300007003000078030000800300008803000090030000980300009c030000a0030000a4030000a8030000ac030000b0030000b4030000b8030000bc030000c0030000c1030000c2030000c3030000c4030000c5030000c6030000c7030000c8030000c9030000ca030000cb030000cc030000cd030000ce030000cf030000d0030000d1030000d2030000d3030000d4030000d5030000d6030000d7030000d8030000d9030000dd030000e0030000f0030000
+    m_Values: 4c6f61646f7574040000000001ffffffff020000000100000053d83743426f64795f4465664b95dc0800000000010000004f70736976652e556c74696d617465496e76656e746f727953797374656d2e436f72652e41747472696275746553797374656d2e41747472696275746560315b5b53797374656d2e53696e676c652c206d73636f726c69622c2056657273696f6e3d342e302e302e302c2043756c747572653d6e65757472616c2c205075626c69634b6579546f6b656e3d623737613563353631393334653038395d5d00000000080000000d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651cc215ba7e477b76810f4f41386f57b1d08000000000000000c0000000d0000000d000000110000001100000015000000190000001d00000044616d616765416d6f756e74000000000019fc1179000000000000a04000000000332e3401000000bde2b2615761746572537069745f446566e8b7372b01000000020000004f70736976652e556c74696d617465496e76656e746f727953797374656d2e436f72652e41747472696275746553797374656d2e41747472696275746560315b5b53797374656d2e53696e676c652c206d73636f726c69622c2056657273696f6e3d342e302e302e302c2043756c747572653d6e65757472616c2c205075626c69634b6579546f6b656e3d623737613563353631393334653038395d5d00000000080000000d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651cc215ba7e477b76810f4f41386f57b1d08000000000000000c0000000d0000000d000000110000001100000015000000190000001d00000044616d616765416d6f756e74010100000019fc1179000020410000204100000000332e344f70736976652e556c74696d617465496e76656e746f727953797374656d2e436f72652e41747472696275746553797374656d2e41747472696275746560315b5b53797374656d2e496e7433322c206d73636f726c69622c2056657273696f6e3d342e302e302e302c2043756c747572653d6e65757472616c2c205075626c69634b6579546f6b656e3d623737613563353631393334653038395d5d00000000080000000d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e08000000000000000800000009000000090000000d0000000d000000110000001500000019000000416d6d6f4461746100000000004043a7e0000000000000000000000000332e3445717569707061626c6520536c6f747301
     m_UnityObjects:
     - {fileID: 11400000, guid: c459c4469d5a78d419e458379d6318c3, type: 2}
-    m_Version: 3.4
-  - m_ObjectType: Opsive.UltimateInventorySystem.Core.InventoryCollections.ItemCollection
-    m_ValueHashes: 
-    m_LongValueHashes: 0d00eb254f8d1b29b769d11dc3e477ff5030ac3e5febf136f1f5543f3d512d18666e77ffb2d00a8c063d5314a435cf41aacf0d9965f975d03edd133125d4485e719c8809cfab0a4b
-    m_ValuePositions: 000000000a0000000a0000000e0000000e0000000f000000100000001400000014000000
-    m_Values: 45717569707061626c65000000000001ffffffff00000000
-    m_UnityObjects: []
+    - {fileID: 11400000, guid: 3c87270deb5820e44b10f8f399230361, type: 2}
     m_Version: 3.4
 --- !u!114 &1840291583
 MonoBehaviour:
@@ -26684,6 +26696,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1206005932843138394, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_OnComponentEnable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1206005932843138394, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_OnComponentDisable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727174065593038786, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: cmInput
+      value: 
+      objectReference: {fileID: 906278918}
     - target: {fileID: 4785531352440236071, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -26740,50 +26764,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8302844857379701598, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_ItemSetGroups.Array.data[0].m_StartingItemSetRules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302844857379701598, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'm_ItemSetGroups.Array.data[0].m_StartingItemSetRules.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 97e826cd127c3c141a3bf9f562d310f4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5011353297096413839, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5639457451768084522}
-    - targetCorrespondingSourceObject: {fileID: 5011353297096413839, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5639457451768084538}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
 --- !u!4 &5639457451768084521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7564151329354262273, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
   m_PrefabInstance: {fileID: 5639457451768084520}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5639457451768084522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888340006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a69fb9b59b924949ae1d4a3b6a078131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Input.EnableDisableInventoryInput
-  m_InventoryID: 1
-  m_OnComponentEnable: 1
-  m_OnComponentDisable: 2
---- !u!114 &5639457451768084538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888340006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2512225c4d47fb243965cf46b02a93c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Scripts.UI.BlockCameraUIPanels
-  cmInput: {fileID: 906278918}
 --- !u!114 &5737646995756294978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27131,6 +27129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7625824445681506107}
   - component: {fileID: 8414972407034052190}
+  - component: {fileID: 8414972407034052191}
   m_Layer: 26
   m_Name: Rig
   m_TagString: Untagged
@@ -27151,6 +27150,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Opsive.UltimateCharacterController::Opsive.UltimateCharacterController.Items.CharacterItemSlot
   m_ID: 0
+--- !u!114 &8414972407034052191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414972407034052189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 259de180f6aec024e8af5ebcd379cc85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Opsive.UltimateCharacterController::Opsive.UltimateCharacterController.Items.CharacterItemSlot
+  m_ID: 1
 --- !u!4 &8981274294827777461
 Transform:
   m_ObjectHideFlags: 0
