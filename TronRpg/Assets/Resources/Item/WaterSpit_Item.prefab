@@ -669,9 +669,9 @@ MonoBehaviour:
         m_Name: 
         m_FireInLookSourceDirection: 0
         m_UseLookSourcePosition: 0
-        m_ProjectileFireVelocityMagnitude: 10
+        m_ProjectileFireVelocityMagnitude: 50
         m_ProjectileFiredLayer: 7
-        m_LayerChangeDelay: 2
+        m_LayerChangeDelay: 0
         m_ProjectileEnableDelayAfterOtherUse: 0.4
         m_FireCount: 1
         m_FirePointLocation:
