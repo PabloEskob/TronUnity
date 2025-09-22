@@ -12,6 +12,9 @@ namespace Opsive.UltimateCharacterController.Demo.UI
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
+    using UnityEngine.InputSystem;
+#endif
     using UnityEngine.UI;
 
     /// <summary>
@@ -113,7 +116,11 @@ namespace Opsive.UltimateCharacterController.Demo.UI
                 }
             }
 
+#if ENABLE_INPUT_SYSTEM
+            var inputDown = Mouse.current?.leftButton.isPressed ?? false;
+#else
             var inputDown = Input.GetKey(KeyCode.Mouse0);
+#endif
             var pointerDown = !m_PreviousInputDown && inputDown;
             var pointerUp = m_PreviousInputDown && !inputDown;
             if (pointerDown) {

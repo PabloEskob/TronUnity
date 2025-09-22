@@ -31,8 +31,16 @@ namespace Opsive.UltimateCharacterController.Camera.ViewTypes
         public abstract Quaternion BaseCharacterRotation { get; }
         public abstract float LookDirectionDistance { get; }
 
-        public float FieldOfView { get => m_FieldOfView; set { m_FieldOfView = Mathf.Clamp(value, 1, 179); UpdateFieldOfView(false); } }
-        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { Debug.Log("Set " + value); m_FieldOfViewDamping = value; } }
+        public float FieldOfView { get => m_FieldOfView; set {
+                if (m_FieldOfView == value) {
+                    return;
+                }
+                m_FieldOfView = Mathf.Clamp(value, 1, 179);
+                m_FieldOfViewChangeTime = Time.time;
+                UpdateFieldOfView(false);
+            }
+        }
+        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { m_FieldOfViewDamping = value; } }
 
         protected CameraController m_CameraController;
         protected Transform m_Transform;
@@ -127,7 +135,7 @@ namespace Opsive.UltimateCharacterController.Camera.ViewTypes
         public virtual void ChangeViewType(bool activate, float pitch, float yaw, Quaternion baseCharacterRotation)
         {
             if (activate && m_Camera.fieldOfView != m_FieldOfView) {
-                m_FieldOfViewChangeTime = Time.time + m_FieldOfViewDamping / m_CharacterLocomotion.TimeScale;
+                m_FieldOfViewChangeTime = Time.time - m_FieldOfViewDamping / m_CharacterLocomotion.TimeScale;
             }
         }
 
@@ -150,6 +158,7 @@ namespace Opsive.UltimateCharacterController.Camera.ViewTypes
             if (m_Camera.fieldOfView != m_FieldOfView) {
                 var time = (immediateUpdate || m_FieldOfViewDamping == 0) ? 1 : ((Time.time - m_FieldOfViewChangeTime) / (m_FieldOfViewDamping / m_CharacterLocomotion.TimeScale));
                 m_Camera.fieldOfView = Mathf.SmoothStep(m_Camera.fieldOfView, m_FieldOfView, time);
+
                 if (immediateUpdate) {
                     SimulationManager.SetCameraFieldOfView(m_CameraController.SimulationIndex, m_Camera.fieldOfView);
                 }

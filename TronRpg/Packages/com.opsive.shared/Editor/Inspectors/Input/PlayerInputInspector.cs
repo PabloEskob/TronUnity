@@ -44,10 +44,6 @@ namespace Opsive.Shared.Editor.Inspectors.Input
 
                 EditorGUILayout.PropertyField(PropertyFromName("m_HorizontalLookInputName"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_VerticalLookInputName"));
-                EditorGUILayout.PropertyField(PropertyFromName("m_ControllerHorizontalLookInputName"));
-                EditorGUILayout.PropertyField(PropertyFromName("m_ControllerVerticalLookInputName"));
-                EditorGUILayout.PropertyField(PropertyFromName("m_ControllerInputMultiplier"));
-                EditorGUILayout.PropertyField(PropertyFromName("m_MouseControllerUpdate"));
                 var lookVector = PropertyFromName("m_LookVectorMode");
                 EditorGUILayout.PropertyField(lookVector);
                 if (lookVector.enumValueIndex == (int)PlayerInput.LookVectorMode.Smoothed) {

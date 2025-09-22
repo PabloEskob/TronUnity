@@ -114,11 +114,12 @@ namespace Opsive.UltimateCharacterController.Items.Actions.Impact
             // An optional state can be activated on the hit object.
             if (!string.IsNullOrEmpty(stateName)) {
                 var characterLocomotion = impactData.ImpactGameObject.GetCachedParentComponent<UltimateCharacterLocomotion>();
-                StateManager.SetState(characterLocomotion != null ? characterLocomotion.gameObject : impactData.ImpactGameObject, stateName, true);
+                var stateObject = characterLocomotion != null ? characterLocomotion.gameObject : impactData.ImpactGameObject;
+                StateManager.SetState(stateObject, stateName, true);
                 // If the timer isn't -1 then the state should be disabled after a specified amount of time. If it is -1 then the state
                 // will have to be disabled manually.
                 if (disabletimer != -1) {
-                    StateManager.DeactivateStateTimer(impactData.ImpactGameObject, stateName, disabletimer);
+                    StateManager.DeactivateStateTimer(stateObject, stateName, disabletimer);
                 }
             }
         }

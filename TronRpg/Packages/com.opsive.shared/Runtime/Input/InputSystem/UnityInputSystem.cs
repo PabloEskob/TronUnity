@@ -1,23 +1,30 @@
-﻿/// ---------------------------------------------
+﻿#if ENABLE_INPUT_SYSTEM
+/// ---------------------------------------------
 /// Opsive Shared
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
-
-using Opsive.Shared.Input.InputManager;
-
-namespace Opsive.Shared.Integrations.InputSystem
+namespace Opsive.Shared.Input.InputSystem
 {
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngine.InputSystem.Controls;
-    using System.Collections.Generic;
+    using UnityEngine.Scripting.APIUpdating;
 
     /// <summary>
     /// Responds to input using the Unity Input System.
     /// </summary>
+    [MovedFrom("Opsive.Shared.Input")]
     public class UnityInputSystem : Opsive.Shared.Input.PlayerInput
     {
+        /// <summary>
+        /// Specifies if any input type should be forced.
+        /// </summary>
+        public enum ForceInputType { None, Standalone, OnScreen }
+
+        [Tooltip("Specifies if any input type should be forced.")]
+        [SerializeField] protected ForceInputType m_ForceInput;
         [Tooltip("Should the cursor be disabled?")]
         [SerializeField] protected bool m_DisableCursor = true;
         [Tooltip("Should the cursor be enabled when the escape key is pressed?")]
@@ -26,11 +33,23 @@ namespace Opsive.Shared.Integrations.InputSystem
         [Tooltip("If the cursor is enabled with escape should the look vector be prevented from updating?")]
         [SerializeField] protected bool m_PreventLookVectorChanges = true;
 #endif
+
         private PlayerInput m_PlayerInput;
         private Dictionary<InputActionMap, Dictionary<string, InputAction>> m_InputActionByName = new Dictionary<InputActionMap, Dictionary<string, InputAction>>();
+        private Dictionary<string, float> m_CachedAxisValues = new Dictionary<string, float>();
 
+        private bool m_UseOnScreenControls;
         protected override bool CanCheckForController => false;
 
+        public ForceInputType ForceInput {
+            get { return m_ForceInput; }
+            set {
+                if (m_ForceInput == value) { return; }
+
+                m_ForceInput = value;
+                UpdateOnScreenControls();
+            }
+        }
         public bool DisableCursor {
             get { return m_DisableCursor; }
             set {
@@ -62,6 +81,33 @@ namespace Opsive.Shared.Integrations.InputSystem
         }
 
         /// <summary>
+        /// Starts the component.
+        /// </summary>
+        protected override void Start()
+        {
+            base.Start();
+
+            UpdateOnScreenControls();
+        }
+
+        /// <summary>
+        /// Updates if on screen controls are used.
+        /// </summary>
+        private void UpdateOnScreenControls()
+        {
+            m_UseOnScreenControls = m_ForceInput == ForceInputType.OnScreen;
+#if !UNITY_EDITOR && (UNITY_IPHONE || UNITY_ANDROID || UNITY_WP_8_1 || UNITY_BLACKBERRY)
+            if (m_ForceInput != ForceInputType.Standalone) {
+                m_UseOnScreenControls = true;
+            }
+#endif
+            if (m_UseOnScreenControls && Gamepad.current != null) {
+                m_PlayerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.current);
+            }
+            Events.EventHandler.ExecuteEvent(gameObject, "OnUnityInputSystemTypeChanged", m_UseOnScreenControls);
+        }
+
+        /// <summary>
         /// The component has been enabled.
         /// </summary>
         protected virtual void OnEnable()
@@ -69,6 +115,12 @@ namespace Opsive.Shared.Integrations.InputSystem
             if (m_DisableCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+            }
+            m_PlayerInput.enabled = true;
+
+            // All players must have access to the same keyboard and mouse.
+            if (Keyboard.current != null) {
+                m_PlayerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
             }
         }
 
@@ -85,7 +137,7 @@ namespace Opsive.Shared.Integrations.InputSystem
                 if (m_PreventLookVectorChanges) {
                     OnApplicationFocus(false);
                 }
-            } else if ( (Cursor.visible || m_Focus == false) && m_DisableCursor && !IsPointerOverUI() && (Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame)) {
+            } else if ((Cursor.visible || m_Focus == false) && m_DisableCursor && !IsPointerOverUI() && (Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame)) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 if (m_PreventLookVectorChanges) {
@@ -167,7 +219,27 @@ namespace Opsive.Shared.Integrations.InputSystem
         {
             var action = GetActionByName(name);
             if (action != null) {
-                return action.ReadValue<float>();
+                var currentValue = action.ReadValue<float>();
+
+                if (m_UseOnScreenControls) {
+                    // The on-screen stick component does not keep the action active when the user holds the stick without movement.
+                    if (action.phase == InputActionPhase.Performed) {
+                        m_CachedAxisValues[name] = currentValue;
+                        return currentValue;
+                    } else { // No active input.
+                        if (action.phase == InputActionPhase.Canceled || !IsUserInteracting()) { // The stick was released.
+                            m_CachedAxisValues.Remove(name);
+                            return 0.0f;
+                        }
+
+                        // Check for a cached value. The stick is being held in position.
+                        if (m_CachedAxisValues.TryGetValue(name, out var cachedValue)) {
+                            return cachedValue;
+                        }
+                    }
+                }
+
+                return currentValue;
             }
             return 0.0f;
         }
@@ -180,6 +252,32 @@ namespace Opsive.Shared.Integrations.InputSystem
         protected override float GetAxisRawInternal(string name)
         {
             return GetAxisInternal(name);
+        }
+
+        /// <summary>
+        /// Checks if the user is actively interacting with the screen (mouse button down or touching).
+        /// </summary>
+        /// <returns>True if the user is interacting.</returns>
+        private bool IsUserInteracting()
+        {
+            // Check mouse input.
+            if (Mouse.current != null && Mouse.current.leftButton.isPressed) {
+                return true;
+            }
+
+            // Check touch input.
+            if (Touchscreen.current != null) {
+                for (int i = 0; i < Touchscreen.current.touches.Count; i++) {
+                    var touch = Touchscreen.current.touches[i];
+                    if (touch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Began ||
+                        touch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Moved ||
+                        touch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Stationary) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -239,18 +337,27 @@ namespace Opsive.Shared.Integrations.InputSystem
         }
 
         /// <summary>
+        /// The component has been disabled.
+        /// </summary>
+        public void OnDisable()
+        {
+            m_PlayerInput.enabled = false;
+        }
+
+        /// <summary>
         /// Resets the component.
         /// </summary>
         public void Reset()
         {
-            var unityPlayerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+            var unityPlayerInput = GetComponent<PlayerInput>();
             if (unityPlayerInput == null) {
-                gameObject.AddComponent<UnityEngine.InputSystem.PlayerInput>();
+                gameObject.AddComponent<PlayerInput>();
             }
-            var unityInput = GetComponent<UnityInput>();
+            var unityInput = GetComponent<InputManager.UnityInput>();
             if (unityInput != null) {
                 DestroyImmediate(unityInput, true);
             }
         }
     }
 }
+#endif

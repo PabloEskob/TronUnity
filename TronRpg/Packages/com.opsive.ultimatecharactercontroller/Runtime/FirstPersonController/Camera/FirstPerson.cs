@@ -1116,7 +1116,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
             }
 
             if (m_Camera.fieldOfView != m_FieldOfView) {
-                m_FieldOfViewChangeTime = Time.time;
                 // The field of view should get a head start if the damping was previously 0. This will allow the field of view to move back to the original value even
                 // when the state is no longer active.
                 if (m_CameraController.ActiveViewType == this && m_PrevFieldOfViewDamping == 0) {

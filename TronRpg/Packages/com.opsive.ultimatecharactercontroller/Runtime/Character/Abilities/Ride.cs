@@ -58,6 +58,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
         public Rideable Rideable { get { return m_Rideable; } }
         protected Rideable m_Rideable;
+        private UltimateCharacterLocomotionHandler m_CharacterLocomotionHandler;
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
         private INetworkInfo m_NetworkInfo;
 #endif
@@ -96,6 +97,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             m_NetworkInfo = m_GameObject.GetCachedComponent<INetworkInfo>();
 #endif
+            m_CharacterLocomotionHandler = m_GameObject.GetCachedComponent<UltimateCharacterLocomotionHandler>();
+            if (m_CharacterLocomotionHandler == null) {
+                Debug.LogError("Error: The Ride ability requires the UltimateCharacterLocomotionHandler.", m_GameObject);
+            }
+
             m_MountEvent.RegisterUnregisterAnimationEvent(true, m_GameObject, "OnAnimatorRideMount", OnMount);
             m_DismountEvent.RegisterUnregisterAnimationEvent(true, m_GameObject, "OnAnimatorRideDismount", OnDismount);
         }
@@ -190,7 +196,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (m_NetworkInfo == null || m_NetworkInfo.HasAuthority() || m_NetworkInfo.IsLocalPlayer()) {
 #endif
-                // The rideable character should execute first.
+                // The ridable character should execute first.
                 SimulationManager.SetUpdateOrder(m_Rideable.CharacterLocomotion, m_CharacterLocomotion);
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             }
@@ -269,9 +275,10 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public override void Update()
         {
             if (m_RideState == RideState.Ride || m_RideState == RideState.WaitForItemUnequip) {
-                // The input parameters should match the rideable object's input parameters.
-                m_CharacterLocomotion.InputVector = m_Rideable.CharacterLocomotion.InputVector;
-                m_CharacterLocomotion.DeltaRotation = m_Rideable.CharacterLocomotion.DeltaRotation;
+                // The input parameters should be sent to the the rideable object.
+                m_Rideable.CharacterLocomotionHandler.OverriddenHorizontalMovement = m_CharacterLocomotion.RawInputVector.x;
+                m_Rideable.CharacterLocomotionHandler.OverriddenForwardMovement = m_CharacterLocomotion.RawInputVector.y;
+                m_Rideable.CharacterLocomotionHandler.OverriddenLookVector = m_CharacterLocomotionHandler.LookVector;
             } else if (m_RideState != RideState.DismountComplete) {
                 m_CharacterLocomotion.InputVector = Vector3.zero;
             } else {

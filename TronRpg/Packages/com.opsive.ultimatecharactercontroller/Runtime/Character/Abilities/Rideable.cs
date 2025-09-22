@@ -7,6 +7,7 @@
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
     using Opsive.Shared.Events;
+    using Opsive.Shared.Game;
     using Opsive.Shared.Utility;
     using Opsive.UltimateCharacterController.Character;
     using Opsive.UltimateCharacterController.Utility;
@@ -35,6 +36,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public Ride Ride { get { return m_Ride; } }
         protected Ride m_Ride;
         private Collider[] m_OverlapColliders;
+        private UltimateCharacterLocomotionHandler m_CharacterLocomotionHandler;
 
         public override int AbilityIntData
         {
@@ -47,6 +49,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public override bool IsConcurrent { get { return true; } }
 
         public UltimateCharacterLocomotion CharacterLocomotion { get { return m_CharacterLocomotion; } }
+        public UltimateCharacterLocomotionHandler CharacterLocomotionHandler { get { return m_CharacterLocomotionHandler; } }
         public GameObject GameObject { get { return m_GameObject; } }
 
         /// <summary>
@@ -69,8 +72,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             if (m_RightDismountCollider != null) {
                 m_RightDismountCollider.enabled = false;
             }
+            m_CharacterLocomotionHandler = m_GameObject.GetCachedComponent<UltimateCharacterLocomotionHandler>();
 
-            // The RideableObject should start off not responding to input.
+            // The RideableObject should not respond to input. The Ride ability will forward the input.
             EventHandler.ExecuteEvent<bool>(m_GameObject, "OnEnableGameplayInput", false);
         }
 
@@ -117,7 +121,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // Set the parent of the character so it moves with the rideable object.
             var characterLocomotion = m_Ride.CharacterLocomotion;
-
             if (m_OriginalColliders == null) {
                 m_OriginalColliders = new Collider[m_CharacterLocomotion.ColliderCount];
             } else if (m_OriginalColliders.Length < m_CharacterLocomotion.ColliderCount) {
@@ -133,6 +136,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // The character should ignore the rideable object's layers. This will prevent the character from detecting the rideable colliders.
             characterLocomotion.AddIgnoredColliders(m_OriginalColliders);
+
+            m_CharacterLocomotionHandler.OverrideInput = true;
         }
 
         /// <summary>
@@ -140,14 +145,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// </summary>
         public void OnCharacterMount()
         {
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            if (m_Ride.CharacterLocomotion.NetworkInfo == null || m_Ride.CharacterLocomotion.NetworkInfo.HasAuthority() || m_Ride.CharacterLocomotion.NetworkInfo.IsLocalPlayer()) {
-#endif
-                // Enable input so the RideableObject can move.
-                EventHandler.ExecuteEvent<bool>(m_GameObject, "OnEnableGameplayInput", true);
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            }
-#endif
             UpdateAbilityAnimatorParameters();
 
             // The rideable object should use the character's colliders to prevent clipping.
@@ -220,8 +217,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             var characterLocomotion = m_Ride.CharacterLocomotion;
             m_CharacterLocomotion.RemoveColliders(characterLocomotion.Colliders);
             m_CharacterLocomotion.AddIgnoredColliders(characterLocomotion.Colliders);
-
-            EventHandler.ExecuteEvent<bool>(m_GameObject, "OnEnableGameplayInput", false);
         }
 
         /// <summary>
@@ -250,8 +245,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             m_CharacterLocomotion.RemoveIgnoredColliders(characterLocomotion.Colliders);
             m_CharacterLocomotion.RemoveIgnoredColliders(characterLocomotion.IgnoredColliders);
 
-            // The RideableObject is no longer in control of the input.
-            EventHandler.ExecuteEvent<bool>(m_GameObject, "OnEnableGameplayInput", false);
+            m_CharacterLocomotionHandler.OverrideInput = false;
         }
     }
 }

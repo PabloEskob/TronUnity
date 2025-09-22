@@ -333,7 +333,6 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Camera.ViewTy
                 && !m_VREnabled
 #endif
                 ) {
-                m_FieldOfViewChangeTime = Time.time;
                 if (m_CameraController.ActiveViewType == this) {
                     // The field of view and location should get a head start if the damping was previously 0. This will allow the field of view and location
                     // to move back to the original value when the state is no longer active.

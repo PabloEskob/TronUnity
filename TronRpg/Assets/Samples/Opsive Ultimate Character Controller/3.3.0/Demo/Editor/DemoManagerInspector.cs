@@ -113,6 +113,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Demo
             EditorGUILayout.PropertyField(PropertyFromName("m_ControllerMapping"));
             EditorGUILayout.PropertyField(PropertyFromName("m_InGameZoneContent"));
             EditorGUILayout.PropertyField(PropertyFromName("m_InGameZoneDescription"));
+            EditorGUILayout.PropertyField(PropertyFromName("m_OnScreenControlsParent"));
             EditorGUILayout.PropertyField(PropertyFromName("m_AddAllItemsToCharacter"));
             EditorGUILayout.PropertyField(PropertyFromName("m_AddOnDemoManager"));
         }

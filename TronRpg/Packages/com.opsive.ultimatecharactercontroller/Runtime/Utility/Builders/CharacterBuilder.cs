@@ -4,8 +4,6 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-using Opsive.Shared.Integrations.InputSystem;
-
 namespace Opsive.UltimateCharacterController.Utility.Builders
 {
     using Opsive.Shared.StateSystem;
@@ -615,10 +613,10 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         {
 #if ENABLE_INPUT_SYSTEM
             if (useUnityInputSystem) {
-                if (character.GetComponentInChildren<UnityInputSystem>() == null) {
+                if (character.GetComponentInChildren<Shared.Input.InputManager.UnityInput>() == null) {
                     var inputGameObject = new GameObject(character.name + "Input");
                     inputGameObject.transform.parent = character.transform;
-                    var unityInput = inputGameObject.AddComponent<UnityInputSystem>();
+                    var unityInput = inputGameObject.AddComponent<Shared.Input.InputManager.UnityInput>();
                     var inputProxy = character.AddComponent<Shared.Input.PlayerInputProxy>();
                     inputProxy.PlayerInput = unityInput;
 
@@ -628,6 +626,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                         playerInput = inputGameObject.AddComponent<UnityEngine.InputSystem.PlayerInput>();
                     }
                     playerInput.actions = inputActions;
+                    playerInput.defaultActionMap = "Gameplay";
                 }
                 return;
             }
@@ -658,7 +657,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
             }
 
 #if ENABLE_INPUT_SYSTEM
-            var unityInputSystem = character.GetComponentInChildren<UnityInputSystem>();
+            var unityInputSystem = character.GetComponentInChildren<Shared.Input.InputManager.UnityInput>();
             if (unityInputSystem != null) {
                 Object.DestroyImmediate(unityInputSystem.gameObject, true);
             }

@@ -455,6 +455,7 @@ namespace Opsive.UltimateCharacterController.Traits
             if (m_SpawnedObjectsOnDeath != null){
                 for (int i = 0; i < m_SpawnedObjectsOnDeath.Length; ++i) {
                     var spawnedObject = ObjectPoolBase.Instantiate(m_SpawnedObjectsOnDeath[i], m_Transform.position, m_Transform.rotation);
+                    spawnedObject.transform.localScale = m_SpawnedObjectsOnDeath[i].transform.localScale;
                     Explosion explosion;
                     if ((explosion = spawnedObject.GetCachedComponent<Explosion>()) != null) {
                         explosion.Explode(gameObject);

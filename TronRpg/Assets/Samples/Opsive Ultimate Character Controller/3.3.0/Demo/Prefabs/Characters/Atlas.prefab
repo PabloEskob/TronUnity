@@ -3775,7 +3775,7 @@ MonoBehaviour:
         m_AllowItemDefinitions: []
         m_ImmediateUnequip: 0
         m_ReequipSlots: 1
-        m_AbilityMessageText: Press F to Drive
+        m_AbilityMessageText: 
         m_AbilityMessageIcon: {fileID: 0}
         m_InspectorDescription: 
         m_ObjectDetection: 2
@@ -4791,6 +4791,10 @@ MonoBehaviour:
         asm: Opsive.UltimateCharacterController}
       data:
         m_States:
+        - m_Name: OnScreenControls
+          m_Preset: {fileID: 11400000, guid: 84afedd77ac1d3346b88b50e4fc0a0cf, type: 2}
+          m_BlockList: []
+          m_Default: 0
         - m_Name: SplitScreen
           m_Preset: {fileID: 11400000, guid: 33a6bee6c19196b47b46b29930100dd0, type: 2}
           m_BlockList: []
@@ -4883,6 +4887,10 @@ MonoBehaviour:
         asm: Opsive.UltimateCharacterController}
       data:
         m_States:
+        - m_Name: OnScreenControls
+          m_Preset: {fileID: 11400000, guid: 84afedd77ac1d3346b88b50e4fc0a0cf, type: 2}
+          m_BlockList: []
+          m_Default: 0
         - m_Name: SplitScreen
           m_Preset: {fileID: 11400000, guid: 33a6bee6c19196b47b46b29930100dd0, type: 2}
           m_BlockList: []
@@ -4971,6 +4979,10 @@ MonoBehaviour:
         asm: Opsive.UltimateCharacterController}
       data:
         m_States:
+        - m_Name: OnScreenControls
+          m_Preset: {fileID: 11400000, guid: 84afedd77ac1d3346b88b50e4fc0a0cf, type: 2}
+          m_BlockList: []
+          m_Default: 0
         - m_Name: SplitScreen
           m_Preset: {fileID: 11400000, guid: 33a6bee6c19196b47b46b29930100dd0, type: 2}
           m_BlockList: []
@@ -5267,7 +5279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91d146dd2345fe48ad5ca67f9d496f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerInput: {fileID: 9063635971768706462}
+  m_PlayerInput: {fileID: 7008409211283509708}
 --- !u!114 &1388980328726493949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9328,7 +9340,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 17572325616852382}
-  - component: {fileID: 9063635971768706462}
+  - component: {fileID: 7008409211283509708}
+  - component: {fileID: 9147321074202992329}
   m_Layer: 30
   m_Name: AtlasInput
   m_TagString: Untagged
@@ -9351,7 +9364,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 70039776768570007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9063635971768706462
+--- !u!114 &7008409211283509708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9360,7 +9373,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7174115047527829634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9c18933a275014f9b208ad09865ec5, type: 3}
+  m_Script: {fileID: 11500000, guid: fb18a33f921f8084db95a8b6f2b9119d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_States:
@@ -9388,8 +9401,8 @@ MonoBehaviour:
     m_Preset: {fileID: 11400000, guid: b6af0be8234acb842b2dbd8154921128, type: 2}
     m_BlockList: []
     m_Default: 0
-  - m_Name: VirtualControls
-    m_Preset: {fileID: 11400000, guid: 871638e4997bdc04db6b7578fbfac665, type: 2}
+  - m_Name: OnScreenControls
+    m_Preset: {fileID: 11400000, guid: 827b55e2683ac33469c42711c3dc5218, type: 2}
     m_BlockList: []
     m_Default: 0
   - m_Name: TopDown
@@ -9410,10 +9423,6 @@ MonoBehaviour:
     m_Default: 1
   m_HorizontalLookInputName: Mouse X
   m_VerticalLookInputName: Mouse Y
-  m_ControllerHorizontalLookInputName: Controller X
-  m_ControllerVerticalLookInputName: Controller Y
-  m_ControllerInputMultiplier: 50
-  m_MouseControllerUpdate: 1
   m_LookVectorMode: 0
   m_LookSensitivity: {x: 2, y: 2}
   m_LookSensitivityMultiplier: 1
@@ -9433,7 +9442,37 @@ MonoBehaviour:
   m_DisableCursor: 1
   m_EnableCursorWithEscape: 1
   m_PreventLookVectorChanges: 1
-  m_JoystickUpThreshold: 1
+--- !u!114 &9147321074202992329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174115047527829634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 720db810842ff08459f23d2def207297,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7194677563430701450
 GameObject:
   m_ObjectHideFlags: 0
@@ -11915,7 +11954,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 268435401
   m_LookAtOffset: {x: 0, y: 0, z: 0}
-  m_LookAtBodyWeight: 0.025
+  m_LookAtBodyWeight: 0
   m_LookAtHeadWeight: 0.2
   m_LookAtEyesWeight: 1
   m_LookAtClampWeight: 0.35
@@ -16117,7 +16156,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 268435401
   m_LookAtOffset: {x: 0, y: 0, z: 0}
-  m_LookAtBodyWeight: 0.025
+  m_LookAtBodyWeight: 0
   m_LookAtHeadWeight: 0.2
   m_LookAtEyesWeight: 1
   m_LookAtClampWeight: 0.35

@@ -27,6 +27,10 @@ namespace Opsive.Shared.Editor.Inspectors.Input
                 EditorGUILayout.PropertyField(PropertyFromName("m_PreventLookVectorChanges"));
             }
             EditorGUILayout.PropertyField(PropertyFromName("m_JoystickUpThreshold"));
+            EditorGUILayout.PropertyField(PropertyFromName("m_ControllerHorizontalLookInputName"));
+            EditorGUILayout.PropertyField(PropertyFromName("m_ControllerVerticalLookInputName"));
+            EditorGUILayout.PropertyField(PropertyFromName("m_ControllerInputMultiplier"));
+            EditorGUILayout.PropertyField(PropertyFromName("m_MouseControllerUpdate"));
         }
     }
 }

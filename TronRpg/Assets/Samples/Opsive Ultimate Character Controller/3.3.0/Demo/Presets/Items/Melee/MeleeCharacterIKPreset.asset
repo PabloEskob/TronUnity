@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Data:
     m_ObjectType: Opsive.UltimateCharacterController.Character.CharacterIK
-    m_ValueHashes: f80ac3366e7947cfb1e1bbb1f3f33551
+    m_ValueHashes: 
+    m_LongValueHashes: 00000000000000006e7947cf05986529b1e1bbb1aec45c73f3f33551403c5c73
     m_ValuePositions: 0000000004000000080000000c000000
-    m_Values: 0000803f000000009a99193fcdcc4c3e
+    m_Values: 0000803f00000000cdcc4c3e00000000
     m_UnityObjects: []
-    m_Version: 3.1
+    m_Version: 3.4

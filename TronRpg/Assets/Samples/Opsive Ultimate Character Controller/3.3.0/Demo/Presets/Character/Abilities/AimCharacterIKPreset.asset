@@ -15,8 +15,8 @@ MonoBehaviour:
   m_Data:
     m_ObjectType: Opsive.UltimateCharacterController.Character.CharacterIK
     m_ValueHashes: 
-    m_LongValueHashes: f3f33551403c5c73b1e1bbb1aec45c73
+    m_LongValueHashes: b1e1bbb1aec45c73f3f33551403c5c73
     m_ValuePositions: 0000000004000000
-    m_Values: cdcccc3ecdcc4c3f
+    m_Values: cdcc4c3f00000000
     m_UnityObjects: []
-    m_Version: 3.2
+    m_Version: 3.4

@@ -22,6 +22,18 @@ namespace Opsive.UltimateCharacterController.Character
         protected UltimateCharacterLocomotion m_CharacterLocomotion;
         private List<ActiveInputEvent> m_ActiveInputList;
         private bool m_InputEnabled;
+        private Vector2 m_LookVector;
+
+        private bool m_OverrideInput;
+        private float m_OverriddenHorizontalMovement;
+        private float m_OverriddenForwardMovement;
+        private Vector2 m_OverriddenLookVector;
+
+        public Vector2 LookVector { get => m_LookVector; set => m_LookVector = value; }
+        public bool OverrideInput { get => m_OverrideInput; set => m_OverrideInput = value; }
+        public float OverriddenHorizontalMovement { get => m_OverriddenHorizontalMovement; set => m_OverriddenHorizontalMovement = value; }
+        public float OverriddenForwardMovement { get => m_OverriddenForwardMovement; set => m_OverriddenForwardMovement = value; }
+        public Vector2 OverriddenLookVector { get => m_OverriddenLookVector; set => m_OverriddenLookVector = value; }
 
         /// <summary>
         /// Internal method which initializes the default values.
@@ -51,6 +63,22 @@ namespace Opsive.UltimateCharacterController.Character
         }
 
         /// <summary>
+        /// Returns the input for the character.
+        /// </summary>
+        /// <param name="horizontalMovement">-1 to 1 value specifying the amount of horizontal movement.</param>
+        /// <param name="forwardMovement">-1 to 1 value specifying the amount of forward movement.</param>
+        public override void GetPositionInput(out float horizontalMovement, out float forwardMovement)
+        {
+            if (m_OverrideInput) {
+                horizontalMovement = m_OverriddenHorizontalMovement;
+                forwardMovement = m_OverriddenForwardMovement;
+                return;
+            }
+
+            base.GetPositionInput(out horizontalMovement, out forwardMovement);
+        }
+
+        /// <summary>
         /// Returns the rotation input for the character.
         /// </summary>
         /// <param name="horizontalMovement">-1 to 1 value specifying the amount of horizontal movement.</param>
@@ -58,13 +86,18 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="deltaYawRotation">Value specifying the number of degrees changed on the local yaw axis.</param>
         public override void GetRotationInput(float horizontalMovement, float forwardMovement, out float deltaYawRotation)
         {
+            if (m_OverrideInput) {
+                deltaYawRotation = m_CharacterLocomotion.ActiveMovementType.GetDeltaYawRotation(horizontalMovement, forwardMovement, m_OverriddenLookVector.x, m_OverriddenLookVector.y);
+                return;
+            }
+
             if (!enabled) {
                 deltaYawRotation = 0;
                 return;
             }
 
-            var lookVector = m_PlayerInput.GetLookVector(true);
-            deltaYawRotation = m_CharacterLocomotion.ActiveMovementType.GetDeltaYawRotation(horizontalMovement, forwardMovement, lookVector.x, lookVector.y);
+            m_LookVector = m_PlayerInput.GetLookVector(true);
+            deltaYawRotation = m_CharacterLocomotion.ActiveMovementType.GetDeltaYawRotation(horizontalMovement, forwardMovement, m_LookVector.x, m_LookVector.y);
         }
 
         /// <summary>

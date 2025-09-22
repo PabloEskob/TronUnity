@@ -273,7 +273,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// </summary>
         /// <param name="characterLocomotion">The character locomotion component to initialize the ability to.</param>
         /// <param name="index">The prioirty index of the ability within the controller.</param>
-        public void Initialize(UltimateCharacterLocomotion characterLocomotion, int index)
+        public virtual void Initialize(UltimateCharacterLocomotion characterLocomotion, int index)
         {
             m_CharacterLocomotion = characterLocomotion;
             m_GameObject = characterLocomotion.gameObject;

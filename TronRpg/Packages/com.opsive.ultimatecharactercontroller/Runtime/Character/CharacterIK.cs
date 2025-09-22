@@ -96,6 +96,7 @@ namespace Opsive.UltimateCharacterController.Character
         public float LookAtClampWeight { get { return m_LookAtClampWeight; } set { m_LookAtClampWeight = value; } }
         public float LookAtAdjustmentSpeed { get { return m_LookAtAdjustmentSpeed; } set { m_LookAtAdjustmentSpeed = value; } }
         public string ActiveLookAtStateName { get { return m_ActiveLookAtStateName; } set { m_ActiveLookAtStateName = value; } }
+        public float HipsPositionOffset { get { return m_HipsPositionOffset; } set { m_HipsPositionOffset = value; } }
         public float LookAtWeightAdjustmentSpeed { get { return m_LookAtWeightAdjustmentSpeed; } set { m_LookAtWeightAdjustmentSpeed = value; } }
         public float HipsPositionAdjustmentSpeed
         {

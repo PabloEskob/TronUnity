@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3e87cf6b4cabfe34596032d7d26ebda3
+guid: b9c1e120ec34ee541baa0d2bd7e63912
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -33,8 +33,8 @@ PluginImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 166053
-  packageName: Ultimate Inventory System
-  packageVersion: 1.3.4p1
+  productId: 233710
+  packageName: Ultimate Character Controller
+  packageVersion: 3.3.1
   assetPath: Packages/com.opsive.shared/Runtime/Game/Opsive.Shared.Game.dll
-  uploadId: 782755
+  uploadId: 790542
