@@ -417,7 +417,7 @@ MonoBehaviour:
         m_Bindings:
           m_Bindings: []
         m_Enabled: 1
-        m_ID: -1
+        m_ID: 0
         m_Name: 
         m_ActiveAttackStartEventTrigger:
           m_WaitForAnimationEvent: 0

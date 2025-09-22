@@ -234,7 +234,7 @@ MonoBehaviour:
   m_StopUseAbilityOnCompleteDelay: 0.2
   m_UseEvent:
     m_WaitForAnimationEvent: 0
-    m_Duration: 0.2
+    m_Duration: 0.1
     m_WaitForSlotEvent: 0
   m_UseCompleteEvent:
     m_WaitForAnimationEvent: 0
@@ -644,7 +644,7 @@ MonoBehaviour:
             m_AllowDuringMovement: 1
             m_RequireGrounded: 0
             m_StateName: 
-            m_ItemSubstateIndex: 2
+            m_ItemSubstateIndex: 3
             m_AudioClipSet:
               m_AudioConfig: {fileID: 0}
               m_AudioClips: []
@@ -669,9 +669,9 @@ MonoBehaviour:
         m_Name: 
         m_FireInLookSourceDirection: 0
         m_UseLookSourcePosition: 0
-        m_ProjectileFireVelocityMagnitude: 50
+        m_ProjectileFireVelocityMagnitude: 10
         m_ProjectileFiredLayer: 7
-        m_LayerChangeDelay: 0
+        m_LayerChangeDelay: 0.5
         m_ProjectileEnableDelayAfterOtherUse: 0.4
         m_FireCount: 1
         m_FirePointLocation:
@@ -684,7 +684,7 @@ MonoBehaviour:
         m_Spread: 0.01
         m_ImpactLayers:
           serializedVersion: 2
-          m_Bits: 3758096345
+          m_Bits: 0
         m_InheritCharacterVelocity: 0
     - rid: 4789568660747845834
       type: {class: SpawnProjectile, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Shootable, asm: Opsive.UltimateCharacterController}
@@ -699,7 +699,7 @@ MonoBehaviour:
         m_Enabled: 1
         m_ID: 0
         m_Name: 
-        m_Projectile: {fileID: 2546584858449500779, guid: b7b1146591aefbe42bbed13843ecf450, type: 3}
+        m_Projectile: {fileID: 4152696031691845650, guid: f818e05ac4220914f94310fb3ada4db9, type: 3}
         m_ProjectileStartLayer: 0
         m_ProjectileVisibility: 0
         m_StartVisibleProjectileEvent:
