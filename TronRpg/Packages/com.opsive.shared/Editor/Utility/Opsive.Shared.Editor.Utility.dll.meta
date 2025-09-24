@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 788bee6962e707c408a5bf8bb5ae3457
+guid: bdedcf5dba22c4649a3810a7e3d284d6
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -31,10 +31,3 @@ PluginImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 233710
-  packageName: Ultimate Character Controller
-  packageVersion: 3.3.1
-  assetPath: Packages/com.opsive.shared/Editor/Utility/Opsive.Shared.Editor.Utility.dll
-  uploadId: 790542
