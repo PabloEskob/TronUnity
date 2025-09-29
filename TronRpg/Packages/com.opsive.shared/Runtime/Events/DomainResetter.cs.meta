@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 384d3bda6eb7fa7419baa2a10de5509b
 timeCreated: 1553589428
-licenseType: Pro
+licenseType: Store
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -17,4 +17,4 @@ AssetOrigin:
   packageName: Behavior Designer Pro - DOTS Powered Behavior Trees
   packageVersion: 2.1.2
   assetPath: Packages/com.opsive.shared/Runtime/Events/DomainResetter.cs
-  uploadId: 789794
+  uploadId: 794612
