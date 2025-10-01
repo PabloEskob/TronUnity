@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 260c6747ae87a674d8403dcdb3a3d80f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Animations/ctrl_Hammer_KneelFloor.controller
+  uploadId: 677937

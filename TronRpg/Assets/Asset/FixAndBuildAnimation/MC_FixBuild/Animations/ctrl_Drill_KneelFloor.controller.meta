@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8a7d067b0ee92cb4d87726fb4cd0088a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Animations/ctrl_Drill_KneelFloor.controller
+  uploadId: 677937

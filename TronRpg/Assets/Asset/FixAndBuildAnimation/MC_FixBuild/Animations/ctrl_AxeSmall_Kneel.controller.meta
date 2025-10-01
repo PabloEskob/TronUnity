@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f0ef419fb8d97749a3ec4fb6a8200f0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Animations/ctrl_AxeSmall_Kneel.controller
+  uploadId: 677937

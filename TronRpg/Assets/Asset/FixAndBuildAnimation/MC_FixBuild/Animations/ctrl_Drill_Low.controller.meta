@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: df49d4d5d98036e47ac63ad23bc3c2b2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Animations/ctrl_Drill_Low.controller
+  uploadId: 677937

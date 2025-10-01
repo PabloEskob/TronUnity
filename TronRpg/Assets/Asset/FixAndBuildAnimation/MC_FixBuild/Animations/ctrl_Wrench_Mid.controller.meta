@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: add465a0dad55214c875a06c2fa13311
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Animations/ctrl_Wrench_Mid.controller
+  uploadId: 677937

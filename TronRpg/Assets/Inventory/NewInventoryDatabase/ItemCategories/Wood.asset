@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a44df922c40df4fa80e23de1480e3f, type: 3}
+  m_Name: Wood
+  m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Core.ItemCategory
+  m_ID: 598986218
+  m_ParentsData:
+    m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemCategory,
+      Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
+    m_ValueHashes: 
+    m_LongValueHashes: 4c1e4f8e62aa191aedcfa32778e3fda65d5b81463bc45586
+    m_ValuePositions: 000000000400000008000000
+    m_Values: 010000000100000000000000
+    m_UnityObjects:
+    - {fileID: 11400000, guid: c4a35259646ba8d4897745f21dc91386, type: 2}
+    m_Version: 3.4
+  m_ChildrenData:
+    m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemCategory,
+      Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
+    m_ValueHashes: 
+    m_LongValueHashes: 4c1e4f8e62aa191aedcfa32778e3fda6
+    m_ValuePositions: 0000000004000000
+    m_Values: 0000000000000000
+    m_UnityObjects: []
+    m_Version: 3.4
+  m_ElementsData:
+    m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemDefinition,
+      Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
+    m_ValueHashes: 
+    m_LongValueHashes: 4c1e4f8e62aa191ac2330064f10375df07c1b5891de38a2e
+    m_ValuePositions: 000000000400000008000000
+    m_Values: 010000000100000000000000
+    m_UnityObjects:
+    - {fileID: 11400000, guid: 7e8923e8aa1a4ed459ef97ea0d56eae9, type: 2}
+    m_Version: 3.4
+  m_IsAbstract: 0
+  m_Color: {r: 0.22676244, g: 0.0891558, b: 0.6086684, a: 1}
+  m_EditorIcon: {fileID: 0}
+  m_ItemCategoryAttributeCollection:
+    m_AttributeCollectionData: []
+  m_RequiredItemDefinitionAttributes:
+    m_AttributeCollectionData:
+    - m_ObjectType: 'Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]'
+      m_ValueHashes: 
+      m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
+      m_ValuePositions: 000000000e0000000f0000000f0000001300000013000000170000001b000000
+      m_Values: 537461636b53697a654c696d697401000000006410b78e0000000014000000
+      m_UnityObjects: []
+      m_Version: 3.4
+  m_RequiredItemAttributes:
+    m_AttributeCollectionData: []
+  m_IsMutable: 1
+  m_IsUnique: 1

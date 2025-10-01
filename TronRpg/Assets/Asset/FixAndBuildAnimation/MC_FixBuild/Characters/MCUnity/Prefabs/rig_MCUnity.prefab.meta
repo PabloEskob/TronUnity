@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fc1967ff9a2f12446918d1d9529b83a8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Characters/MCUnity/Prefabs/rig_MCUnity.prefab
+  uploadId: 677937

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2ab63ff3129c3ed4ebc1cf955d47e089
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290463
+  packageName: MC Fix & Build - Believable 3D Animations by MoCap Central
+  packageVersion: 1.1.0
+  assetPath: Assets/MoCapCentral/MC_FixBuild/Characters/MCUnity/Materials/M_BodyR.mat
+  uploadId: 677937
