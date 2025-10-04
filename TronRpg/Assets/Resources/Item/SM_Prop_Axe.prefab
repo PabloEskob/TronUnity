@@ -203,11 +203,11 @@ MonoBehaviour:
   m_StopUseAbilityOnCompleteDelay: 1
   m_UseEvent:
     m_WaitForAnimationEvent: 0
-    m_Duration: 0.2
+    m_Duration: 1
     m_WaitForSlotEvent: 0
   m_UseCompleteEvent:
     m_WaitForAnimationEvent: 0
-    m_Duration: 2
+    m_Duration: 1.3
     m_WaitForSlotEvent: 0
   m_ForceRootMotionPosition: 1
   m_ForceRootMotionRotation: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
         m_MultiHitFrameCount: 50
         m_ImpactLayers:
           serializedVersion: 2
-          m_Bits: 3758096345
+          m_Bits: 33554432
         m_TriggerInteraction: 1
         m_MaxCollisionCount: 20
         m_ForwardShieldSensitivity: -0.75
@@ -297,7 +297,7 @@ MonoBehaviour:
             m_MinimumZOffset: 0
             m_RequireMovement: 0
             m_SingleHit: 0
-            m_SurfaceImpact: {fileID: 0}
+            m_SurfaceImpact: {fileID: 11400000, guid: 622645b611514614f9e66753afc5a8a8, type: 2}
     - rid: 9145895005352362204
       type: {class: GenericMeleeImpactModule, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Melee, asm: Opsive.UltimateCharacterController}
       data:

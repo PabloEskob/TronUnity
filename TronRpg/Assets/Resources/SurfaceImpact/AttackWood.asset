@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
-  m_Name: LandOnWood
+  m_Name: AttackWood
   m_EditorClassIdentifier: 
   m_SpawnedObjects: []
   m_Decals: []
@@ -19,7 +19,10 @@ MonoBehaviour:
   m_AllowedDecalEdgeOverlap: 0.25
   m_AudioConfig: {fileID: 0}
   m_AudioClips:
-  - {fileID: 8300000, guid: f06d84df5fc417f499754a35ec84d529, type: 3}
+  - {fileID: 8300000, guid: 990155e811ba6c749aeb8e59401ff30f, type: 3}
+  - {fileID: 8300000, guid: 7a1a2eee05f0d4891a7a693b1866521b, type: 3}
+  - {fileID: 8300000, guid: f2df404e0aa2343fda3a088cbae0ec1a, type: 3}
+  - {fileID: 8300000, guid: 1ecf85b167cc547beb5e448c3084fd7f, type: 3}
   m_MinAudioVolume: 1
   m_MaxAudioVolume: 1
   m_MinAudioPitch: 1

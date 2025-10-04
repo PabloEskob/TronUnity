@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -28,4 +29,6 @@ MonoBehaviour:
     m_SurfaceEffect: {fileID: 11400000, guid: 28e87413021007e448a5328a4cba52b0, type: 2}
   - m_SurfaceImpact: {fileID: 11400000, guid: caee910e74385d741bbea4e183f07e87, type: 2}
     m_SurfaceEffect: {fileID: 11400000, guid: d9e2e11e4190ac743b129da427131ced, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: 622645b611514614f9e66753afc5a8a8, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 4585baabf2fb1c4488cfeb8cc8a09347, type: 2}
   m_AllowFootprints: 1
