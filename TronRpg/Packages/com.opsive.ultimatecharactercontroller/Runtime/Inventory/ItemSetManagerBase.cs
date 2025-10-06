@@ -77,6 +77,7 @@ namespace Opsive.UltimateCharacterController.Inventory
             Initialize(false);
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         /// <summary>
         /// Initializes the ItemSetManager.
         /// </summary>
@@ -90,7 +91,11 @@ namespace Opsive.UltimateCharacterController.Inventory
             m_Initialized = true;
 
             m_GameObject = gameObject;
-            m_Inventory = m_GameObject.GetCachedComponent<InventoryBase>();
+            if (Application.isPlaying) {
+                m_Inventory = m_GameObject.GetCachedComponent<InventoryBase>();
+            } else {
+                m_Inventory = m_GameObject.GetComponent<InventoryBase>();
+            }
             if (m_Inventory == null) {
                 Debug.LogError("An Inventory component is required for an ItemSetManager.");
             }
