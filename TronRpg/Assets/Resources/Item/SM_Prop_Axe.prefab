@@ -199,18 +199,18 @@ MonoBehaviour:
     m_DebugAction: 0
     m_CharacterItemActionDebugModuleType: 0
   m_UseRate: 3
-  m_FaceTarget: 0
+  m_FaceTarget: 1
   m_StopUseAbilityOnCompleteDelay: 1
   m_UseEvent:
-    m_WaitForAnimationEvent: 0
+    m_WaitForAnimationEvent: 1
     m_Duration: 1
     m_WaitForSlotEvent: 0
   m_UseCompleteEvent:
-    m_WaitForAnimationEvent: 0
+    m_WaitForAnimationEvent: 1
     m_Duration: 1.3
     m_WaitForSlotEvent: 0
   m_ForceRootMotionPosition: 1
-  m_ForceRootMotionRotation: 1
+  m_ForceRootMotionRotation: 0
   m_TriggerActionModuleGroup:
     m_Modules:
     - rid: 9145895053900382210

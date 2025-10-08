@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 10
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,12 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,6 +67,9 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 1
     m_BakeBackend: 0
@@ -94,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 0a9de500e513dd25896350a384aebf38, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 0a9de500e513dd25896350a384aebf38,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -169,11 +174,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -195,7 +195,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -259,7 +258,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &13656646 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 13656645}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &15912270
@@ -312,11 +312,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -338,7 +333,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -386,11 +380,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -412,7 +401,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -491,7 +479,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &56483282 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 56483281}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &58651776
@@ -590,7 +579,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &62383626 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 62383625}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &69095788
@@ -665,10 +655,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69095788}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -789,11 +779,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -815,7 +800,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -879,11 +863,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -905,7 +884,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1007,7 +985,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &87383185 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 87383184}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &95337780
@@ -1060,11 +1039,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1086,7 +1060,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1149,11 +1122,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1175,7 +1143,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1239,7 +1206,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &98042409 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 98042408}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &102480182
@@ -1293,7 +1261,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &102480183 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 102480182}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &122180539
@@ -1347,7 +1316,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &122180540 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 122180539}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &128942491
@@ -1400,11 +1370,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1426,7 +1391,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1490,7 +1454,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &130404086 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 130404085}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &157216829
@@ -1543,11 +1508,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1569,7 +1529,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1755,11 +1714,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1781,7 +1735,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1844,11 +1797,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1870,7 +1818,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1934,7 +1881,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &207349893 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 207349892}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &210080822
@@ -1988,7 +1936,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &210080823 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 210080822}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &214663926
@@ -2042,7 +1991,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &214663927 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 214663926}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &217814898
@@ -2095,11 +2045,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2121,7 +2066,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2185,7 +2129,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &237550442 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 237550441}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &238225242
@@ -2238,11 +2183,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2264,7 +2204,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2327,11 +2266,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2353,7 +2287,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2368,7 +2301,8 @@ MeshFilter:
   m_Mesh: {fileID: 4300002, guid: f9aa892f2cc50497ca083fd4925607f4, type: 3}
 --- !u!4 &266485399 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 821173792}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &266555887
@@ -2499,11 +2433,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2525,7 +2454,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2588,11 +2516,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2614,7 +2537,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2677,11 +2599,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2703,7 +2620,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2830,11 +2746,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2856,7 +2767,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2957,7 +2867,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &340157366 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 340157365}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &373339006
@@ -3011,7 +2922,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &373339007 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 373339006}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &382013919
@@ -3065,7 +2977,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &382013920 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 382013919}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &388593231
@@ -3119,7 +3032,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &388593232 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 388593231}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &399579464
@@ -3251,11 +3165,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3277,7 +3186,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3341,7 +3249,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &439519226 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 439519225}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &460918011
@@ -3394,11 +3303,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3420,7 +3324,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3472,7 +3375,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &463715931
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3486,7 +3389,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -3589,11 +3491,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3615,7 +3512,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3678,11 +3574,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3704,7 +3595,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -3768,7 +3658,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &483538215 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 483538214}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &485319312
@@ -3822,7 +3713,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &485319313 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 485319312}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &488588019
@@ -3920,11 +3812,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3946,7 +3833,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -4085,7 +3971,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &506121557 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 506121556}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &515156694
@@ -4138,11 +4025,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4164,7 +4046,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -4228,7 +4109,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &520293203 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 520293202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &551317348
@@ -4282,7 +4164,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &551317349 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 551317348}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &553557481
@@ -4415,7 +4298,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &556292785 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 556292784}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &562804192
@@ -4469,7 +4353,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &562804193 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 562804192}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &578505071
@@ -4650,7 +4535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &599306728
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4664,7 +4549,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -4747,7 +4631,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &600330860 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 600330859}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &608338302
@@ -4800,11 +4685,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4826,7 +4706,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -4890,7 +4769,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &648958404 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 648958403}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &662682961
@@ -4943,11 +4823,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4969,7 +4844,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5033,7 +4907,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &662863160 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 662863159}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &669093203
@@ -5122,7 +4997,7 @@ CapsuleCollider:
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &669093208
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5136,7 +5011,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -5192,11 +5066,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5218,7 +5087,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5415,7 +5283,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &690418722 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 690418721}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &696667357
@@ -5468,11 +5337,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5494,7 +5358,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5557,11 +5420,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5583,7 +5441,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5647,7 +5504,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &710914988 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 710914987}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &711318623
@@ -5700,11 +5558,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5726,7 +5579,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5790,7 +5642,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &712124070 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 712124069}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &718854766
@@ -5844,7 +5697,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &718854767 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 718854766}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &723378981
@@ -5898,7 +5752,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &723378982 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 723378981}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &746908071
@@ -5952,7 +5807,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &746908072 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 746908071}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &749909605
@@ -6055,7 +5911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &758812091
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6069,7 +5925,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -6152,7 +6007,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &759895413 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 759895412}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &773373092
@@ -6363,11 +6219,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6389,7 +6240,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -6453,7 +6303,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &806802446 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 806802445}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &811617825
@@ -6495,7 +6346,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &811617827
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6509,7 +6360,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -6613,7 +6463,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &812694880 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 812694879}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &817856739
@@ -6629,10 +6480,9 @@ GameObject:
   - component: {fileID: 817856741}
   - component: {fileID: 817856740}
   - component: {fileID: 817856745}
+  - component: {fileID: 817856747}
   - component: {fileID: 817856748}
   - component: {fileID: 817856749}
-  - component: {fileID: 817856750}
-  - component: {fileID: 817856751}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6737,6 +6587,26 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &817856747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817856739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!114 &817856748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6762,81 +6632,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   page: example_turn_based
---- !u!114 &817856750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817856739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
---- !u!114 &817856751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817856739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
 --- !u!1001 &819324116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6888,7 +6683,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &819324117 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 819324116}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &821173792
@@ -7031,11 +6827,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7057,7 +6848,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7246,11 +7036,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7272,7 +7057,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7336,7 +7120,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &866925553 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 866925552}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &877059389
@@ -7390,7 +7175,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &877059390 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 877059389}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &889894313
@@ -7448,7 +7234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &889894316
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7462,7 +7248,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -7545,7 +7330,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &890253501 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 890253500}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &892705043
@@ -7599,7 +7385,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &892705044 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 892705043}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &906786284
@@ -7653,7 +7440,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &906786285 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 906786284}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &907450322
@@ -7706,11 +7494,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7732,7 +7515,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7788,7 +7570,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &908458641
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7802,7 +7584,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -7897,7 +7678,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &935612864 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 935612863}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &944147243
@@ -7951,7 +7733,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &944147244 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 944147243}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &972137428
@@ -8084,7 +7867,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &984115715 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 984115714}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &992302738
@@ -8137,11 +7921,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8163,7 +7942,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -8227,7 +8005,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &996429806 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 996429805}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1007115890
@@ -8281,7 +8060,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1007115891 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1007115890}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1041701282
@@ -8334,11 +8114,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8360,7 +8135,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -8424,7 +8198,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1059848674 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1059848673}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1060766356
@@ -8477,11 +8252,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8503,7 +8273,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -8649,7 +8418,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1066950379 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1066950378}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1071563447
@@ -8703,7 +8473,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1071563448 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1071563447}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1098738306
@@ -8757,7 +8528,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1098738307 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1098738306}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1099365278
@@ -8811,7 +8583,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1099365279 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1099365278}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1104876832
@@ -8907,11 +8680,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8933,7 +8701,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -8997,7 +8764,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1114902881 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1114902880}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1121502251
@@ -9050,11 +8818,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9076,7 +8839,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -9140,7 +8902,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1124855656 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1124855655}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1135632309
@@ -9193,11 +8956,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9219,7 +8977,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -9282,11 +9039,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9308,7 +9060,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -9371,11 +9122,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9397,7 +9143,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -9526,7 +9271,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1161559410 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1161559409}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1175916781
@@ -9580,7 +9326,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1175916782 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1175916781}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1178192921
@@ -9633,11 +9380,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9659,7 +9401,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -9723,7 +9464,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1178680238 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1178680237}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1185098540
@@ -9810,7 +9552,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1187498619
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9824,7 +9566,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -9928,7 +9669,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1220232255 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1220232254}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1225084860
@@ -9982,7 +9724,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1225084861 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1225084860}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1236059616
@@ -10036,7 +9779,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1236059617 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1236059616}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1238615430
@@ -10090,7 +9834,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1238615431 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1238615430}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1248359746
@@ -10144,7 +9889,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1248359747 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1248359746}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1258574423
@@ -10198,7 +9944,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1258574424 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1258574423}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1269795036
@@ -10252,7 +9999,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1269795037 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1269795036}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1278434234
@@ -10305,11 +10053,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10331,7 +10074,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -10394,11 +10136,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10420,7 +10157,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -10484,7 +10220,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1284181135 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1284181134}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1287793554
@@ -10538,7 +10275,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1287793555 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1287793554}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1289872447
@@ -10591,11 +10329,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10617,7 +10350,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -10681,7 +10413,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1290814409 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1290814408}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1310541267
@@ -10820,11 +10553,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10846,7 +10574,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -10955,7 +10682,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1341121254 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1341121253}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1354429636
@@ -11008,11 +10736,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11034,7 +10757,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -11086,7 +10808,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1356866791
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11100,7 +10822,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -11203,11 +10924,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11229,7 +10945,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -11527,11 +11242,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11553,7 +11263,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -11617,7 +11326,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1383200814 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1383200813}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1387966615
@@ -11671,7 +11381,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1387966616 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1387966615}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1396954525
@@ -11725,7 +11436,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1396954526 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1396954525}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1404959261
@@ -11778,11 +11490,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11804,7 +11511,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -11915,7 +11621,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1428606489 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1428606488}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1442801846
@@ -11968,11 +11675,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11994,7 +11696,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -12058,7 +11759,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1454353297 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1454353296}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1461429999
@@ -12111,11 +11813,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12137,7 +11834,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -12349,10 +12045,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467062836}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -12450,7 +12146,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1470655896 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1470655895}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1476036633
@@ -12504,7 +12201,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1476036634 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1476036633}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1485976002
@@ -12558,7 +12256,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1485976003 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1485976002}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1487527149
@@ -12612,7 +12311,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1487527150 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1487527149}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1487748553
@@ -12711,7 +12411,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1490377214 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1490377213}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1526977188
@@ -12764,11 +12465,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12790,7 +12486,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -12854,7 +12549,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1532775615 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1532775614}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1534321532
@@ -12908,7 +12604,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1534321533 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1534321532}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1575337024
@@ -12962,7 +12659,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1575337025 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1575337024}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1585527188
@@ -13016,7 +12714,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1585527189 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1585527188}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1593433669
@@ -13069,11 +12768,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13095,7 +12789,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -13227,7 +12920,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1603887852 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1603887851}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1612413777
@@ -13325,11 +13019,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13351,7 +13040,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -13403,7 +13091,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1647617060
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -13417,7 +13105,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -13521,7 +13208,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1653535406 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1653535405}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1653767556
@@ -13575,7 +13263,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1653767557 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1653767556}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1676378949
@@ -13629,7 +13318,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1676378950 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1676378949}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1678143924
@@ -13683,7 +13373,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1678143925 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1678143924}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1696724479
@@ -13737,7 +13428,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1696724480 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1696724479}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1710826747
@@ -13790,11 +13482,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13816,7 +13503,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -13925,7 +13611,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1719635821 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1719635820}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1746349175
@@ -13978,11 +13665,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14004,7 +13686,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -14068,7 +13749,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1749706983 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1749706982}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1753801831
@@ -14121,11 +13803,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14147,7 +13824,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -14170,7 +13846,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1789866500}
   - component: {fileID: 1789866499}
-  - component: {fileID: 1789866501}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -14186,8 +13861,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789866498}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -14237,12 +13913,8 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
-  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-  m_LightUnit: 1
-  m_LuxAtDistance: 1
-  m_EnableSpotReflector: 1
 --- !u!4 &1789866500
 Transform:
   m_ObjectHideFlags: 0
@@ -14258,35 +13930,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1789866501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789866498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_CustomShadowLayers: 0
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
-  m_RenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_ShadowRenderingLayersMask:
-    serializedVersion: 0
-    m_Bits: 1
-  m_Version: 4
-  m_LightLayerMask: 1
-  m_ShadowLayerMask: 1
-  m_RenderingLayers: 1
-  m_ShadowRenderingLayers: 1
 --- !u!1 &1799208765
 GameObject:
   m_ObjectHideFlags: 0
@@ -14483,7 +14126,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1816294878 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1816294877}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1843731918
@@ -14681,7 +14325,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1899719767 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1899719766}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1905781679
@@ -14795,7 +14440,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1917879679 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1917879678}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1933213058
@@ -14928,7 +14574,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1939269754 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1939269753}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1942526842
@@ -15027,7 +14674,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1949478875 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1949478874}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1960427174
@@ -15081,7 +14729,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1960427175 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1960427174}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1960959150
@@ -15135,7 +14784,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1960959151 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1960959150}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1982570839
@@ -15189,7 +14839,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1982570840 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1982570839}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1986502486
@@ -15243,7 +14894,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &1986502487 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 1986502486}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1992359121
@@ -15296,11 +14948,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -15322,7 +14969,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -15385,11 +15031,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -15411,7 +15052,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -15620,7 +15260,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &2012424492 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 2012424491}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2018147525
@@ -15674,7 +15315,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &2018147526 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 2018147525}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2042682066
@@ -15777,7 +15419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &2053992278
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15791,7 +15433,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -15874,7 +15515,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &2057769075 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 2057769074}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060864769
@@ -15932,7 +15574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &2060864772
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15946,7 +15588,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -16015,6 +15656,7 @@ MonoBehaviour:
   showNavGraphs: 1
   showUnwalkableNodes: 0
   debugMode: 0
+  graphUpdateDebugMode: 0
   debugFloor: 0
   debugRoof: 1
   manualDebugFloorRoof: 0
@@ -16049,6 +15691,7 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
+  showGraphsInStandalonePlayer: 0
 --- !u!4 &2070547867
 Transform:
   m_ObjectHideFlags: 0
@@ -16115,7 +15758,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &2080843945 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 2080843944}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2082626141
@@ -16169,7 +15813,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &2082626142 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 2082626141}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2098943846
@@ -16222,11 +15867,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -16248,7 +15888,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -16296,11 +15935,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -16322,7 +15956,6 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -16401,7 +16034,8 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
 --- !u!4 &2141361695 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 470620, guid: 556b220813bf1451194acec5abeb55d1,
+    type: 3}
   m_PrefabInstance: {fileID: 2141361694}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
