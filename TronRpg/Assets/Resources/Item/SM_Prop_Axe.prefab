@@ -448,7 +448,7 @@ MonoBehaviour:
         m_MultiHitFrameCount: 50
         m_ImpactLayers:
           serializedVersion: 2
-          m_Bits: 3758096345
+          m_Bits: 33554432
         m_TriggerInteraction: 1
         m_MaxCollisionCount: 20
         m_ForwardShieldSensitivity: -0.75
