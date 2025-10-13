@@ -260,7 +260,7 @@ MonoBehaviour:
           m_WaitForAnimationEvent: 0
           m_Duration: 0.2
           m_WaitForSlotEvent: 0
-        m_SingleHit: 0
+        m_SingleHit: 1
     - rid: 9145895005352362204
       type: {class: GenericMeleeImpactModule, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Melee, asm: Opsive.UltimateCharacterController}
       data:
@@ -284,6 +284,7 @@ MonoBehaviour:
           - rid: 9145895005352362208
           - rid: 9145895005352362209
           - rid: 9145895005352362210
+          - rid: 9145895251868909894
         m_FailImpactActions:
           m_ImpactActions: []
     - rid: 9145895005352362205
@@ -453,6 +454,22 @@ MonoBehaviour:
         m_ForwardShieldSensitivity: -0.75
         m_SphereCenter: {x: 0, y: 1, z: 1}
         m_SphereRadius: 0.5
+    - rid: 9145895251868909894
+      type: {class: GrantLogsImpactAction, ns: , asm: Assembly-CSharp}
+      data:
+        m_States:
+        - m_Name: Default
+          m_Preset: {fileID: 0}
+          m_BlockList: []
+          m_Default: 1
+        m_Bindings:
+          m_Bindings: []
+        m_Enabled: 1
+        m_Delay: 0
+        m_AllowMultiHits: 0
+        LogItemDefinitionName: Log
+        AmountPerHit: 1
+        TargetTag: Tree
 --- !u!1 &6590849671213439740
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ MonoBehaviour:
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
       m_ValuePositions: 000000000e0000000f0000000f0000001300000013000000170000001b000000
-      m_Values: 537461636b53697a654c696d697401010000006410b78e2800000028000000
+      m_Values: 537461636b53697a654c696d697401010000006410b78e1400000014000000
       m_UnityObjects: []
       m_Version: 3.4
   m_DefaultItem:
@@ -41,4 +41,4 @@ MonoBehaviour:
     m_ItemDefinition: {fileID: 11400000}
     m_ItemAttributeCollection:
       m_AttributeCollectionData: []
-  m_EditorIcon: {fileID: 0}
+  m_EditorIcon: {fileID: 4126004077657876305, guid: 50fc8ea05e8ba3c4abe0062bb85830c6, type: 3}

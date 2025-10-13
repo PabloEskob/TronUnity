@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Animal
   - Water
+  - Tree
   layers:
   - Default
   - TransparentFX

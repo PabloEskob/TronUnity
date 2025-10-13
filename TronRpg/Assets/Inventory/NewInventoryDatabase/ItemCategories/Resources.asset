@@ -59,4 +59,4 @@ MonoBehaviour:
   m_RequiredItemAttributes:
     m_AttributeCollectionData: []
   m_IsMutable: 1
-  m_IsUnique: 1
+  m_IsUnique: 0
