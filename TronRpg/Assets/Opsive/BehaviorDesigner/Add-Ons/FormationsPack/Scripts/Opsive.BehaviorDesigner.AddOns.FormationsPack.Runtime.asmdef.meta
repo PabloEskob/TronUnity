@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 12e635c490172c34fa4c0dc450735e65
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 317321
+  packageName: Formations Pack for Behavior Designer Pro
+  packageVersion: 2.0.4
+  assetPath: Assets/Opsive/BehaviorDesigner/Add-Ons/FormationsPack/Scripts/Opsive.BehaviorDesigner.AddOns.FormationsPack.Runtime.asmdef
+  uploadId: 782079

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 92c5f8a4f91f91c4f85b366a9f936a6b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 317321
+  packageName: Formations Pack for Behavior Designer Pro
+  packageVersion: 2.0.4
+  assetPath: Assets/Opsive/BehaviorDesigner/Add-Ons/FormationsPack/Scripts/Tasks/Square.cs
+  uploadId: 782079

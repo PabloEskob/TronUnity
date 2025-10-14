@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d12d3c274806c2c4ba02f1f6263bb96f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 317321
+  packageName: Formations Pack for Behavior Designer Pro
+  packageVersion: 2.0.4
+  assetPath: Assets/Opsive/BehaviorDesigner/Add-Ons/FormationsPack/Demo/Scripts/FormationsScenarioSelector.cs
+  uploadId: 782079

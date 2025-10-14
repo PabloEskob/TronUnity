@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c8cd1566900aa38498f4d80185aee97c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 317321
+  packageName: Formations Pack for Behavior Designer Pro
+  packageVersion: 2.0.4
+  assetPath: Assets/Opsive/BehaviorDesigner/Add-Ons/FormationsPack/Scripts/Tasks/Skirmisher.cs
+  uploadId: 782079
