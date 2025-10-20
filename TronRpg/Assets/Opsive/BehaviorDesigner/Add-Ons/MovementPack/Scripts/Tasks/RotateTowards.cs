@@ -63,7 +63,7 @@ namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
             }
 
             // Keep rotating towards the target.
-            // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, m_MaxRotationDelta.Value);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, m_MaxRotationDelta.Value);
             m_AstarAI.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, m_MaxRotationDelta.Value);
             return TaskStatus.Running;
         }
