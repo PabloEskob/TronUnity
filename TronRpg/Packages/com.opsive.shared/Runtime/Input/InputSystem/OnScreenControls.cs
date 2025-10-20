@@ -43,7 +43,7 @@ namespace Opsive.Shared.Input.InputSystem
         /// <param name="character">The handler to attach the camera to.</param>
         private void OnAttachCharacter(GameObject character)
         {
-            if (character == m_Character || gameObject == null) {
+            if (character == m_Character) {
                 return;
             }
 
@@ -90,6 +90,18 @@ namespace Opsive.Shared.Input.InputSystem
         private void OnInputTypeChange(bool useOnScreenControls)
         {
             gameObject.SetActive(useOnScreenControls);
+        }
+
+        /// <summary>
+        /// The GameObject has been destroyed.
+        /// </summary>
+        private void OnDestroy()
+        {
+            if (m_CameraGameObject == null) {
+                return;
+            }
+
+            EventHandler.UnregisterEvent<GameObject>(m_CameraGameObject, "OnCameraAttachCharacter", OnAttachCharacter);
         }
     }
 }

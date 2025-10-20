@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_ContinuousCollisionDetection: 1
   m_ColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 2415919099
+    m_Bits: 2348810547
   m_MaxCollisionCount: 100
   m_MaxSoftForceFrames: 100
   m_MaxMovementCollisionChecks: 5
@@ -5239,7 +5239,7 @@ MonoBehaviour:
     m_Bits: 1879048230
   m_SolidObjectLayers:
     serializedVersion: 2
-    m_Bits: 2415919051
+    m_Bits: 2348810499
 --- !u!54 &6111556542895225036
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9377,6 +9377,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_States:
+  - m_Name: OldSchool
+    m_Preset: {fileID: 11400000, guid: 5718e44670dd66e4abb38db90f41bdce, type: 2}
+    m_BlockList: []
+    m_Default: 0
+  - m_Name: CrazyCowboy
+    m_Preset: {fileID: 11400000, guid: c7ab4178dca8a8d4090fc9efffad7724, type: 2}
+    m_BlockList: []
+    m_Default: 0
   - m_Name: AimSniperRifle
     m_Preset: {fileID: 11400000, guid: b6af0be8234acb842b2dbd8154921128, type: 2}
     m_BlockList: []

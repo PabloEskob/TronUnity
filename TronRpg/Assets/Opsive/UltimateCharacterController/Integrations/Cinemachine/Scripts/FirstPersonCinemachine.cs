@@ -8,9 +8,10 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
 {
     using Opsive.Shared.Events;
     using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character.Effects;
+    using Opsive.UltimateCharacterController.Game;
     using Opsive.UltimateCharacterController.Utility;
     using UnityEngine;
+    using static Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTypes.FirstPerson;
 
     /// <summary>
     /// Implements a First Person ViewType for the Cinemachine ViewType.
@@ -20,6 +21,14 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
     {
         public override bool FirstPersonPerspective { get { return true; } }
 
+        [Tooltip("The culling mask of the camera.")]
+        [SerializeField] protected LayerMask m_CullingMask = ~(1 << LayerManager.Overlay);
+        [Tooltip("Specifies how the overlay objects are rendered.")]
+        [SerializeField] protected ObjectOverlayRenderType m_OverlayRenderType = ObjectOverlayRenderType.RenderPipeline;
+        [Tooltip("A reference to the first person camera.")]
+        [SerializeField] protected UnityEngine.Camera m_FirstPersonCamera;
+        [Tooltip("The culling mask of the first person objects.")]
+        [SerializeField] protected LayerMask m_FirstPersonCullingMask = 1 << LayerManager.Overlay;
         [Tooltip("The minimum pitch angle (in degrees).")]
         [SerializeField] protected float m_MinPitchLimit = -72;
         [Tooltip("The maximum pitch angle (in degrees).")]
@@ -43,7 +52,6 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
         [Tooltip("Determines whether the bob should stay in effect only when the character is on the ground.")]
         [SerializeField] protected bool m_BobRequireGroundContact = true;
 
-        private Transform m_Target;
         protected float m_Yaw;
 
         private float m_PrevBobSpeed;
@@ -54,10 +62,20 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
         public override float Yaw { get { return m_Yaw; } }
         protected override float VerticalOffsetAdjustment => m_TargetVerticalOffsetAdjustment;
 
+        public override void Awake()
+        {
+            base.Awake();
+
+            if (m_OverlayRenderType != ObjectOverlayRenderType.None) {
+                m_Camera.cullingMask &= m_CullingMask;
+            }
+        }
+
         public override void AttachCharacter(GameObject character)
         {
             // Unregister from any events on the previous character.
             if (m_Character != null) {
+                EventHandler.UnregisterEvent<bool>(m_Character, "OnCameraChangePerspectives", UpdateFirstPersonCamera);
                 EventHandler.UnregisterEvent<float>(m_Character, "OnHeightChangeAdjustHeight", AdjustVerticalOffset);
             }
 
@@ -65,6 +83,8 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
 
             // Initialize the camera with the new character.
             if (m_Character != null) {
+                EventHandler.RegisterEvent<bool>(m_Character, "OnCameraChangePerspectives", UpdateFirstPersonCamera);
+
                 Animator characterAnimator;
                 var modelManager = m_Character.GetCachedComponent<UltimateCharacterController.Character.ModelManager>();
                 if (modelManager != null) {
@@ -92,6 +112,35 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
             if (activate) {
                 m_Pitch = pitch;
                 m_Yaw = yaw;
+
+                UpdateFirstPersonCamera(m_CharacterLocomotion.FirstPersonPerspective);
+            }
+        }
+
+        /// <summary>
+        /// Updates the first person camera and culling mask depending on if the first person camera is in use.
+        /// </summary>
+        /// <param name="firstPersonPerspective">Is the character in a first person perspective?</param>
+        private void UpdateFirstPersonCamera(bool firstPersonPerspective)
+        {
+            if (m_OverlayRenderType == ObjectOverlayRenderType.None) {
+                return;
+            }
+
+            if (firstPersonPerspective) {
+                if (m_FirstPersonCamera != null) {
+                    m_FirstPersonCamera.gameObject.SetActive(true);
+                }
+                if (m_OverlayRenderType == ObjectOverlayRenderType.RenderPipeline) {
+                    m_Camera.cullingMask |= m_FirstPersonCullingMask;
+                }
+            } else {
+                if (m_FirstPersonCamera != null) {
+                    m_FirstPersonCamera.gameObject.SetActive(false);
+                }
+                if (m_OverlayRenderType == ObjectOverlayRenderType.RenderPipeline) {
+                    m_Camera.cullingMask &= ~m_FirstPersonCullingMask;
+                }
             }
         }
 

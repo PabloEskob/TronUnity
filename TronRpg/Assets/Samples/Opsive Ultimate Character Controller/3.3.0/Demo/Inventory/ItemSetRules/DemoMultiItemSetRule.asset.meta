@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ecf13ba4542af154e816a36dd947804b
+guid: 967748bbb85e9244dbdb9b1774e40e81
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
@@ -10,6 +10,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 233710
   packageName: Ultimate Character Controller
-  packageVersion: 3.3.1
+  packageVersion: 3.3.2
   assetPath: Assets/Samples/Opsive Ultimate Character Controller/3.3.0/Demo/Inventory/ItemSetRules/DemoMultiItemSetRule.asset
-  uploadId: 790542
+  uploadId: 805550

@@ -464,7 +464,6 @@ namespace Opsive.UltimateCharacterController.Items.Actions.Modules.Shootable
                 if (m_SpawnedProjectile == null) {
                     // Spawn the projectile if it does not exist.
                     m_SpawnedProjectile = ObjectPoolBase.Instantiate(m_Projectile);
-                    m_SpawnedProjectile.transform.SetLayerRecursively(m_ProjectileStartLayer);
 
                     // Place it inside the fire location if not in the attachement location.
                     if (m_ShowReloadProjectile != ShowProjectileStatus.AttachmentLocation) {
@@ -476,7 +475,7 @@ namespace Opsive.UltimateCharacterController.Items.Actions.Modules.Shootable
                     var firePointLocation = ShootableAction.ShooterModuleGroup.FirstEnabledModule.GetFirePointLocation();
                     m_SpawnedProjectile.transform.parent = firePointLocation;
                 }
-                
+
                 // Set the projectile in the attachment location. 
                 if (m_ShowReloadProjectile == ShowProjectileStatus.AttachmentLocation) {
                     var reloadProjectileAttachment = m_ReloadProjectileAttachment.GetValue();
@@ -492,6 +491,7 @@ namespace Opsive.UltimateCharacterController.Items.Actions.Modules.Shootable
                     projectile.enabled = false;
                 }
 
+                m_SpawnedProjectile.transform.SetLayerRecursively(m_ProjectileStartLayer);
                 m_ProjectileLayer = m_SpawnedProjectile.layer;
                 EventHandler.ExecuteEvent(Character, "OnShootableWeaponShowProjectile", m_SpawnedProjectile, true);
             } else if (m_SpawnedProjectile != null) {

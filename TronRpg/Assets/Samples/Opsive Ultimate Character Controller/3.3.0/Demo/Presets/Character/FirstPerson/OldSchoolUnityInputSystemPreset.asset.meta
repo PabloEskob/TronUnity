@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f65a5599ab22b6d4fa6fae7640b84d99
+timeCreated: 1524007539
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 233710
+  packageName: Ultimate Character Controller
+  packageVersion: 3.3.2
+  assetPath: Assets/Samples/Opsive Ultimate Character Controller/3.3.0/Demo/Presets/Character/FirstPerson/OldSchoolUnityInputSystemPreset.asset
+  uploadId: 805550

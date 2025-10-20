@@ -77,7 +77,6 @@ namespace Opsive.UltimateCharacterController.Inventory
             Initialize(false);
         }
 
-        // ReSharper disable Unity.PerformanceAnalysis
         /// <summary>
         /// Initializes the ItemSetManager.
         /// </summary>

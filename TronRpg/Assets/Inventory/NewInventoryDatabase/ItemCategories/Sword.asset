@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37a44df922c40df4fa80e23de1480e3f, type: 3}
-  m_Name: Melle Body
+  m_Name: Sword
   m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Core.ItemCategory
-  m_ID: 4153218210
+  m_ID: 3893316029
   m_ParentsData:
     m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemCategory,
       Opsive.UltimateInventorySystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
@@ -40,10 +40,10 @@ MonoBehaviour:
     m_ValuePositions: 000000000400000008000000
     m_Values: 010000000100000000000000
     m_UnityObjects:
-    - {fileID: 11400000, guid: c459c4469d5a78d419e458379d6318c3, type: 2}
+    - {fileID: 11400000, guid: e782ae5d1c56f0840af6906f47e2ba42, type: 2}
     m_Version: 3.4
   m_IsAbstract: 0
-  m_Color: {r: 0.47617704, g: 0.20429567, b: 0.68417066, a: 1}
+  m_Color: {r: 0.7442339, g: 0.36852553, b: 0.87704134, a: 1}
   m_EditorIcon: {fileID: 0}
   m_ItemCategoryAttributeCollection:
     m_AttributeCollectionData: []

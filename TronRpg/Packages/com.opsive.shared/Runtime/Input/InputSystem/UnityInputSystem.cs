@@ -339,7 +339,7 @@ namespace Opsive.Shared.Input.InputSystem
         /// <summary>
         /// The component has been disabled.
         /// </summary>
-        public void OnDisable()
+        public virtual void OnDisable()
         {
             m_PlayerInput.enabled = false;
         }

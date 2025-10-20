@@ -1,6 +1,4 @@
-﻿using Opsive.Shared.Input.InputManager;
-
-#if ENABLE_INPUT_SYSTEM
+﻿#if ENABLE_INPUT_SYSTEM
 /// ---------------------------------------------
 /// Opsive Shared
 /// Copyright (c) Opsive. All Rights Reserved.
@@ -8,13 +6,13 @@
 /// ---------------------------------------------
 namespace Opsive.Shared.Editor.Inspectors.Input
 {
-    using Opsive.Shared.Input.InputManager;
+    using Opsive.Shared.Input.InputSystem;
     using UnityEditor;
 
     /// <summary>
     /// Shows a custom inspector for the UnityInputSystem.
     /// </summary>
-    [CustomEditor(typeof(UnityInput))]
+    [CustomEditor(typeof(UnityInputSystem))]
     public class UnityInputSystemInspector : PlayerInputInspector
     {
         /// <summary>

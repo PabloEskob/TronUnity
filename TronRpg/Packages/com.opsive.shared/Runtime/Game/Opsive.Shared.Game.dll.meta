@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b9c1e120ec34ee541baa0d2bd7e63912
+guid: 0ad83d6cca9e6c345af85c9a172fa2e4
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -35,6 +35,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 233710
   packageName: Ultimate Character Controller
-  packageVersion: 3.3.1
+  packageVersion: 3.3.2
   assetPath: Packages/com.opsive.shared/Runtime/Game/Opsive.Shared.Game.dll
-  uploadId: 790542
+  uploadId: 805550

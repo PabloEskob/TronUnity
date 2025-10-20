@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7c5bae70eedc94e4e9ff69de5169ac13
+guid: 0232d77707c30a641bf57ef6904349db
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -124,6 +124,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 233710
   packageName: Ultimate Character Controller
-  packageVersion: 3.3.1
+  packageVersion: 3.3.2
   assetPath: Assets/Samples/Opsive Ultimate Character Controller/3.3.0/Demo/Textures/Scene/Zones/OnScreenControls.png
-  uploadId: 790542
+  uploadId: 805550

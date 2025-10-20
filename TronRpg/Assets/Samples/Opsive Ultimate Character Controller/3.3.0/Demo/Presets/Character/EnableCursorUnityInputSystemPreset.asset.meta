@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79b3755dcaa3f8648adf4209294e4fb7
+guid: c73e7c7977e4cc1499e2b3bd60fc44ae
 timeCreated: 1527524281
 licenseType: Store
 NativeFormatImporter:
@@ -11,6 +11,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 233710
   packageName: Ultimate Character Controller
-  packageVersion: 3.3.1
+  packageVersion: 3.3.2
   assetPath: Assets/Samples/Opsive Ultimate Character Controller/3.3.0/Demo/Presets/Character/EnableCursorUnityInputSystemPreset.asset
-  uploadId: 790542
+  uploadId: 805550

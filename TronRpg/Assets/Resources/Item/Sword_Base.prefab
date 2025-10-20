@@ -170,8 +170,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.3, y: 0.3, z: 1.2}
+  m_Center: {x: 0, y: 0, z: 0.45}
 --- !u!1 &3023483500321954986
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 3827189678697705487}
   - component: {fileID: 4155786624990125640}
   m_Layer: 0
-  m_Name: MySword
+  m_Name: Sword_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
     m_Preset: {fileID: 0}
     m_BlockList: []
     m_Default: 1
-  m_ItemDefinition: {fileID: 11400000, guid: f5df5aba3adc03440af6d683d5181ea8, type: 2}
+  m_ItemDefinition: {fileID: 11400000, guid: e782ae5d1c56f0840af6906f47e2ba42, type: 2}
   m_SlotID: 0
   m_AnimatorItemID: 4
   m_AnimatorMovementSetID: 4
@@ -233,11 +233,11 @@ MonoBehaviour:
   m_DropPrefab: {fileID: 3023483500321954986}
   m_FullInventoryDrop: 0
   m_EquipEvent:
-    m_WaitForAnimationEvent: 0
+    m_WaitForAnimationEvent: 1
     m_Duration: 0.3
     m_WaitForSlotEvent: 0
   m_EquipCompleteEvent:
-    m_WaitForAnimationEvent: 0
+    m_WaitForAnimationEvent: 1
     m_Duration: 0
     m_WaitForSlotEvent: 0
   m_EquipAnimatorAudioStateSet:
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_Duration: 0.3
     m_WaitForSlotEvent: 0
   m_UnequipCompleteEvent:
-    m_WaitForAnimationEvent: 0
+    m_WaitForAnimationEvent: 1
     m_Duration: 0
     m_WaitForSlotEvent: 0
   m_UnequipAnimatorAudioStateSet:
@@ -339,8 +339,8 @@ MonoBehaviour:
   m_SpawnParent:
     m_ID: -1
     m_Object: {fileID: 0}
-  m_LocalSpawnPosition: {x: 0, y: 0, z: 0}
-  m_LocalSpawnRotation: {x: 0, y: 0, z: 0}
+  m_LocalSpawnPosition: {x: 0.107, y: 0.032, z: -0.007}
+  m_LocalSpawnRotation: {x: 4.9700046, y: 144.88, z: 0}
   m_LocalSpawnScale: {x: 1, y: 1, z: 1}
   m_NonDominantHandIKTarget: {fileID: 0}
   m_NonDominantHandIKTargetHint: {fileID: 0}
@@ -369,9 +369,9 @@ MonoBehaviour:
   m_ActionDescription: 
   m_DebugLogger:
     m_DebugAction: 0
-    m_CharacterItemActionDebugModuleType: 2
-  m_UseRate: 0.1
-  m_FaceTarget: 1
+    m_CharacterItemActionDebugModuleType: 0
+  m_UseRate: 1
+  m_FaceTarget: 0
   m_StopUseAbilityOnCompleteDelay: 0
   m_UseEvent:
     m_WaitForAnimationEvent: 1
@@ -381,7 +381,7 @@ MonoBehaviour:
     m_WaitForAnimationEvent: 1
     m_Duration: 0.05
     m_WaitForSlotEvent: 0
-  m_ForceRootMotionPosition: 1
+  m_ForceRootMotionPosition: 0
   m_ForceRootMotionRotation: 0
   m_TriggerActionModuleGroup:
     m_Modules:
@@ -734,7 +734,7 @@ MonoBehaviour:
     - rid: 6426648374852452475
       type: {class: Sequence, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates, asm: Opsive.UltimateCharacterController}
       data:
-        m_ResetDelay: 1
+        m_ResetDelay: 2
     - rid: 6426648374852452476
       type: {class: CheckTargetImpactConditionBehaviour, ns: Opsive.UltimateCharacterController.Items.Actions.Impact, asm: Opsive.UltimateCharacterController}
       data:

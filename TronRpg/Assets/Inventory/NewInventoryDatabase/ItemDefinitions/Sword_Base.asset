@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53ac5fa5da8102b468a92c21620db0d0, type: 3}
-  m_Name: WaterSpit_Def
+  m_Name: Sword_Base
   m_EditorClassIdentifier: Opsive.UltimateInventorySystem::Opsive.UltimateInventorySystem.Core.ItemDefinition
-  m_ID: 725071848
-  m_Category: {fileID: 11400000, guid: 878b03f2f916db948b2dbc98a819dbbc, type: 2}
+  m_ID: 2815902170
+  m_Category: {fileID: 11400000, guid: 2c128b9957371bd4ab22ccacfd36b8fd, type: 2}
   m_Parent: {fileID: 0}
   m_ChildrenData:
     m_ObjectType: 'Opsive.Shared.Utility.ResizableArray`1[[Opsive.UltimateInventorySystem.Core.ItemDefinition,
@@ -31,33 +31,31 @@ MonoBehaviour:
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa6515d867a59638ffc6a7d99d0efd2250dd6a15814c6040dc11fc5ebe1b403c60aca
       m_ValuePositions: 000000000700000008000000080000000c0000000c0000001000000014000000180000001c000000
-      m_Values: 50726566616273010100000093ed43c501000000000000000100000001000000
+      m_Values: 507265666162730101000000f4e55e6101000000000000000100000001000000
       m_UnityObjects:
-      - {fileID: 4800800495643612283, guid: 1ed76be738f03ba4ca3d201fe38a7a0b, type: 3}
-      - {fileID: 4800800495643612283, guid: 1ed76be738f03ba4ca3d201fe38a7a0b, type: 3}
+      - {fileID: 3023483500321954986, guid: ad0f536a2f54bcb4195c770ca23db675, type: 3}
+      - {fileID: 3023483500321954986, guid: ad0f536a2f54bcb4195c770ca23db675, type: 3}
       m_Version: 3.4
     - m_ObjectType: 'Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[UnityEngine.Sprite,
         UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]'
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651af0255e014ce1cfaf3d4ee4cb64be1ae
       m_ValuePositions: 0000000004000000050000000500000009000000090000000d00000011000000
-      m_Values: 49636f6e010100000083e62ea00000000001000000
-      m_UnityObjects:
-      - {fileID: 4694184556055176316, guid: 72f7a32ac9c7676409eb438757bc6b4a, type: 3}
-      - {fileID: 4694184556055176316, guid: 72f7a32ac9c7676409eb438757bc6b4a, type: 3}
+      m_Values: 49636f6e0100000000e4af7776ffffffffffffffff
+      m_UnityObjects: []
       m_Version: 3.4
     - m_ObjectType: 'Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.String,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]'
       m_ValueHashes: 
       m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa65195fdf7a7e477b768d9cf911486f57b1d
       m_ValuePositions: 000000000b0000000c0000000c00000010000000100000001400000014000000
-      m_Values: 4465736372697074696f6e01000000004f319e9d
+      m_Values: 4465736372697074696f6e0100000000e1a548fe
       m_UnityObjects: []
       m_Version: 3.4
   m_DefaultItem:
-    m_ID: 3701087070
-    m_Name: WaterSpit_Def
-    m_ItemDefinitionID: 725071848
+    m_ID: 696912174
+    m_Name: Sword_Base
+    m_ItemDefinitionID: 2815902170
     m_ItemDefinition: {fileID: 11400000}
     m_ItemAttributeCollection:
       m_AttributeCollectionData:
@@ -67,14 +65,6 @@ MonoBehaviour:
         m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651cc215ba7e477b76810f4f41386f57b1d
         m_ValuePositions: 000000000c0000000d0000000d00000011000000110000001500000019000000
         m_Values: 44616d616765416d6f756e74010000000019fc11790000000000000000
-        m_UnityObjects: []
-        m_Version: 3.4
-      - m_ObjectType: 'Opsive.UltimateInventorySystem.Core.AttributeSystem.Attribute`1[[System.Int32,
-          mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]'
-        m_ValueHashes: 
-        m_LongValueHashes: 0d00eb254f8d1b295b713f72e636d894086efd392442dff734ebab2aec72d130f446621b49ba2a58a8823c4a519fa651424b280f5394b559861dc27bf4117a0e
-        m_ValuePositions: 000000000800000009000000090000000d0000000d0000001100000015000000
-        m_Values: 416d6d6f4461746101000000004043a7e00000000000000000
         m_UnityObjects: []
         m_Version: 3.4
   m_EditorIcon: {fileID: 0}

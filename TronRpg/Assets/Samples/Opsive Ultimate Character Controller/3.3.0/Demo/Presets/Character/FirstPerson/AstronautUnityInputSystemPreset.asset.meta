@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 673a5bc2d63c73d4988988d5fa0bde5f
+timeCreated: 1524077296
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 233710
+  packageName: Ultimate Character Controller
+  packageVersion: 3.3.2
+  assetPath: Assets/Samples/Opsive Ultimate Character Controller/3.3.0/Demo/Presets/Character/FirstPerson/AstronautUnityInputSystemPreset.asset
+  uploadId: 805550

@@ -15,7 +15,7 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
 
     /// <summary>
     /// Allows Cinemachine to be used by the CameraController. If a FreeLook virtual camera is used the CinemachineSpringExtension component should be added so it will respond to spring events.
-    /// Version 3 or later of Cinemachine is required (download from the Unity Package Manager and not the Asset Store) and the com.unity.cinemachine Assembly Definition reference must
+    /// Version 3.1 or later of Cinemachine is required (download from the Unity Package Manager and not the Asset Store) and the com.unity.cinemachine Assembly Definition reference must
     /// be added to the Opsive.UltimateCharacterController Assembly Definition. See the documentation for more information:
     /// https://opsive.com/support/documentation/ultimate-character-controller/integrations/cinemachine/
     /// </summary>
@@ -42,8 +42,6 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
 
         public override float LookDirectionDistance { get { return m_LookDirectionDistance; } }
         public bool UseCharacterLookDirection { get { return m_UseCharacterLookDirection; } set { m_UseCharacterLookDirection = value; } }
-        public float FieldOfView { get { return m_FieldOfView; } set { m_FieldOfView = value; } }
-        public float FieldOfViewDamping { get { return m_FieldOfViewDamping; } set { m_FieldOfViewDamping = value; } }
         public Vector3 CameraOffset
         {
             get { return m_CameraOffset; }
@@ -150,6 +148,13 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
                 return;
             }
             m_BrainEvents = m_Brain.GetComponent<CinemachineBrainEvents>();
+            if (m_BrainEvents == null) {
+                m_Brain.gameObject.AddComponent<CinemachineBrainEvents>();
+            }
+            var cinemachineUpdater = m_CameraController.GetComponent<CinemachineUpdater>();
+            if (cinemachineUpdater == null) {
+                m_CameraController.gameObject.AddComponent<CinemachineUpdater>();
+            }
             m_Camera = m_CameraController.gameObject.GetCachedComponent<UnityEngine.Camera>();
             m_WorldUpOverride = new GameObject("CinemachineWorldUp").transform;
             m_Brain.WorldUpOverride = m_WorldUpOverride;
@@ -330,6 +335,8 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
             if (m_OffsetExtension != null) {
                 m_OffsetExtension.Offset = m_CameraOffset + m_PositionSpring.Value + m_SecondaryPositionSpring.Value + Vector3.up * VerticalOffsetAdjustment;
             }
+            if (m_Brain.UpdateMethod == CinemachineBrain.UpdateMethods.ManualUpdate && !Time.inFixedTimeStep)
+                m_Brain.ManualUpdate();
             return m_CinemachineCamera.transform.position;
         }
 

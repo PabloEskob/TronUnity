@@ -11,7 +11,7 @@ namespace Opsive.UltimateCharacterController.Integrations.Cinemachine
 
     /// <summary>
     /// Cinemachine extension allowing the state to adjust to the Cinemachine ViewType spring values.
-    /// Version 2.1 or later of Cinemachine is required (download from the Unity Package Manager and not the Asset Store).
+    /// Version 3.1 or later of Cinemachine is required (download from the Unity Package Manager and not the Asset Store).
     /// </summary>
     public class CinemachineSpringExtension : CinemachineExtension
     {

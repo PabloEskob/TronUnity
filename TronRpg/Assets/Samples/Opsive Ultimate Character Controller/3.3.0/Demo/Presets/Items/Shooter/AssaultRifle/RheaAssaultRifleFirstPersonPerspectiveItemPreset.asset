@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 114f4adff47823d4aadb77159ef6731f, type: 3}
-  m_Name: RheaAssaultRIfleFirstPersonPerspectiveItemPreset
+  m_Name: RheaAssaultRifleFirstPersonPerspectiveItemPreset
   m_EditorClassIdentifier: 
   m_Data:
     m_ObjectType: Opsive.UltimateCharacterController.FirstPersonController.Items.FirstPersonPerspectiveItem

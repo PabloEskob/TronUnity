@@ -46,7 +46,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         [Tooltip("Specifies the rotation offset from the camera that the first person objects should render.")]
         [SerializeField] protected Vector3 m_FirstPersonRotationOffset;
         [Tooltip("Specifies how the overlay objects are rendered.")]
-        [SerializeField] protected ObjectOverlayRenderType m_OverlayRenderType = ObjectOverlayRenderType.SecondCamera;
+        [SerializeField] protected ObjectOverlayRenderType m_OverlayRenderType = ObjectOverlayRenderType.RenderPipeline;
         [Tooltip("A reference to the first person camera.")]
         [SerializeField] protected UnityEngine.Camera m_FirstPersonCamera;
         [Tooltip("The culling mask of the first person objects.")]

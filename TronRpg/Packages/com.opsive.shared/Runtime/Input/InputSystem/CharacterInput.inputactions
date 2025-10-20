@@ -1,5 +1,4 @@
 {
-    "version": 1,
     "name": "CharacterInput",
     "maps": [
         {
@@ -61,10 +60,19 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Fire3",
+                    "type": "Button",
+                    "id": "53c36a64-d7ca-4e68-89cf-9fc4d8b84ae8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "bf80cade-3908-4c91-8b5d-2b41f96d6ee1",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -614,7 +622,7 @@
                     "id": "a33b125b-e60e-43c0-94d9-3279d2cd6331",
                     "path": "<Mouse>/delta/x",
                     "interactions": "",
-                    "processors": "Scale",
+                    "processors": "Scale(factor=0.05)",
                     "groups": "Keyboard",
                     "action": "Mouse X",
                     "isComposite": false,
@@ -669,7 +677,7 @@
                     "id": "6ca55954-ea77-4fbd-8266-bf1e6d3d6ea5",
                     "path": "<Mouse>/delta/y",
                     "interactions": "",
-                    "processors": "Scale",
+                    "processors": "Scale(factor=0.05)",
                     "groups": "Keyboard",
                     "action": "Mouse Y",
                     "isComposite": false,
@@ -1112,6 +1120,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Fire2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b0ccb50-9064-4a27-80e7-4219a56d17ac",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Fire3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
