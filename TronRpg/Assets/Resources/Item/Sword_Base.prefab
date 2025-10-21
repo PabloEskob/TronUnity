@@ -382,7 +382,7 @@ MonoBehaviour:
     m_Duration: 0.05
     m_WaitForSlotEvent: 0
   m_ForceRootMotionPosition: 1
-  m_ForceRootMotionRotation: 0
+  m_ForceRootMotionRotation: 1
   m_TriggerActionModuleGroup:
     m_Modules:
     - rid: 6426648374852452470

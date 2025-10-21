@@ -1464,6 +1464,7 @@ MonoBehaviour:
   m_EnableGamplayInputEvent:
     m_PersistentCalls:
       m_Calls: []
+  m_ForceInput: 0
   m_DisableCursor: 1
   m_EnableCursorWithEscape: 1
   m_PreventLookVectorChanges: 1
@@ -4551,6 +4552,7 @@ GameObject:
   - component: {fileID: 8302844857379701598}
   - component: {fileID: 7716259287771985998}
   - component: {fileID: 4727174065593038786}
+  - component: {fileID: 5477687984500964443}
   m_Layer: 31
   m_Name: Hero
   m_TagString: Player
@@ -5670,6 +5672,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Scripts.UI.BlockCameraUIPanels
   cmInput: {fileID: 0}
+--- !u!114 &5477687984500964443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011353297096413839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981b1595dd04d944b93c1faa91054242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateCharacterController.DamageableAgent
 --- !u!1 &5025010389019576057
 GameObject:
   m_ObjectHideFlags: 0
