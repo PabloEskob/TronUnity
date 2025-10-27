@@ -7,6 +7,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
 {
     using Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime;
     using Opsive.UltimateCharacterController.Character;
+    using Opsive.UltimateCharacterController.Character.Abilities;
     using Opsive.UltimateCharacterController.Character.Abilities.Items;
     using Opsive.Shared.Game;
     using Opsive.Shared.StateSystem;
@@ -40,6 +41,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
         private UltimateCharacterLocomotion m_CharacterLocomotion;
         private LocalLookSource m_LocalLookSource;
         private Use m_UseAbility;
+        private RotateTowards m_RotateTowards;
 
         /// <summary>
         /// Initializes the default values.
@@ -51,6 +53,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
             m_Transform = transform;
             m_CharacterLocomotion = GetComponent<UltimateCharacterLocomotion>();
             m_LocalLookSource = GetComponent<LocalLookSource>();
+            m_RotateTowards = m_CharacterLocomotion?.GetAbility<RotateTowards>();
 
             var abilities = m_CharacterLocomotion.GetAbilities<Opsive.UltimateCharacterController.Character.Abilities.Items.Use>();
             // The slot ID and action ID must match.
@@ -103,12 +106,18 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
                         animator = targetTransform.gameObject.GetCachedComponent<Animator>();
                     }
                 }
-                if (animator != null && animator.isHuman) {
+                if (animator != null && animator.isHuman) { 
                     targetTransform = animator.GetBoneTransform(m_HumanoidBoneTarget);
                 }
             }
 
             m_LocalLookSource.Target = targetTransform;
+            if (m_RotateTowards != null && targetTransform != null) {
+                m_RotateTowards.Target = targetTransform;              // та же цель, что выбрал TacticalBase
+                if (!m_RotateTowards.IsActive) {
+                    m_CharacterLocomotion.TryStartAbility(m_RotateTowards); // корректный API старта способности
+                }
+            }
             m_CharacterLocomotion.TryStartAbility(m_UseAbility);
         }
     }

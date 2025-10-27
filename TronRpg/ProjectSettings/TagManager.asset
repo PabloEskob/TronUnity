@@ -12,6 +12,9 @@ TagManager:
   - Animal
   - Water
   - Tree
+  - Climb
+  - Stair
+  - WallRun
   layers:
   - Default
   - TransparentFX
@@ -28,12 +31,12 @@ TagManager:
   - 
   - 
   - 
+  - BodyPart
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - Animal
   - 
   - 
   - 

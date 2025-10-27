@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8e0c419744d7d4b479cc9788b4e09e95
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 80357
+  packageName: 'Poly Art: Deer'
+  packageVersion: 4.0
+  assetPath: Assets/Malbers Animations/Common/Shaders/Amplify Shader Editor/Gradient4.shader
+  uploadId: 714873
