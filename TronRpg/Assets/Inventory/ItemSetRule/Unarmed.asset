@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_CanSwitchTo: 1
     m_DisabledIndex: -1
-  m_Default: 0
+  m_Default: 1
   m_ExactAmountValidation: 0
   m_ItemCategorySlots:
     m_ItemCategories: []
