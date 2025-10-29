@@ -640,7 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DynamicManagers: 0
   effects:
-  - name: Play Effect [4]  -  [OnTime] (0.24)
+  - name: Play Effect [4]  -  [OnTime] (0,24)
     showExecute: 1
     showExitInTransition: 0
     ID: 4
@@ -811,8 +811,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2391939131189775494, guid: fbff60777b0b7d24da8322010bbc60e2,
-    type: 3}
+  m_Motion: {fileID: 2391939131189775494, guid: fbff60777b0b7d24da8322010bbc60e2, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1023,8 +1022,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1679952703293231098, guid: 71ecf96e5760dc649a58ed976f2409f6,
-    type: 3}
+  m_Motion: {fileID: 1679952703293231098, guid: 71ecf96e5760dc649a58ed976f2409f6, type: 3}
   m_Tag: Fall
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1241,8 +1239,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2391939131189775494, guid: 2766f6483a3149c4d811b473f70cfb8c,
-    type: 3}
+  m_Motion: {fileID: 2391939131189775494, guid: 2766f6483a3149c4d811b473f70cfb8c, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1490,7 +1487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DynamicManagers: 0
   effects:
-  - name: Play Effect [3]  -  [OnTime] (0.24)
+  - name: Play Effect [3]  -  [OnTime] (0,24)
     showExecute: 1
     showExitInTransition: 0
     ID: 3
@@ -1832,8 +1829,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2391939131189775494, guid: b76d0c8c292c29f42a504238910aba56,
-    type: 3}
+  m_Motion: {fileID: 2391939131189775494, guid: b76d0c8c292c29f42a504238910aba56, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1938,7 +1934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Play Sound  -  [OnTime] (0.18)
+  - name: Play Sound  -  [OnTime] (0,18)
     Action: 8
     time: 0.184
     value: 2
@@ -2622,7 +2618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DynamicManagers: 0
   effects:
-  - name: Play Effect [5]  -  [OnTime] (0.24)
+  - name: Play Effect [5]  -  [OnTime] (0,24)
     showExecute: 1
     showExitInTransition: 0
     ID: 5
@@ -2827,8 +2823,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2391939131189775494, guid: b76d0c8c292c29f42a504238910aba56,
-    type: 3}
+  m_Motion: {fileID: 2391939131189775494, guid: b76d0c8c292c29f42a504238910aba56, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -2865,8 +2860,7 @@ BlendTree:
   m_Name: Bolt BT
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: dd52ffdad900ee04f9cfc0aaeda7c871,
-      type: 3}
+    m_Motion: {fileID: 1827226128182048838, guid: dd52ffdad900ee04f9cfc0aaeda7c871, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -2874,8 +2868,7 @@ BlendTree:
     m_DirectBlendParameter: Vertical
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: 8e56cddac001e4a4e969c589b0779643,
-      type: 3}
+    m_Motion: {fileID: 1827226128182048838, guid: 8e56cddac001e4a4e969c589b0779643, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -3642,8 +3635,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 8565978006649391947, guid: 8027a77b64936fa4b85da29425d1a84d,
-      type: 3}
+    m_Motion: {fileID: 8565978006649391947, guid: 8027a77b64936fa4b85da29425d1a84d, type: 3}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -3651,8 +3643,7 @@ BlendTree:
     m_DirectBlendParameter: Vertical
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 4159462109394552242, guid: 4516dd916a1cefe4cb8c871291c8d95b,
-      type: 3}
+    m_Motion: {fileID: 4159462109394552242, guid: 4516dd916a1cefe4cb8c871291c8d95b, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -3660,8 +3651,7 @@ BlendTree:
     m_DirectBlendParameter: Vertical
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -3178706636917435609, guid: 4be61e81d8901c549b773f73f68ec84f,
-      type: 3}
+    m_Motion: {fileID: -3178706636917435609, guid: 4be61e81d8901c549b773f73f68ec84f, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -3907,7 +3897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Play Sound  -  [OnTime] (0.18)
+  - name: Play Sound  -  [OnTime] (0,18)
     Action: 8
     time: 0.184
     value: 2
@@ -4070,7 +4060,7 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Interrupted [N]
+  m_Name: 'Interrupted [N]'
   m_Conditions:
   - m_ConditionMode: 7
     m_ConditionEvent: Mode
@@ -4572,8 +4562,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1679952703293231098, guid: 28ccaf5d9145a5d45ba459b349f2a450,
-    type: 3}
+  m_Motion: {fileID: 1679952703293231098, guid: 28ccaf5d9145a5d45ba459b349f2a450, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -5521,7 +5510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Play Sound  -  [OnTime] (0.18)
+  - name: Play Sound  -  [OnTime] (0,18)
     Action: 8
     time: 0.184
     value: 2
@@ -7064,8 +7053,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -737979054925567065, guid: 144a4f1e0fc58eb4b8e452a69b1147b2,
-    type: 3}
+  m_Motion: {fileID: -737979054925567065, guid: 144a4f1e0fc58eb4b8e452a69b1147b2, type: 3}
   m_Tag: LedgeGrab
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -7193,7 +7181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DynamicManagers: 0
   effects:
-  - name: Play Effect [1]  -  [On Enter]
+  - name: 'Play Effect [1]  -  [On Enter]'
     showExecute: 0
     showExitInTransition: 0
     ID: 1
@@ -7202,7 +7190,7 @@ MonoBehaviour:
     ExecuteOnExit: 1
     ExitInTransition: 1
     IgnoreInTransition: []
-  - name: Stop Effect [1]  -  [On Exit] - [In Transition]
+  - name: 'Stop Effect [1]  -  [On Exit] - [In Transition]'
     showExecute: 0
     showExitInTransition: 1
     ID: 1
@@ -7237,8 +7225,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1679952703293231098, guid: 658b4def7803e7649b76b0e5c45530d0,
-    type: 3}
+  m_Motion: {fileID: 1679952703293231098, guid: 658b4def7803e7649b76b0e5c45530d0, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -7650,8 +7637,7 @@ AnimatorStateTransition:
     m_ConditionEvent: _Jump
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102000011288181436, guid: 91d46eed503eb344dae9b2fd274c4bd9,
-    type: 2}
+  m_DstState: {fileID: 1102000011288181436, guid: 91d46eed503eb344dae9b2fd274c4bd9, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -8890,8 +8876,7 @@ AnimatorStateTransition:
     m_ConditionEvent: _Jump
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102000011273645114, guid: 91d46eed503eb344dae9b2fd274c4bd9,
-    type: 2}
+  m_DstState: {fileID: 1102000011273645114, guid: 91d46eed503eb344dae9b2fd274c4bd9, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -11389,8 +11374,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2391939131189775494, guid: 2766f6483a3149c4d811b473f70cfb8c,
-    type: 3}
+  m_Motion: {fileID: 2391939131189775494, guid: 2766f6483a3149c4d811b473f70cfb8c, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -11892,7 +11876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Unequip  -  [OnTime] (0.50)
+  - name: Unequip  -  [OnTime] (0,50)
     Action: 1
     time: 0.5
     value: 0
@@ -12057,8 +12041,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1679952703293231098, guid: d969f5dcff5efb54fa99757dadaf669c,
-    type: 3}
+  m_Motion: {fileID: 1679952703293231098, guid: d969f5dcff5efb54fa99757dadaf669c, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -12179,7 +12162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Equip  -  [OnTime] (0.50)
+  - name: Equip  -  [OnTime] (0,50)
     Action: 0
     time: 0.5
     value: 0
@@ -12855,8 +12838,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -9105767023049211723, guid: d1778a73e1c36324a9fc4fa27e638367,
-    type: 3}
+  m_Motion: {fileID: -9105767023049211723, guid: d1778a73e1c36324a9fc4fa27e638367, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -13264,8 +13246,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 8333325346404442904, guid: af25c5ee9aa180643a14d1acb874c030,
-    type: 3}
+  m_Motion: {fileID: 8333325346404442904, guid: af25c5ee9aa180643a14d1acb874c030, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -13284,7 +13265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Equip  -  [OnTime] (0.50)
+  - name: Equip  -  [OnTime] (0,50)
     Action: 0
     time: 0.5
     value: 0
@@ -13420,7 +13401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DynamicManagers: 0
   effects:
-  - name: Play Effect [2]  -  [OnTime] (0.28)
+  - name: Play Effect [2]  -  [OnTime] (0,28)
     showExecute: 1
     showExitInTransition: 0
     ID: 2
@@ -13450,8 +13431,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: 243c3577daa10e54a8d6caa485b39843,
-    type: 3}
+  m_Motion: {fileID: 1827226128182048838, guid: 243c3577daa10e54a8d6caa485b39843, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -14061,7 +14041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Unequip  -  [OnTime] (0.50)
+  - name: Unequip  -  [OnTime] (0,50)
     Action: 1
     time: 0.5
     value: 0
@@ -14069,7 +14049,7 @@ MonoBehaviour:
     equip: 1
     aim: 0
     sendInterrupted: 1
-  - name: Equip  -  [OnTime] (0.50)
+  - name: Equip  -  [OnTime] (0,50)
     Action: 0
     time: 0.5
     value: 0
@@ -14132,7 +14112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponActions:
-  - name: Play Sound  -  [OnTime] (0.18)
+  - name: Play Sound  -  [OnTime] (0,18)
     Action: 8
     time: 0.184
     value: 2
@@ -14851,8 +14831,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3170760478027796039, guid: edafe4aa19de1234195b832fb3556e39,
-    type: 3}
+  m_Motion: {fileID: -3170760478027796039, guid: edafe4aa19de1234195b832fb3556e39, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

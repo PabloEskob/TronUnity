@@ -80,6 +80,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
         /// <param name="direction">The direction to rate towards.</param>
         public void RotateTowards(Vector3 direction)
         {
+            return;
             if (m_LocalLookSource.LookTransform != null) {
                 var lookTransform = m_LocalLookSource.LookTransform;
                 lookTransform.rotation = Quaternion.LookRotation(direction.normalized);
@@ -115,7 +116,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
             if (m_RotateTowards != null && targetTransform != null) {
                 m_RotateTowards.Target = targetTransform;              // та же цель, что выбрал TacticalBase
                 if (!m_RotateTowards.IsActive) {
-                    m_CharacterLocomotion.TryStartAbility(m_RotateTowards); // корректный API старта способности
+                    m_CharacterLocomotion.TryStartAbility(m_RotateTowards); ;// корректный API старта способности
                 }
             }
             m_CharacterLocomotion.TryStartAbility(m_UseAbility);

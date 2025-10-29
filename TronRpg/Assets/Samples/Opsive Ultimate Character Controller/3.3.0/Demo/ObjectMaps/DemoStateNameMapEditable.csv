@@ -4,3 +4,6 @@ PointClick
 Ride
 DamageMultiplierUp
 DamageMultiplierDown
+Walk
+Jog
+RotateTowards
