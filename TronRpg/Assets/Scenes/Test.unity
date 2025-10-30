@@ -11285,10 +11285,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Opsive.UltimateCharacterController::Opsive.UltimateCharacterController.Character.UltimateCharacterLocomotion
   m_States:
-  - m_Name: MoveTowards
-    m_Preset: {fileID: 11400000, guid: 69afbe578b168cd4f99b2873bfca1a8f, type: 2}
-    m_BlockList: []
-    m_Default: 0
   - m_Name: Moving
     m_Preset: {fileID: 11400000, guid: 527d884c54f1a4b4a82fed73411305a8, type: 2}
     m_BlockList: []
@@ -11379,11 +11375,12 @@ MonoBehaviour:
   m_ThirdPersonStateName: ThirdPerson
   m_MovingStateName: Moving
   m_AirborneStateName: Airborne
-  m_MovementTypeFullName: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Adventure
+  m_MovementTypeFullName: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.FourLegged
   m_FirstPersonMovementTypeFullName: 
-  m_ThirdPersonMovementTypeFullName: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Adventure
+  m_ThirdPersonMovementTypeFullName: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.FourLegged
   m_MovementTypes:
   - rid: 9145895572860305656
+  - rid: 9145895637849211262
   m_Abilities:
   - rid: 9145895572860305671
   - rid: 9145895616869826902
@@ -11731,6 +11728,14 @@ MonoBehaviour:
         m_AbilityMessageIcon: {fileID: 0}
         m_InspectorDescription: 
         m_Target: {fileID: 0}
+    - rid: 9145895637849211262
+      type: {class: FourLegged, ns: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes, asm: Opsive.UltimateCharacterController}
+      data:
+        m_States:
+        - m_Name: Default
+          m_Preset: {fileID: 0}
+          m_BlockList: []
+          m_Default: 1
 --- !u!54 &936950062
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11793,7 +11798,7 @@ Transform:
   m_GameObject: {fileID: 936950051}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2041161, y: 0.00000011920929, z: 3.739103}
+  m_LocalPosition: {x: 2, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29124,8 +29129,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_States.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: m_Abilities.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_MovementTypeFullName
+      value: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Adventure
       objectReference: {fileID: 0}
     - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: 'm_Abilities.Array.data[0]'
@@ -29144,6 +29157,50 @@ PrefabInstance:
       value: 6426648380348563775
       objectReference: {fileID: 0}
     - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_MovementTypes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'm_MovementTypes.Array.data[1]'
+      value: 9145895637849211237
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'm_MovementTypes.Array.data[2]'
+      value: 9145895637849211259
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_States.Array.data[0].m_Name
+      value: Moving
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_States.Array.data[1].m_Name
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_States.Array.data[0].m_Preset
+      value: 
+      objectReference: {fileID: 11400000, guid: 527d884c54f1a4b4a82fed73411305a8, type: 2}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_States.Array.data[1].m_Preset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_States.Array.data[1].m_Default
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: m_ThirdPersonMovementTypeFullName
+      value: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Adventure
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[9145895637849211237]'
+      value: Opsive.UltimateCharacterController Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Combat
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: 'managedReferences[9145895637849211259]'
+      value: Opsive.UltimateCharacterController Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.RPG
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: managedReferences[6426648380348563771].m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -29152,8 +29209,64 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_TurnInputName
+      value: Horizontal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_TurnMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_RotateInputName
+      value: Fire3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211237].m_States.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_AutoMoveInputName
+      value: Action
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_States.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211237].m_States.Array.data[0].m_Name
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_States.Array.data[0].m_Name
+      value: Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: managedReferences[4404629481193734253].m_RotateTowardsLookSourceTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211237].m_States.Array.data[0].m_Preset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_States.Array.data[0].m_Preset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211237].m_States.Array.data[0].m_Default
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_States.Array.data[0].m_Default
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211237].m_States.Array.data[0].m_BlockList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387243950432128816, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      propertyPath: managedReferences[9145895637849211259].m_States.Array.data[0].m_BlockList.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4727174065593038786, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
       propertyPath: cmInput
