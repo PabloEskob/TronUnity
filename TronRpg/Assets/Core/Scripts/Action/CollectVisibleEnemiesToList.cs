@@ -42,6 +42,7 @@ public class CollectVisibleEnemiesToList : Action
     private Transform _tr;
     private float _nextScanTime;
     private TaskStatus _cached = TaskStatus.Failure;
+    private readonly HashSet<int> _seenIds = new HashSet<int>(128);
 
     public override void OnAwake()
     {
@@ -58,10 +59,12 @@ public class CollectVisibleEnemiesToList : Action
         ResizeBuffer();
 
         _results.Clear();
+        _seenIds.Clear();
 
         // 1) Кандидаты
         var origin = _tr.TransformPoint(PivotOffset.Value);
         var qti = IncludeTriggersInOverlap.Value ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
+
         int count = Physics.OverlapSphereNonAlloc(
             _tr.position,
             Mathf.Max(0.01f, MaxDistance.Value),
@@ -88,8 +91,13 @@ public class CollectVisibleEnemiesToList : Action
             var col = _overlap[i];
             if (!col) continue;
 
+            // Берём "владельца" коллайдера: Rigidbody-root, если есть, иначе сам объект коллайдера.
             var go = col.attachedRigidbody ? col.attachedRigidbody.gameObject : col.gameObject;
             if (!go) continue;
+
+            // >>> Дедупликация: один и тот же владелец может иметь несколько коллайдеров.
+            int id = go.GetInstanceID();
+            if (!_seenIds.Add(id)) continue; // уже добавлен ранее — пропускаем
 
             Vector3 targetPos = go.transform.TransformPoint(TargetOffset.Value);
             Vector3 dir = targetPos - origin;
@@ -112,6 +120,7 @@ public class CollectVisibleEnemiesToList : Action
             {
                 if (Physics.Linecast(origin, targetPos, out var hit, ~IgnoreRaycastMask, QueryTriggerInteraction.Ignore))
                 {
+                    // Пропускаем, если луч упёрся не в цель/её детей.
                     if (!hit.transform.IsChildOf(go.transform) && !go.transform.IsChildOf(hit.transform)) continue;
                 }
             }
@@ -119,7 +128,7 @@ public class CollectVisibleEnemiesToList : Action
             _results.Add(go);
         }
 
-        // Сортировка по расстоянию (опц.)
+        // Сортировка по расстоянию (опционально)
         if (SortByDistance.Value && _results.Count > 1)
         {
             var p = _tr.position;
@@ -127,12 +136,12 @@ public class CollectVisibleEnemiesToList : Action
                 ((a.transform.position - p).sqrMagnitude).CompareTo((b.transform.position - p).sqrMagnitude));
         }
 
-        // 2) Переводим в МАССИВ и присваиваем в SharedVariable<GameObject[]>
-        var newLen = _results.Count;
+        // 2) Переводим в массив и обновляем SharedVariable<GameObject[]>
+        int newLen = _results.Count;
         var newArr = new GameObject[newLen];
         for (int i = 0; i < newLen; i++) newArr[i] = _results[i];
 
-        // Мелкая оптимизация: если состав совпал — не дёргать OnValueChange у подписчиков.
+        // Не дергаем OnValueChange, если состав не поменялся
         var oldArr = Targets.Value;
         bool changed = oldArr == null || oldArr.Length != newArr.Length;
         if (!changed && oldArr != null)
@@ -148,7 +157,7 @@ public class CollectVisibleEnemiesToList : Action
         }
 
         if (changed || oldArr == null)
-            Targets.Value = newArr; // В TacticalBase стоит m_Targets.OnValueChange += UpdateDamageables. :contentReference[oaicite:1]{index=1}
+            Targets.Value = newArr;
 
         _cached = newLen > 0 ? TaskStatus.Success : TaskStatus.Failure;
         return _cached;
