@@ -345,7 +345,7 @@ MonoBehaviour:
         m_SetDamageImpactData: 1
         m_InvokeOnObjectImpact: 0
         m_DamageProcessor: {fileID: 0}
-        m_DamageAmount: 10
+        m_DamageAmount: 0
         m_ImpactForce: 2
         m_ImpactForceFrames: 15
         m_ImpactRadius: 0
