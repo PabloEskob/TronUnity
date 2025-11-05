@@ -52,8 +52,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Demo
         /// Rotates towards the specified direction.
         /// </summary>
         /// <param name="direction">The direction to rotate towards.</param>
-        /// <param name="target"></param>
-        public void RotateTowards(Vector3 direction, Transform target)
+        public void RotateTowards(Vector3 direction,Transform transform)
         {
             if (m_Is2D) {
                 var forward2D = new Vector2(direction.x, direction.y).normalized;
