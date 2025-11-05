@@ -29,7 +29,8 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime
         /// Rotates the agent towards the specified direction.
         /// </summary>
         /// <param name="direction">The direction to rate towards.</param>
-        void RotateTowards(Vector3 direction);
+        /// <param name="targetTransform">Target</param>
+        void RotateTowards(Vector3 direction,Transform targetTransform = null);
 
         /// <summary>
         /// Tries to do the actual actual attack.

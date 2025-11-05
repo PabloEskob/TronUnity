@@ -152,7 +152,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
                 var direction = m_AttackTarget.position - m_Transform.position;
                 m_CanAttackStatus = CanAttack(direction);
                 if (m_CanAttackStatus == CanAttackStatus.OutOfSight || m_CanAttackStatus == CanAttackStatus.Allowed) {
-                    m_AttackAgent.RotateTowards(direction);
+                    m_AttackAgent.RotateTowards(direction,m_AttackTarget);
                     if (m_CanAttackStatus == CanAttackStatus.Allowed) {
                         if (StopWithinRange && direction.magnitude <= m_AttackAgent.MinAttackDistance) {
                             m_Pathfinder.Stop();
