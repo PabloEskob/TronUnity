@@ -3,6 +3,7 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
+
 namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
 {
     using Opsive.BehaviorDesigner.Runtime.Tasks;
@@ -11,13 +12,14 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
     using Unity.Entities;
     using UnityEngine;
 
-    [Opsive.Shared.Utility.Description("Surrounds the target in a circular formation. The agents will form a circle around the target and attack from all sides.")]
+    [Opsive.Shared.Utility.Description(
+        "Surrounds the target in a circular formation. The agents will form a circle around the target and attack from all sides.")]
     [DefaultAttackDelay(AttackDelay.GroupArrival)]
     [NodeIcon("a1876680c488cab4796605f54185429b", "d88d3def22e207047bc5375cc93a70ac")]
     public class Surround : TacticalBase
     {
-        [Tooltip("The radius of the circle formation.")]
-        [SerializeField] protected SharedVariable<float> m_Radius = 5f;
+        [Tooltip("The radius of the circle formation.")] [SerializeField]
+        protected SharedVariable<float> m_Radius = 5f;
 
         protected override bool StopWithinRange => false;
 
@@ -31,11 +33,15 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
         {
             var status = base.OnUpdate();
             // The position should be updated as soon as the agent is near the destination if they went around the center.
-            if (status == TaskStatus.Running && m_AvoidCenter) {
-                if (m_Pathfinder.RemainingDistance < (m_Radius.Value * 0.1f)) {
-                    m_Pathfinder.SetDesination(CalculateFormationPosition(m_FormationIndex, m_Group.Members.Count, TargetPosition, m_Group.Direction, true, false));
+            if (status == TaskStatus.Running && m_AvoidCenter)
+            {
+                if (m_Pathfinder.RemainingDistance < (m_Radius.Value * 0.1f))
+                {
+                    m_Pathfinder.SetDesination(CalculateFormationPosition(m_FormationIndex, m_Group.Members.Count, TargetPosition, m_Group.Direction,
+                        true, false));
                 }
             }
+
             return status;
         }
 
@@ -65,31 +71,44 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
         /// <returns>The position for this agent.</returns>
         private Vector3 CalculateFormationPosition(int index, int totalAgents, Vector3 center, Vector3 forward, bool samplePosition, bool avoidCenter)
         {
-            var angle = (360f / totalAgents) * index;
-            // Don't go through the center when travelling to the other side of the circle.
-            m_AvoidCenter = avoidCenter && (angle < 90 || angle > 270);
-            if (m_AvoidCenter) {
-                angle = angle < 90 ? 90 : 270;
-            }
-            var angleRad = angle * Mathf.Deg2Rad;
+            if (totalAgents <= 0) return center;
 
-            // Calculate the position in local space.
-            Vector3 localPosition;
-            if (m_Is2D) {
-                // Use the XY plane for 2D.
-                localPosition = new Vector3(Mathf.Sin(angleRad) * m_Radius.Value, Mathf.Cos(angleRad) * m_Radius.Value, 0);
-            } else {
-                // Use the XZ plane for 3D.
-                localPosition = new Vector3(Mathf.Sin(angleRad) * m_Radius.Value, center.y, Mathf.Cos(angleRad) * m_Radius.Value);
+            // Плоскость и базовые оси
+            Vector3 planeNormal, planeForward;
+            if (m_Is2D)
+            {
+                planeNormal = Vector3.forward; // плоскость XY
+                planeForward = new Vector3(forward.x, forward.y, 0f);
+                if (planeForward.sqrMagnitude < 1e-8f) planeForward = Vector3.up; // fallback
+            }
+            else
+            {
+                planeNormal = Vector3.up; // плоскость XZ
+                planeForward = new Vector3(forward.x, 0f, forward.z);
+                if (planeForward.sqrMagnitude < 1e-8f) planeForward = Vector3.forward; // fallback
             }
 
-            // Calculate the agent's position.
-            var position = center + localPosition;
+            planeForward.Normalize();
+
+            // Равномерный угол по индексу
+            float angleStep = 360f / Mathf.Max(1, totalAgents);
+            float angleDeg = angleStep * index;
+
+            // Поворот на угол вокруг нормали плоскости
+            Vector3 dirOnPlane = Quaternion.AngleAxis(angleDeg, planeNormal) * planeForward;
+
+            // Конечная точка на окружности радиуса m_Radius вокруг center
+            Vector3 position = center + dirOnPlane * m_Radius.Value;
+
+            // Прижим к валидной точке графа/навмеша (если требуется)
             var validPos = position;
-
-            if (samplePosition && SamplePosition(ref validPos)) {
+            if (samplePosition && SamplePosition(ref validPos))
+            {
                 position = validPos;
             }
+
+            // Сохраняем флаг, но НЕ искажаем угол (избегание центра решайте на этапе движения).
+            m_AvoidCenter = avoidCenter;
 
             return position;
         }
@@ -131,4 +150,4 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
             m_Radius = 5;
         }
     }
-} 
+}

@@ -137,7 +137,7 @@ namespace Opsive.BehaviorDesigner.AddOns.Shared.Integrations.AstarPathfindingPro
             }
 
             m_AstarAI.isStopped = true;
-            UpdateRotation(false);
+           // UpdateRotation(false);
             if (m_AstarAI is FollowerEntity followerEntity && !followerEntity.entityExists) {
                 return; // The path can't be set if the entity doesn't exist.
             }
