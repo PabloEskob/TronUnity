@@ -39,8 +39,8 @@ TagManager:
   - Animal
   - 
   - 
-  - 
-  - ' Buildings'
+  - Environment
+  - Buildings
   - Tree
   - Enemy
   - MovingPlatform
