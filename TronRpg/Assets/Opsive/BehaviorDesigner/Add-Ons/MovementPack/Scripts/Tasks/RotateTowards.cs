@@ -39,15 +39,7 @@ namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
         [Tooltip("If target is null then use the target rotation.")] [SerializeField]
         protected SharedVariable<Vector3> m_TargetRotation;
 
-        private IAstarAI m_AstarAI;
-
-        public override void OnAwake()
-        {
-            base.OnAwake();
-
-            m_AstarAI = gameObject.GetComponent<IAstarAI>();
-        }
-
+        
         /// <summary>
         /// Rotates towards the target.
         /// </summary>
@@ -63,8 +55,7 @@ namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
             }
 
             // Keep rotating towards the target.
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, m_MaxRotationDelta.Value);
-            m_AstarAI.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, m_MaxRotationDelta.Value);
+           transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, m_MaxRotationDelta.Value);
             return TaskStatus.Running;
         }
 

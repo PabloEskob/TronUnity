@@ -148,15 +148,15 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
             }
 
             if (m_Group.State == FormationsManager.FormationState.MoveToTarget || m_Group.State == FormationsManager.FormationState.Arrived) {
-                var stopped = false;
+                UpdateTarget();
+
                 var direction = m_AttackTarget.position - m_Transform.position;
                 m_CanAttackStatus = CanAttack(direction);
                 if (m_CanAttackStatus == CanAttackStatus.OutOfSight || m_CanAttackStatus == CanAttackStatus.Allowed) {
-                    m_AttackAgent.RotateTowards(direction,m_AttackTarget);
+                    m_AttackAgent.RotateTowards(direction);
                     if (m_CanAttackStatus == CanAttackStatus.Allowed) {
                         if (StopWithinRange && direction.magnitude <= m_AttackAgent.MinAttackDistance) {
                             m_Pathfinder.Stop();
-                            stopped = true;
                         }
                         if (m_HasAttacked || m_AttackDelay.Value != AttackDelay.GroupArrival || CanAllAgentsAttack()) {
                             m_AttackAgent.Attack(m_AttackTarget, m_AttackDamageable);
@@ -165,15 +165,11 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
                     }
                 } else if (m_CanAttackStatus == CanAttackStatus.Moving && StopWithinRange && direction.magnitude <= m_AttackAgent.MinAttackDistance) {
                     m_Pathfinder.Stop();
-                    stopped = true;
                 }
 
-                // The target may move - continuously update the destination if the agent is moving.
-                if (m_MovingTarget.Value && (m_Pathfinder.HasPath() || m_CanAttackStatus == CanAttackStatus.OutOfRange || (StopWithinRange && m_CanAttackStatus == CanAttackStatus.Allowed && !stopped))) {
-                    if (m_LastTargetPosition != TargetPosition) {
-                        m_Pathfinder.SetDesination(CalculateFormationPosition(m_FormationIndex, m_Group.Members.Count, m_Group.TargetPosition, m_Group.Direction, true));
-                        m_LastTargetPosition = TargetPosition;
-                    }
+                if (m_MovingTarget.Value && m_LastTargetPosition != m_Group.TargetPosition) {
+                    m_Pathfinder.SetDesination(CalculateFormationPosition(m_FormationIndex, m_Group.Members.Count, m_AttackTarget.position, m_Group.Direction, true));
+                    m_LastTargetPosition = m_Group.TargetPosition;
                 }
             }
 
@@ -263,6 +259,22 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Runtime.Tasks
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Updates the group target if the targets can move.
+        /// </summary>
+        private void UpdateTarget()
+        {
+            if (m_Group.Leader != this || !m_MovingTarget.Value || m_Group.State == FormationsManager.FormationState.Initialized || m_Group.State == FormationsManager.FormationState.MoveToFormation) {
+                return;
+            }
+
+            if (m_LastTargetPosition != m_AttackTarget.position) {
+                m_Group.TargetPosition = m_AttackTarget.position;
+                m_Pathfinder.SetDesination(CalculateFormationPosition(m_FormationIndex, m_Group.Members.Count, m_Group.TargetPosition, m_Group.Direction, true));
+                m_LastTargetPosition = m_AttackTarget.position;
+            }
         }
 
         /// <summary>

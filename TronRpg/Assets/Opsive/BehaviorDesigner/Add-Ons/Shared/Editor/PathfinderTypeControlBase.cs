@@ -40,7 +40,7 @@ namespace Opsive.BehaviorDesigner.AddOns.Shared.Editor
             /// </summary>
             /// <param name="unityObject">A reference to the owning Unity Object.</param>
             /// <param name="onChangeEvent">An event that is sent when the value changes. Returns false if the control cannot be changed.</param>
-            /// <param name="pathfinderIndexKey">The key used to store the pathfinder index in EditorPrefs.</param>
+            /// <param name="pathfinderTypeKey">The key used to store the pathfinder type in EditorPrefs.</param>
             public PathfinderView(UnityEngine.Object unityObject, Func<object, bool> onChangeEvent, string pathfinderTypeKey)
             {
                 m_UnityObject = unityObject;
@@ -64,6 +64,16 @@ namespace Opsive.BehaviorDesigner.AddOns.Shared.Editor
                     m_OnChangeEvent?.Invoke(pathfinder);
                 }
 
+                // Ensure the pathfinder index matches.
+                if (pathfinder.GetType() != m_PathfinderTypes[m_PathfinderIndex]) {
+                    for (int i = 0; i < m_PathfinderTypeNames.Count; ++i) {
+                        if (pathfinder.GetType() == m_PathfinderTypes[i]) {
+                            m_PathfinderIndex = i;
+                            break;
+                        }
+                    }
+                }
+
                 // Add a popup with the different pathfinding choices.
                 AddTitleLabel("Pathfinder", string.Empty);
                 var pathfinderTypePopup = new PopupField<string>();
@@ -77,7 +87,7 @@ namespace Opsive.BehaviorDesigner.AddOns.Shared.Editor
                     EditorPrefs.SetString(m_PathfinderTypeKey, m_PathfinderTypes[m_PathfinderIndex].FullName);
                     var newPathfinder = Activator.CreateInstance(m_PathfinderTypes[m_PathfinderIndex]) as Pathfinder;
                     setPathfinder(newPathfinder);
-                    
+
                     m_PathfinderContainer.Clear();
                     FieldInspectorView.AddFields(m_UnityObject, newPathfinder, MemberVisibility.Public, m_PathfinderContainer, (object obj) => { m_OnChangeEvent?.Invoke(obj); });
 
@@ -136,4 +146,4 @@ namespace Opsive.BehaviorDesigner.AddOns.Shared.Editor
         /// </summary>
         public override bool UseLabel { get { return false; } }
     }
-} 
+}

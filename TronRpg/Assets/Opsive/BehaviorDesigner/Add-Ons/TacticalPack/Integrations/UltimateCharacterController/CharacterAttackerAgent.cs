@@ -91,6 +91,11 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
             }
         }
 
+        public void RotateTowards(Vector3 direction)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Tries to do the actual actual attack.
         /// </summary>
