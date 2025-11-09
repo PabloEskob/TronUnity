@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78d8b6d139af81e4b95f3c00cba7ecb9
+guid: 618b7977f2382dc4488103ad5ced762e
 timeCreated: 1500568651
 licenseType: Store
 MonoImporter:
@@ -14,6 +14,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 298743
   packageName: Behavior Designer Pro - DOTS Powered Behavior Trees
-  packageVersion: 2.1.6
+  packageVersion: 2.1.7
   assetPath: Packages/com.opsive.behaviordesigner/Editor/Managers/BehaviorMainWindow.cs
-  uploadId: 808644
+  uploadId: 816384
