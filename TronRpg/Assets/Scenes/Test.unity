@@ -21141,6 +21141,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Guard
       objectReference: {fileID: 0}
+    - target: {fileID: 2322278517079549204, guid: cd8794ca81598dd478c98806cba82de7, type: 3}
+      propertyPath: lockWhenNotMoving
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4288104566352751409, guid: cd8794ca81598dd478c98806cba82de7, type: 3}
       propertyPath: traversableTags
       value: -3
@@ -46853,7 +46857,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5011353297096413839, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5639457451768084540}
   m_SourcePrefab: {fileID: 100100000, guid: b30411ddfa1b87f46b3217939d6f44ed, type: 3}
 --- !u!4 &5639457451768084521 stripped
 Transform:
@@ -46871,6 +46878,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df200e1d8fe84c94c8197ca6755a89d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5639457451768084540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888340006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.RVO.RVOController
+  version: 1073741824
+  radiusBackingField: 0.5
+  heightBackingField: 2
+  centerBackingField: 1
+  locked: 0
+  lockWhenNotMoving: 0
+  agentTimeHorizon: 2
+  obstacleTimeHorizon: 0.5
+  maxNeighbours: 10
+  layer: 1
+  collidesWith: -1
+  wallAvoidForce: 1
+  wallAvoidFalloff: 1
+  priority: 1
+  debug: 0
 --- !u!114 &5737646995756294978
 MonoBehaviour:
   m_ObjectHideFlags: 0
