@@ -221,7 +221,7 @@ MonoBehaviour:
     - rid: 9145895572860305646
   m_CollisionModuleGroup:
     m_Modules:
-    - rid: 9145895616869827293
+    - rid: 8009570809578783628
   m_AttackEffectsModuleGroup:
     m_Modules: []
   m_ImpactModuleGroup:
@@ -235,6 +235,34 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 8009570809578783628
+      type: {class: SphereOverlapCollision, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Melee, asm: Opsive.UltimateCharacterController}
+      data:
+        m_States:
+        - m_Name: Default
+          m_Preset: {fileID: 0}
+          m_BlockList: []
+          m_Default: 1
+        m_Bindings:
+          m_Bindings: []
+        m_Enabled: 1
+        m_ID: 0
+        m_Name: Body
+        m_GizmoSettings:
+          DrawGizmo: 1
+          DrawGizmoOnSelected: 1
+          Color1: {r: 1, g: 0, b: 0, a: 1}
+          Color2: {r: 1, g: 0.1, b: 0.1, a: 0.3}
+          Color3: {r: 1, g: 0, b: 1, a: 1}
+        m_MultiHitFrameCount: 50
+        m_ImpactLayers:
+          serializedVersion: 2
+          m_Bits: 3750789273
+        m_TriggerInteraction: 1
+        m_MaxCollisionCount: 20
+        m_ForwardShieldSensitivity: -0.75
+        m_SphereCenter: {x: 0, y: 1, z: 1}
+        m_SphereRadius: 0.5
     - rid: 9145895572860305646
       type: {class: SimpleAttack, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Melee, asm: Opsive.UltimateCharacterController}
       data:
@@ -462,34 +490,6 @@ MonoBehaviour:
     - rid: 9145895616869826899
       type: {class: Random, ns: Opsive.UltimateCharacterController.Items.AnimatorAudioStates, asm: Opsive.UltimateCharacterController}
       data: 
-    - rid: 9145895616869827293
-      type: {class: SphereOverlapCollision, ns: Opsive.UltimateCharacterController.Items.Actions.Modules.Melee, asm: Opsive.UltimateCharacterController}
-      data:
-        m_States:
-        - m_Name: Default
-          m_Preset: {fileID: 0}
-          m_BlockList: []
-          m_Default: 1
-        m_Bindings:
-          m_Bindings: []
-        m_Enabled: 1
-        m_ID: 0
-        m_Name: 
-        m_GizmoSettings:
-          DrawGizmo: 0
-          DrawGizmoOnSelected: 1
-          Color1: {r: 1, g: 0, b: 0, a: 1}
-          Color2: {r: 1, g: 0.1, b: 0.1, a: 0.3}
-          Color3: {r: 1, g: 0, b: 1, a: 1}
-        m_MultiHitFrameCount: 1
-        m_ImpactLayers:
-          serializedVersion: 2
-          m_Bits: 3758096345
-        m_TriggerInteraction: 1
-        m_MaxCollisionCount: 20
-        m_ForwardShieldSensitivity: -0.75
-        m_SphereCenter: {x: 0, y: 1, z: 1}
-        m_SphereRadius: 0.5
 --- !u!1 &8127213017330387595
 GameObject:
   m_ObjectHideFlags: 0

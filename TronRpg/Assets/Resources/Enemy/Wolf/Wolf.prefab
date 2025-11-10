@@ -1179,6 +1179,7 @@ GameObject:
   - component: {fileID: 3222419456094456128}
   - component: {fileID: 2768331233646061724}
   - component: {fileID: 1471148237488279811}
+  - component: {fileID: 587525124055624854}
   m_Layer: 26
   m_Name: Wolf
   m_TagString: Untagged
@@ -2364,6 +2365,18 @@ MonoBehaviour:
   m_AttackAngleThreshold: 15
   m_TargetHumanoidBone: 0
   m_HumanoidBoneTarget: 8
+--- !u!114 &587525124055624854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386780346867297361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981b1595dd04d944b93c1faa91054242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateCharacterController.DamageableAgent
 --- !u!1 &7646913247650083623
 GameObject:
   m_ObjectHideFlags: 0
