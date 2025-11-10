@@ -7,8 +7,8 @@ AssemblyDefinitionImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 322900
-  packageName: Tactical Pack for Behavior Designer Pro
-  packageVersion: 2.0.5
+  productId: 310243
+  packageName: Movement Pack for Behavior Designer Pro
+  packageVersion: 2.0.9
   assetPath: Assets/Opsive/BehaviorDesigner/Add-Ons/Shared/Editor/Opsive.BehaviorDesigner.AddOns.Shared.Editor.asmdef
-  uploadId: 815896
+  uploadId: 815892

@@ -3,9 +3,6 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
-
-using Opsive.BehaviorDesigner.Runtime;
-
 namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
 {
     using Opsive.BehaviorDesigner.Runtime.Tasks;
@@ -31,7 +28,6 @@ namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
 
         private int m_Index;
         private float m_NextDestinationTime;
-        private BehaviorTree _behaviorTree;
 
         // Callback when the agent arrives at a waypoint.
         public Action<GameObject> OnWaypointArrival { get; set; }
@@ -42,7 +38,6 @@ namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
         public override void OnStart()
         {
             base.OnStart();
-            _behaviorTree = GetComponent<BehaviorTree>();
 
             if (m_RandomPatrol.Value) {
                 m_Index = UnityEngine.Random.Range(0, m_Waypoints.Value.Length);
@@ -88,7 +83,6 @@ namespace Opsive.BehaviorDesigner.AddOns.MovementPack.Runtime.Tasks
                     m_NextDestinationTime = Time.time + m_WaypointPauseDuration.Value.RandomValue;
 
                     // Others may be interested when the agent arrives at a waypoint.
-                    Opsive.Shared.Events.EventHandler.ExecuteEvent(_behaviorTree, "OnWaypointArrival");
                     OnWaypointArrival?.Invoke(m_Waypoints.Value[m_Index]);
                 }
                 // Wait the required duration before switching waypoints.
