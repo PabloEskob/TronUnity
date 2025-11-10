@@ -93,7 +93,7 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Integrations.UltimateChara
 
         public void RotateTowards(Vector3 direction)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         /// <summary>

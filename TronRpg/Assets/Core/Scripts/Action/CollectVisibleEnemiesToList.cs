@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Opsive.BehaviorDesigner.Runtime.Tasks;
-using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
 using Opsive.GraphDesigner.Runtime.Variables;
 using UnityEngine;
+using Action = Opsive.BehaviorDesigner.Runtime.Tasks.Actions.Action;
 
 /// <summary>
 /// Собирает видимых врагов в радиусе в SharedGameObjectList с учётом FOV и Line of Sight.
@@ -10,181 +11,240 @@ using UnityEngine;
 /// </summary>
 public class CollectVisibleEnemiesToList : Action
 {
-    // === Выход ===
-    [Tooltip("Сюда будет записан массив обнаруженных врагов (для Tactical Pack).")]
-    public SharedVariable<GameObject[]> Targets; // <-- массив, совместим с TacticalBase.m_Targets
+    private struct DetectionCandidate
+    {
+        public GameObject Target;
+        public Vector3 TargetPosition;
+        public float SquaredDistance;
+    }
 
-    // === Геометрия обзора ===
-    public SharedVariable<float> MaxDistance = 25f;
-    public SharedVariable<Vector2> FieldOfViewAngle = new Vector2(120f, 90f); // (гориз., вертик.), градусы
-    public SharedVariable<Vector3> PivotOffset = new Vector3(0f, 1.6f, 0f);
-    public SharedVariable<Vector3> TargetOffset = new Vector3(0f, 0.5f, 0f);
-
-    // === Фильтры и физика ===
-    [Tooltip("Слои врагов для OverlapSphereNonAlloc.")]
-    public LayerMask EnemyLayers = ~0;
-
-    [Tooltip("Слои, которые игнорировать при Linecast (свои коллайдеры и т.п.).")]
-    public LayerMask IgnoreRaycastMask = 0;
-
-    public SharedVariable<bool> IncludeTriggersInOverlap = true;
-    public SharedVariable<bool> RequireLineOfSight = true;
-
-    // === Ограничители нагрузки ===
-    public SharedVariable<int> MaxCandidates = 64; // буфер Overlap
-    public SharedVariable<float> UpdateInterval = 0.25f; // сек, частота сканирования
-    public SharedVariable<int> MaxLOSPerScan = 16; // квота на Linecast
-    public SharedVariable<bool> SortByDistance = true; // сортировать по расстоянию
-
-    // --- Runtime ---
-    private Collider[] _overlap;
-    private readonly List<GameObject> _results = new List<GameObject>(64);
-    private Transform _tr;
+    [SerializeField] protected SharedVariable<Vector2> FieldOfViewAngle; // x=гориз., y=вертик. (в градусах)
+    [SerializeField] protected SharedVariable<Vector3> PivotOffset; // смещение «глаз» сенсора
+    [SerializeField] protected SharedVariable<Vector3> TargetOffset; // точка на цели (например, центр/голова)
+    [SerializeField] protected SharedVariable<float> UpdateInterval;
+    [SerializeField] protected SharedVariable<float> MaxDistance;
+    [SerializeField] protected SharedVariable<int> MaxLOSPerScan;
+    [SerializeField] protected SharedVariable<bool> RequireLineOfSight;
+    [SerializeField] protected SharedVariable<bool> SortByDistance;
+    [SerializeField] protected SharedVariable<bool> IncludeTriggersInOverlap;
+    
+    [SerializeField] protected LayerMask EnemyLayers;
+    [SerializeField] protected LayerMask IgnoreRaycastMask;
+    
+    [SerializeField] protected SharedVariable<GameObject[]> Targets;
+    
+    private Transform _characterTransform;
     private float _nextScanTime;
+
+    private readonly List<DetectionCandidate> _candidates = new List<DetectionCandidate>(64);
+    private readonly List<GameObject> _results = new List<GameObject>(64);
+    private readonly HashSet<int> _seenInstanceIds = new HashSet<int>();
+    private Collider[] _overlapBuffer;
+
     private TaskStatus _cached = TaskStatus.Failure;
-    private readonly HashSet<int> _seenIds = new HashSet<int>(128);
 
     public override void OnAwake()
     {
-        _tr = transform;
-        ResizeBuffer();
+        _characterTransform = transform;
+        EnsureBufferCapacity(128);
     }
-
-    public override void OnStart() => _nextScanTime = 0f;
 
     public override TaskStatus OnUpdate()
     {
-        if (Time.time < _nextScanTime) return _cached;
-        _nextScanTime = Time.time + Mathf.Max(0.01f, UpdateInterval.Value);
-        ResizeBuffer();
+        if (!ShouldScan()) return _cached;
+
+        ScheduleNextScan();
+        EnsureBufferCapacity(_overlapBuffer?.Length ?? 128);
+        ClearWorkingSets();
+
+        Vector3 origin = GetOrigin();
+        float maxDistance = Mathf.Max(0.01f, MaxDistance.Value);
+        int overlapCount = OverlapCandidates(origin, maxDistance, GetQueryTriggerInteraction());
+
+        FovParams fov = PrepareFovParams();
+        float maxDistanceSquared = maxDistance * maxDistance;
+        int losBudget = Mathf.Max(0, MaxLOSPerScan.Value);
+
+        BuildCandidates(origin, overlapCount, in fov, maxDistanceSquared, ref losBudget);
+
+        SortCandidatesIfRequested();
 
         _results.Clear();
-        _seenIds.Clear();
+        for (int i = 0; i < _candidates.Count; i++)
+            _results.Add(_candidates[i].Target);
 
-        // 1) Кандидаты
-        var origin = _tr.TransformPoint(PivotOffset.Value);
-        var qti = IncludeTriggersInOverlap.Value ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
+        AssignTargetsArrayIfChanged(_results);
 
-        int count = Physics.OverlapSphereNonAlloc(
-            _tr.position,
-            Mathf.Max(0.01f, MaxDistance.Value),
-            _overlap,
-            EnemyLayers,
-            qti
-        );
+        _cached = _results.Count > 0 ? TaskStatus.Success : TaskStatus.Failure;
+        return _cached;
+    }
 
-        // Подготовка FOV
-        Vector3 fwd = _tr.forward;
-        Vector3 fwdHoriz = new Vector3(fwd.x, 0f, fwd.z);
-        if (fwdHoriz.sqrMagnitude < 1e-6f) fwdHoriz = Vector3.forward;
-        fwdHoriz.Normalize();
 
-        float halfHoriz = Mathf.Max(0f, FieldOfViewAngle.Value.x * 0.5f);
-        float halfVert = Mathf.Max(0f, FieldOfViewAngle.Value.y * 0.5f);
-        float maxDist = Mathf.Max(0.01f, MaxDistance.Value);
-        float maxDistS = maxDist * maxDist;
+    private bool ShouldScan() => Time.time >= _nextScanTime;
 
-        int losUsed = 0;
+    private void ScheduleNextScan()
+    {
+        _nextScanTime = Time.time + Mathf.Max(0.01f, UpdateInterval.Value);
+    }
 
-        for (int i = 0; i < count; i++)
+    private void EnsureBufferCapacity(int desiredCapacity)
+    {
+        if (_overlapBuffer == null || _overlapBuffer.Length < desiredCapacity)
+            _overlapBuffer = new Collider[Mathf.Max(desiredCapacity, 64)];
+    }
+
+    private void ClearWorkingSets()
+    {
+        _candidates.Clear();
+        _seenInstanceIds.Clear();
+        _results.Clear();
+    }
+
+    private Vector3 GetOrigin() => _characterTransform.TransformPoint(PivotOffset.Value);
+
+    private QueryTriggerInteraction GetQueryTriggerInteraction() =>
+        IncludeTriggersInOverlap.Value ? QueryTriggerInteraction.Collide : QueryTriggerInteraction.Ignore;
+
+    private int OverlapCandidates(Vector3 origin, float maxDistance, QueryTriggerInteraction queryTrigger)
+    {
+        // NonAlloc — без GC
+        return Physics.OverlapSphereNonAlloc(origin, maxDistance, _overlapBuffer, EnemyLayers, queryTrigger);
+    }
+
+    private static GameObject GetOwnerGameObject(Collider collider)
+    {
+        if (!collider) return null;
+        return collider.attachedRigidbody ? collider.attachedRigidbody.gameObject : collider.gameObject;
+    }
+
+    private readonly struct FovParams
+    {
+        public readonly Vector3 ForwardHorizontal;
+        public readonly float CosineHalfHorizontal;
+        public readonly float SineHalfVertical;
+
+        public FovParams(Vector3 forwardHorizontal, float cosineHalfHorizontal, float sineHalfVertical)
         {
-            var col = _overlap[i];
-            if (!col) continue;
+            ForwardHorizontal = forwardHorizontal;
+            CosineHalfHorizontal = cosineHalfHorizontal;
+            SineHalfVertical = sineHalfVertical;
+        }
+    }
 
-            // Берём "владельца" коллайдера: Rigidbody-root, если есть, иначе сам объект коллайдера.
-            var go = col.attachedRigidbody ? col.attachedRigidbody.gameObject : col.gameObject;
-            if (!go) continue;
+    private FovParams PrepareFovParams()
+    {
+        Vector3 forward = _characterTransform.forward;
+        Vector3 forwardHorizontal = new Vector3(forward.x, 0f, forward.z);
+        if (forwardHorizontal.sqrMagnitude < 1e-6f) forwardHorizontal = Vector3.forward;
+        forwardHorizontal.Normalize();
 
-            // >>> Дедупликация: один и тот же владелец может иметь несколько коллайдеров.
-            int id = go.GetInstanceID();
-            if (!_seenIds.Add(id)) continue; // уже добавлен ранее — пропускаем
+        float halfHorizontalDegrees = Mathf.Max(0f, FieldOfViewAngle.Value.x * 0.5f);
+        float halfVerticalDegrees = Mathf.Max(0f, FieldOfViewAngle.Value.y * 0.5f);
 
-            Vector3 targetPos = go.transform.TransformPoint(TargetOffset.Value);
-            Vector3 dir = targetPos - origin;
+        float cosineHalfHorizontal = Mathf.Cos(halfHorizontalDegrees * Mathf.Deg2Rad);
+        float sineHalfVertical = Mathf.Sin(halfVerticalDegrees * Mathf.Deg2Rad);
 
-            // Дистанция
-            if (dir.sqrMagnitude > maxDistS) continue;
+        return new FovParams(forwardHorizontal, cosineHalfHorizontal, sineHalfVertical);
+    }
 
-            // Горизонтальный угол
-            Vector3 horizDir = new Vector3(dir.x, 0f, dir.z);
-            if (horizDir.sqrMagnitude < 1e-6f) continue;
-            horizDir.Normalize();
-            if (Vector3.Angle(horizDir, fwdHoriz) > halfHoriz) continue;
+    private void BuildCandidates(
+        Vector3 origin,
+        int overlapCount,
+        in FovParams fov,
+        float maxDistanceSquared,
+        ref int losBudget)
+    {
+        for (int i = 0; i < overlapCount; i++)
+        {
+            Collider collider = _overlapBuffer[i];
+            if (!collider) continue;
 
-            // Вертикальный угол
-            float vertAngle = Vector3.Angle(dir, new Vector3(dir.x, 0f, dir.z));
-            if (vertAngle > halfVert) continue;
+            GameObject owner = GetOwnerGameObject(collider);
+            if (!owner) continue;
 
-            // LOS (опционально, с квотой)
-            if (RequireLineOfSight.Value && losUsed++ < Mathf.Max(0, MaxLOSPerScan.Value))
+            int instanceId = owner.GetInstanceID();
+            if (!_seenInstanceIds.Add(instanceId)) continue; // один владелец с несколькими коллайдерами
+
+            Vector3 targetPosition = owner.transform.TransformPoint(TargetOffset.Value);
+            Vector3 direction = targetPosition - origin;
+
+            // --- Дистанция ---
+            float squaredDistance = direction.sqrMagnitude;
+            if (squaredDistance > maxDistanceSquared) continue;
+
+            float horizontalLengthSquared = direction.x * direction.x + direction.z * direction.z;
+            if (horizontalLengthSquared < 1e-6f) continue;
+
+            float inverseHorizontalLength = 1f / Mathf.Sqrt(horizontalLengthSquared);
+            float dotHorizontal =
+                (direction.x * inverseHorizontalLength) * fov.ForwardHorizontal.x +
+                (direction.z * inverseHorizontalLength) * fov.ForwardHorizontal.z;
+
+            if (dotHorizontal < fov.CosineHalfHorizontal) continue;
+
+            if (squaredDistance < 1e-12f) continue; // защита от деления на 0
+            float inverseLength = 1f / Mathf.Sqrt(squaredDistance);
+            float sineElevation = Mathf.Abs(direction.y) * inverseLength;
+            if (sineElevation > fov.SineHalfVertical) continue;
+
+            // --- LOS с бюджетом ---
+            if (RequireLineOfSight.Value)
             {
-                if (Physics.Linecast(origin, targetPos, out var hit, ~IgnoreRaycastMask, QueryTriggerInteraction.Ignore))
+                if (losBudget <= 0) continue; // или break — если нужен жёсткий потолок на тик
+                losBudget--;
+
+                if (Physics.Linecast(origin, targetPosition, out RaycastHit hitInfo, ~IgnoreRaycastMask, QueryTriggerInteraction.Ignore))
                 {
-                    // Пропускаем, если луч упёрся не в цель/её детей.
-                    if (!hit.transform.IsChildOf(go.transform) && !go.transform.IsChildOf(hit.transform)) continue;
+                    // Пропускаем, если луч упёрся не в цель/её детей
+                    if (!hitInfo.transform.IsChildOf(owner.transform) && !owner.transform.IsChildOf(hitInfo.transform))
+                        continue;
                 }
             }
 
-            _results.Add(go);
-        }
-
-        // Сортировка по расстоянию (опционально)
-        if (SortByDistance.Value && _results.Count > 1)
-        {
-            var p = _tr.position;
-            _results.Sort((a, b) =>
-                ((a.transform.position - p).sqrMagnitude).CompareTo((b.transform.position - p).sqrMagnitude));
-        }
-
-        // 2) Переводим в массив и обновляем SharedVariable<GameObject[]>
-        int newLen = _results.Count;
-        var newArr = new GameObject[newLen];
-        for (int i = 0; i < newLen; i++) newArr[i] = _results[i];
-
-        // Не дергаем OnValueChange, если состав не поменялся
-        var oldArr = Targets.Value;
-        bool changed = oldArr == null || oldArr.Length != newArr.Length;
-        if (!changed && oldArr != null)
-        {
-            for (int i = 0; i < oldArr.Length; i++)
+            _candidates.Add(new DetectionCandidate
             {
-                if (oldArr[i] != newArr[i])
+                Target = owner,
+                TargetPosition = targetPosition,
+                SquaredDistance = squaredDistance
+            });
+        }
+    }
+
+    private void SortCandidatesIfRequested()
+    {
+        if (!SortByDistance.Value || _candidates.Count <= 1) return;
+        _candidates.Sort((left, right) => left.SquaredDistance.CompareTo(right.SquaredDistance));
+    }
+
+    private void AssignTargetsArrayIfChanged(List<GameObject> source)
+    {
+        int count = source.Count;
+        GameObject[] current = Targets.Value;
+
+        bool needsAssign = current == null || current.Length != count;
+        if (!needsAssign)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (current[i] != source[i])
                 {
-                    changed = true;
+                    needsAssign = true;
                     break;
                 }
             }
         }
 
-        if (changed || oldArr == null)
-            Targets.Value = newArr;
+        if (!needsAssign) return;
 
-        _cached = newLen > 0 ? TaskStatus.Success : TaskStatus.Failure;
-        return _cached;
-    }
+        if (count == 0)
+        {
+            Targets.Value = Array.Empty<GameObject>();
+            return;
+        }
 
-    public override void Reset()
-    {
-        MaxDistance = 25f;
-        FieldOfViewAngle = new Vector2(120f, 90f);
-        PivotOffset = new Vector3(0f, 1.6f, 0f);
-        TargetOffset = new Vector3(0f, 0.5f, 0f);
-        EnemyLayers = ~0;
-        IgnoreRaycastMask = 0;
-        IncludeTriggersInOverlap = true;
-        RequireLineOfSight = true;
-        MaxCandidates = 64;
-        UpdateInterval = 0.25f;
-        MaxLOSPerScan = 16;
-        SortByDistance = true;
-        Targets = null;
-    }
-
-    private void ResizeBuffer()
-    {
-        int cap = Mathf.Max(8, MaxCandidates.Value);
-        if (_overlap == null || _overlap.Length != cap)
-            _overlap = new Collider[cap];
+        var newArray = new GameObject[count];
+        source.CopyTo(newArray);
+        Targets.Value = newArray;
     }
 
     protected override void OnDrawGizmos()

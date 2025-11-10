@@ -66,6 +66,11 @@ namespace Opsive.BehaviorDesigner.AddOns.TacticalPack.Demo
             }
         }
 
+        public void RotateTowards(Vector3 direction, Transform target)
+        {
+            return;
+        }
+
         /// <summary>
         /// Does the actual attack. 
         /// </summary>

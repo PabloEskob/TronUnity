@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Data:
     m_ObjectType: Opsive.UltimateCharacterController.Character.UltimateCharacterLocomotion
-    m_ValueHashes: 22dd477d
-    m_ValuePositions: 00000000
-    m_Values: 713d8a3e
+    m_ValueHashes: 
+    m_LongValueHashes: 
+    m_ValuePositions: 
+    m_Values: 
     m_UnityObjects: []
-    m_Version: 2.1.1
+    m_Version: 3.4

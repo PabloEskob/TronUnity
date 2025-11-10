@@ -1362,7 +1362,6 @@ MonoBehaviour:
   m_FirstPersonMovementTypeFullName: 
   m_ThirdPersonMovementTypeFullName: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.FourLegged
   m_MovementTypes:
-  - rid: 9145895572860305656
   - rid: 9145895637849211262
   m_Abilities:
   - rid: 9145895572860305671
@@ -1398,14 +1397,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 9145895572860305656
-      type: {class: Adventure, ns: Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes, asm: Opsive.UltimateCharacterController}
-      data:
-        m_States:
-        - m_Name: Default
-          m_Preset: {fileID: 0}
-          m_BlockList: []
-          m_Default: 1
     - rid: 9145895572860305671
       type: {class: AStarAIAgentMovement, ns: Opsive.UltimateCharacterController.Integrations.AstarPathfindingProject, asm: Assembly-CSharp}
       data:
