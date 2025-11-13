@@ -4,19 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-using System.Collections.Generic;
+using Opsive.BehaviorDesigner.Runtime.Tasks;
+using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
+using Opsive.GraphDesigner.Runtime;
+using Opsive.GraphDesigner.Runtime.Variables;
+using Opsive.Shared.StateSystem;
 using Opsive.UltimateCharacterController.Character;
 using Opsive.UltimateCharacterController.Character.Abilities;
+using UnityEngine;
 
-namespace Opsive.BehaviorDesigner.Integrations.UltimateCharacterController
+namespace Core.Scripts.Action
 {
-    using Opsive.BehaviorDesigner.Runtime.Tasks;
-    using Opsive.BehaviorDesigner.Runtime.Tasks.Actions;
-    using Opsive.GraphDesigner.Runtime;
-    using Opsive.GraphDesigner.Runtime.Variables;
-    using Opsive.Shared.StateSystem;
-    using UnityEngine;
-
     [NodeDescription("Sets the set on the target GameObject.")]
     [NodeIcon("b52e2c467cd28924cb6c3d19ffcb822a")]
     public class SetNewState : TargetGameObjectAction
